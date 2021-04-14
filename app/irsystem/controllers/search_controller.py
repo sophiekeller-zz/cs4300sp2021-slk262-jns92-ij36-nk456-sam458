@@ -1,5 +1,6 @@
 from . import *  
 from app.irsystem.models.helpers import *
+from app.irsystem.models.search import *
 from app.irsystem.models.helpers import NumpyEncoder as NumpyEncoder
 
 project_name = "Itinerary Planner"
@@ -7,13 +8,13 @@ net_id = "Sophie Keller: slk262, Jordana Socher: jns92, Ishika Jain: ij36,  Sama
 
 @irsystem.route('/', methods=['GET'])
 def search():
-	query = request.args.get('search')
-	if not query:
-		data = []
-		output_message = ''
-	else:
-		output_message = "Your search: " + query
-		data = range(5)
+	restaurant_query = request.args.get('restaurant')
+	accommodation_query = request.args.get('accommodation')
+
+	restaurants = [f"{x[0]} - Score:{x[1]}" for x in restaurantMatchings(restaurant_query)]
+	accommodations = [f"{x[0]} - Score:{x[1]}" for x in accommodationMatchings(accommodation_query)]
+	output_message = "Your itinerary"
+	data = ["Restaurants"] + restaurants + ["", "Accommodations"] + accommodations
 	return render_template('search.html', name=project_name, netid=net_id, output_message=output_message, data=data)
 
 

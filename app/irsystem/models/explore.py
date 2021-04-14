@@ -10,6 +10,7 @@ positive_words = 0
 negative_words = 0
 water_words = 0
 
+
 words = {
   "dirty": ["stink", "stinks", "smells", "stinky", "rotten", "disgusting", "gross","nasty", "worn", "dirty"],
   "clean": ["flawless", "clean", "clear", "comfortable", "comfortably"], 
