@@ -10,9 +10,9 @@ net_id = "Sophie Keller: slk262, Jordana Socher: jns92, Ishika Jain: ij36,  Sama
 def search():
 	restaurant_query = request.args.get('restaurant')
 	accommodation_query = request.args.get('accommodation')
-
-	restaurants = [f"{x[0]} - Score:{x[1]}" for x in restaurantMatchings(restaurant_query)]
-	accommodations = [f"{x[0]} - Score:{x[1]}" for x in accommodationMatchings(accommodation_query)]
+	city = 'london' # THIS NEEDS TO BE MODIFIED TO CONTAIN CITY THAT USER IS SEARCHING
+	restaurants = [f"{x[0]} - Score:{x[1]}" for x in restaurantMatchings(city, restaurant_query)]
+	accommodations = [f"{x[0]} - Score:{x[1]}" for x in accommodationMatchings(city, accommodation_query)]
 	output_message = "Your itinerary"
 	data = ["Restaurants"] + restaurants + ["", "Accommodations"] + accommodations
 	return render_template('search.html', name=project_name, netid=net_id, output_message=output_message, data=data)

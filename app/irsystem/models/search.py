@@ -1,5 +1,6 @@
 import jsonlines
 import json
+from tourpedia_data_structs import city_count
 
 accommodation_words = {
   "dirty": ["stink", "stinks", "smells", "stinky", "rotten", "disgusting", "gross","nasty", "worn", "dirty"],
@@ -44,45 +45,46 @@ restaurant_words = {
 #         line_count += 1
 #     return restaurantMappings
 
-with jsonlines.open('app/irsystem/models/tokenized-files/london-restaurant.jsonl') as f:
-    line_count = 0
-    restaurantMappings = {}
-    for line in f.iter():
-      name = line["name"]
-      reviews_tokenized = line["reviews_tokenized"]
-      count_dict = {}
-      for category in restaurant_words:
-        for word in restaurant_words[category]:
-          if word in reviews_tokenized:
-            if category in count_dict:
-              count_dict[category] +=1
-            else:
-              count_dict[category] = 1
-      restaurantMappings[name] = count_dict
-      line_count += 1
+# with jsonlines.open('app/irsystem/models/tokenized-files/london-restaurant.jsonl') as f:
+#     line_count = 0
+#     restaurantMappings = {}
+#     for line in f.iter():
+#       name = line["name"]
+#       reviews_tokenized = line["reviews_tokenized"]
+#       count_dict = {}
+#       for category in restaurant_words:
+#         for word in restaurant_words[category]:
+#           if word in reviews_tokenized:
+#             if category in count_dict:
+#               count_dict[category] +=1
+#             else:
+#               count_dict[category] = 1
+#       restaurantMappings[name] = count_dict
+#       line_count += 1
+#
+# with jsonlines.open('app/irsystem/models/tokenized-files/london-accommodation.jsonl') as f:
+#     line_count = 0
+#     accommodationMappings = {}
+#     for line in f.iter():
+#       name = line["name"]
+#       reviews_tokenized = line["reviews_tokenized"]
+#       count_dict = {}
+#       for category in accommodation_words:
+#         for word in accommodation_words[category]:
+#           if word in reviews_tokenized:
+#             if category in count_dict:
+#               count_dict[category] +=1
+#             else:
+#               count_dict[category] = 1
+#       accommodationMappings[name] = count_dict
+#       line_count += 1
 
-with jsonlines.open('app/irsystem/models/tokenized-files/london-accommodation.jsonl') as f:
-    line_count = 0
-    accommodationMappings = {}
-    for line in f.iter():
-      name = line["name"]
-      reviews_tokenized = line["reviews_tokenized"]
-      count_dict = {}
-      for category in accommodation_words:
-        for word in accommodation_words[category]:
-          if word in reviews_tokenized:
-            if category in count_dict:
-              count_dict[category] +=1
-            else:
-              count_dict[category] = 1
-      accommodationMappings[name] = count_dict
-      line_count += 1
-
-def restaurantMatchings(query):
+def restaurantMatchings(city, query):
   if not query:
     return []
   restaurantDict = {}
   querySet = set(query.split(" "))
+  restaurantMappings = city_count[city.lower()]["restaurant"]
   for restaurantName in restaurantMappings:
       words = set(restaurantMappings[restaurantName].keys())
       count = 0
@@ -96,11 +98,12 @@ def restaurantMatchings(query):
   ranked = sorted(restaurantDict.items(), key=lambda x: x[1], reverse=True)
   return ranked[:10]
 
-def accommodationMatchings(query):
+def accommodationMatchings(city, query):
   if not query:
     return []
   accommodationDict = {}
   querySet = set(query.split(" "))
+  accommodationMappings = city_count[city.lower()]["accommodation"]
   for accommodationName in accommodationMappings:
       words = set(accommodationMappings[accommodationName].keys())
       count = 0
