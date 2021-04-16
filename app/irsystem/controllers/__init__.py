@@ -6,7 +6,10 @@ from flask import request, render_template, \
 from functools import wraps 
 
 # Import for pass / encryption 
-from werkzeug import check_password_hash, generate_password_hash 
+try:
+  from werkzeug.security import check_password_hash, generate_password_hash # Hashing
+except ImportError:
+  from werkzeug import check_password_hash, generate_password_hash # Hashing
 
 # Import the db object from main app module
 from app import db 

@@ -1,6 +1,6 @@
 import jsonlines
 import json
-from tourpedia_data_structs import city_count
+from app.irsystem.models.tourpedia_data_structs import city_count
 
 accommodation_words = {
   "dirty": ["stink", "stinks", "smells", "stinky", "rotten", "disgusting", "gross","nasty", "worn", "dirty"],
@@ -78,7 +78,6 @@ restaurant_words = {
 #               count_dict[category] = 1
 #       accommodationMappings[name] = count_dict
 #       line_count += 1
-
 def restaurantMatchings(city, query):
   if not query:
     return []

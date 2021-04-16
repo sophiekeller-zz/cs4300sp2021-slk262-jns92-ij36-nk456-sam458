@@ -26,7 +26,7 @@ restaurant_words = {
   "music": ["music", "pop", "rock", "reggae", "jazz", "band", "performance"]
 }
 
-cities = ["london", "barcelona", "dubai", "london", "rome"]
+cities = ["berlin", "barcelona", "dubai", "london", "amsterdam"]
 maps = ["restaurant", "accommodation"]
 words = {"restaurant": restaurant_words, "accommodation": accommodation_words}
 ind = 0
