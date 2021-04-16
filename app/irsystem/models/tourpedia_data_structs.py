@@ -61,7 +61,7 @@ for c in cities:
         ind = 0
         index = {}
         for i in city_count[c][m]:
-            index[i['name']] = ind
+            index[i] = ind
             ind += 1
         city_ind[c][m] = index
 
@@ -78,16 +78,16 @@ def distance_between(lat1, lat2, long1, long2):
 
 
 #distance matrices
-city_dist = {}
-for c in cities:
-    city_count[c] = {}
-    mat = np.zeros((city_count[c]["restaurant"].length, city_count[c]["accommodation"].length))
-    for r in city_count[c]["restaurant"]:
-        for a in city_count[c]["accommodation"]:
-            ind_r = city_ind[c][r]
-            ind_a = city_ind[c][a]
-            mat[ind_r][ind_a] = distance_between(city_count[c]['restaurant'][r]["lat"],
-                                                 city_count[c]['accommodation'][a]["lat"],
-                                                 city_count[c]['restaurant'][r]["lng"],
-                                                 city_count[c]['accommodation'][a]["lng"])
+# city_dist = {}
+# for c in cities:
+#     city_count[c] = {}
+#     mat = np.zeros((city_count[c]["restaurant"].length, city_count[c]["accommodation"].length))
+#     for r in city_count[c]["restaurant"]:
+#         for a in city_count[c]["accommodation"]:
+#             ind_r = city_ind[c][r]
+#             ind_a = city_ind[c][a]
+#             mat[ind_r][ind_a] = distance_between(city_count[c]['restaurant'][r]["lat"],
+#                                                  city_count[c]['accommodation'][a]["lat"],
+#                                                  city_count[c]['restaurant'][r]["lng"],
+#                                                  city_count[c]['accommodation'][a]["lng"])
 
