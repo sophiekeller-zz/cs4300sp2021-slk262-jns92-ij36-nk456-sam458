@@ -1,5 +1,6 @@
 import jsonlines
-
+import numpy as np
+import math
 city_count = {}
 
 accommodation_words = {
@@ -51,4 +52,42 @@ for c in cities:
                 mappings[name] = count_dict
                 line_count += 1
         city_count[c][m] = mappings
+
+#inverted indices
+city_ind = {}
+for c in cities:
+    city_ind[c] = {}
+    for m in maps:
+        ind = 0
+        index = {}
+        for i in city_count[c][m]:
+            index[i['name']] = ind
+            ind += 1
+        city_ind[c][m] = index
+
+#formula found @ http://www.movable-type.co.uk/scripts/latlong.html
+def distance_between(lat1, lat2, long1, long2):
+    phi1 = lat1 * np.math.pi / 180 #radians
+    phi2 = lat2 * np.math.pi / 180
+    change_lat = (lat2 - lat1) * np.math.pi / 180
+    change_long = (long2 - long1) * np.math.pi / 180
+    a = math.sin(change_lat / 2) * math.sin(change_lat / 2) + math.cos(phi1) * \
+        math.cos(phi2) * math.sin(change_long / 2) * math.sin(change_long / 2)
+    dist = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+    return 6371e3 * dist #in meters
+
+
+#distance matrices
+city_dist = {}
+for c in cities:
+    city_count[c] = {}
+    mat = np.zeros((city_count[c]["restaurant"].length, city_count[c]["accommodation"].length))
+    for r in city_count[c]["restaurant"]:
+        for a in city_count[c]["accommodation"]:
+            ind_r = city_ind[c][r]
+            ind_a = city_ind[c][a]
+            mat[ind_r][ind_a] = distance_between(city_count[c]['restaurant'][r]["lat"],
+                                                 city_count[c]['accommodation'][a]["lat"],
+                                                 city_count[c]['restaurant'][r]["lng"],
+                                                 city_count[c]['accommodation'][a]["lng"])
 

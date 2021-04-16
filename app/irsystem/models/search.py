@@ -1,6 +1,6 @@
 import jsonlines
 import json
-from app.irsystem.models.tourpedia_data_structs import city_count
+from app.irsystem.models.tourpedia_data_structs import city_count, city_ind
 
 accommodation_words = {
   "dirty": ["stink", "stinks", "smells", "stinky", "rotten", "disgusting", "gross","nasty", "worn", "dirty"],
