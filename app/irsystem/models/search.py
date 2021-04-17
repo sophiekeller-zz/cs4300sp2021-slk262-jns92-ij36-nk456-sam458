@@ -1,6 +1,6 @@
 import jsonlines
 import json
-from app.irsystem.models.tourpedia_data_structs import city_count, city_ind
+# from app.irsystem.models.tourpedia_data_structs import city_count, city_ind
 
 accommodation_words = {
   "dirty": ["stink", "stinks", "smells", "stinky", "rotten", "disgusting", "gross","nasty", "worn", "dirty"],
@@ -78,24 +78,27 @@ restaurant_words = {
 #               count_dict[category] = 1
 #       accommodationMappings[name] = count_dict
 #       line_count += 1
-def restaurantMatchings(city, query):
-  if not query:
-    return []
-  restaurantDict = {}
-  querySet = set(query.split(" "))
-  restaurantMappings = city_count[city.lower()]["restaurant"]
-  for restaurantName in restaurantMappings:
-      words = set(restaurantMappings[restaurantName].keys())
-      count = 0
-      for category in restaurantMappings[restaurantName]:
-        if category in querySet:
-          count += restaurantMappings[restaurantName][category] 
-      categoriesMet = len(querySet.intersection(words))
-      if count > 0:
-        restaurantDict[restaurantName] = count
-  
-  ranked = sorted(restaurantDict.items(), key=lambda x: x[1], reverse=True)
-  return ranked[:10]
+def getMatchings(city, category, query):
+
+  with open('app/irsystem/models/mappings.json') as f:
+    city_count = json.load(f)
+    if not query:
+      return []
+    resultsDict = {}
+    querySet = set(query.split(" "))
+    mappings = city_count[city.lower()][category]
+    for place in mappings:
+        words = set(mappings[place].keys())
+        count = 0
+        for category in mappings[place]:
+          if category in querySet:
+            count += mappings[place][category] 
+        categoriesMet = len(querySet.intersection(words))
+        if count > 0:
+          resultsDict[place] = count
+    
+    ranked = sorted(resultsDict.items(), key=lambda x: x[1], reverse=True)
+    return ranked[:10]
 
 def accommodationMatchings(city, query):
   if not query:

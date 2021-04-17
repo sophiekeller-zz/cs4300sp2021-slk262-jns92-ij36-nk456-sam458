@@ -1,6 +1,7 @@
 import jsonlines
 import numpy as np
 import math
+import json
 city_count = {}
 
 accommodation_words = {
@@ -34,7 +35,7 @@ ind = 0
 for c in cities:
     city_count[c] = {}
     for m in maps:
-        json_string = 'app/irsystem/models/tokenized-files/'+c+'-'+m+'.jsonl'
+        json_string = 'tokenized-files/'+c+'-'+m+'.jsonl'
         with jsonlines.open(json_string) as f:
             line_count = 0
             mappings = {}
@@ -52,8 +53,11 @@ for c in cities:
                 mappings[name] = count_dict
                 line_count += 1
         city_count[c][m] = mappings
+    
+# with open('mappings.json', 'a') as outfile:
+#     json.dump(city_count, outfile) 
 
-#inverted indices
+#inverted indices 
 city_ind = {}
 for c in cities:
     city_ind[c] = {}
@@ -64,6 +68,9 @@ for c in cities:
             index[i] = ind
             ind += 1
         city_ind[c][m] = index
+
+with open('inverted-index.json', 'a') as outfile:
+    json.dump(city_ind, outfile) 
 
 #formula found @ http://www.movable-type.co.uk/scripts/latlong.html
 def distance_between(lat1, lat2, long1, long2):
