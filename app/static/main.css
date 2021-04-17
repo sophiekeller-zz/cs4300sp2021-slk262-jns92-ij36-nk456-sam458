@@ -21,7 +21,7 @@ width:500px;
 }
 .global-search * {
 display:inline-block;
-margin-bottom:0;
+margin-bottom:;
 }
 }
 .topcorner{
@@ -37,4 +37,55 @@ border: none
 color: #4285F4;
 }
 
+body, html{
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: 'Sniglet';
+}
+h1{
+  font-weight: normal;
+  font-size: 4em;
+  font-family: 'Raleway';
+  margin: 0 auto;
+  margin-top: 100px;
+  width: 400px;
+  color: #F90;
+  text-align: center;
 
+}
+
+/* Animation webkit */
+@-webkit-keyframes myfirst
+{
+  0% {margin-left: -235px}
+  90% {margin-left: 100%;}
+  100% {margin-left: 100%;}
+}
+
+/* Animation */
+/*
+@keyframes myfirst
+{
+  0% {margin-left: -235px}
+  70% {margin-left: 100%;}
+  100% {margin-left: 100%;}
+}
+
+.plane{
+  background-image: url('airplane_graphic.jpeg');
+  width: 235px;
+  height: 104px;
+  margin-left: -235px;
+  position: absolute;
+  animation: myfirst 24s;
+  -webkit-animation: myfirst 24s;
+  animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  -webkit-animation-timing-function: linear;
+}
+#plane{
+  top: 120px;
+}
+*/
