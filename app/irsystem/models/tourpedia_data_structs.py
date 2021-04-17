@@ -1,4 +1,4 @@
-import jsonlines
+# import jsonlines
 import numpy as np
 import math
 import json
@@ -28,31 +28,31 @@ restaurant_words = {
   "music": ["music", "pop", "rock", "reggae", "jazz", "band", "performance"]
 }
 
-cities = ["berlin", "barcelona", "dubai", "london", "amsterdam"]
-maps = ["restaurant", "accommodation"]
-words = {"restaurant": restaurant_words, "accommodation": accommodation_words}
-ind = 0
-for c in cities:
-    city_count[c] = {}
-    for m in maps:
-        json_string = 'tokenized-files/'+c+'-'+m+'.jsonl'
-        with jsonlines.open(json_string) as f:
-            line_count = 0
-            mappings = {}
-            for line in f.iter():
-                name = line["name"]
-                reviews_tokenized = line["reviews_tokenized"]
-                count_dict = {}
-                for category in words[m]:
-                    for word in words[m][category]:
-                        if word in reviews_tokenized:
-                            if category in count_dict:
-                                count_dict[category] += 1
-                            else:
-                                count_dict[category] = 1
-                mappings[name] = count_dict
-                line_count += 1
-        city_count[c][m] = mappings
+# cities = ["berlin", "barcelona", "dubai", "london", "amsterdam"]
+# maps = ["restaurant", "accommodation"]
+# words = {"restaurant": restaurant_words, "accommodation": accommodation_words}
+# ind = 0
+# for c in cities:
+#     city_count[c] = {}
+#     for m in maps:
+#         json_string = 'tokenized-files/'+c+'-'+m+'.jsonl'
+#         with jsonlines.open(json_string) as f:
+#             line_count = 0
+#             mappings = {}
+#             for line in f.iter():
+#                 name = line["name"]
+#                 reviews_tokenized = line["reviews_tokenized"]
+#                 count_dict = {}
+#                 for category in words[m]:
+#                     for word in words[m][category]:
+#                         if word in reviews_tokenized:
+#                             if category in count_dict:
+#                                 count_dict[category] += 1
+#                             else:
+#                                 count_dict[category] = 1
+#                 mappings[name] = count_dict
+#                 line_count += 1
+#         city_count[c][m] = mappings
     
 # with open('mappings.json', 'a') as outfile:
 #     json.dump(city_count, outfile) 

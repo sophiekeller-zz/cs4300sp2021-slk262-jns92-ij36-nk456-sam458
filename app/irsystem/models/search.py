@@ -1,4 +1,4 @@
-import jsonlines
+# import jsonlines
 import json
 # from app.irsystem.models.tourpedia_data_structs import city_count, city_ind
 
@@ -100,24 +100,6 @@ def getMatchings(city, category, query):
     ranked = sorted(resultsDict.items(), key=lambda x: x[1], reverse=True)
     return ranked[:10]
 
-def accommodationMatchings(city, query):
-  if not query:
-    return []
-  accommodationDict = {}
-  querySet = set(query.split(" "))
-  accommodationMappings = city_count[city.lower()]["accommodation"]
-  for accommodationName in accommodationMappings:
-      words = set(accommodationMappings[accommodationName].keys())
-      count = 0
-      for category in accommodationMappings[accommodationName]:
-        if category in querySet:
-          count += accommodationMappings[accommodationName][category] 
-      categoriesMet = len(querySet.intersection(words))
-      if count > 0:
-        accommodationDict[accommodationName] = count
-  
-  ranked = sorted(accommodationDict.items(), key=lambda x: x[1], reverse=True)
-  return ranked[:10]
 
 # print(list(restaurantMappings.items())[:10])
 
