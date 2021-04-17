@@ -54,6 +54,7 @@ h1{
   text-align: center;
 
 }
+body {background-color: #87cefa; }
 
 /* Animation webkit */
 @-webkit-keyframes myfirst
