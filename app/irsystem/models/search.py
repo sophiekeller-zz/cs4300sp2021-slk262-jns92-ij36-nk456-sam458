@@ -1,5 +1,5 @@
 # import jsonlines
-import json
+# import json
 # from app.irsystem.models.tourpedia_data_structs import city_count, city_ind
 
 accommodation_words = {
