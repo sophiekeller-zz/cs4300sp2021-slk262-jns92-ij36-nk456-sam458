@@ -1,6 +1,6 @@
 import jsonlines
-import numpy as np
-import math
+# import numpy as np
+# import math
 import json
 city_count = {}
 city_coords = {}
