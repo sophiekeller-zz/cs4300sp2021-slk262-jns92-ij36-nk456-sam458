@@ -26,7 +26,6 @@ idna==2.9
 itsdangerous==1.1.0
 Jinja2==2.11.3
 joblib==0.14.1
-json==2.0.9
 Mako==1.1.1
 MarkupSafe==1.1.1
 marshmallow~=3.11.1
