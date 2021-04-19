@@ -14,7 +14,10 @@ def search():
 	restaurants = [f"{x[0]} - Score:{x[1]}" for x in getMatchings(city, "restaurant", restaurant_query)]
 	accommodations = [f"{x[0]} - Score:{x[1]}" for x in getMatchings(city, "accommodation", accommodation_query)]
 	output_message = "Your itinerary"
-	data = ["Restaurants"] + restaurants + ["", "Accommodations"] + accommodations
+	if restaurants or accommodations: 
+		data = ["Restaurants"] + restaurants + ["", "Accommodations"] + accommodations
+	else:
+		data = []
 	return render_template('search.html', name=project_name, netid=net_id, output_message=output_message, data=data)
 
 

@@ -75,8 +75,10 @@ body {background-color: #B0E0E6; }
 
 .plane{
   background-image: url('https://webstockreview.net/images/biplane-clipart-transparent-background-15.png');
-  width: 120%;
-  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 21.5%;
+  height: 12.5%;
   margin-left: -235px;
   position: absolute;
   animation: myfirst 24s;
@@ -88,7 +90,7 @@ body {background-color: #B0E0E6; }
 
 }
 #plane{
-  top: 175px;
-  width: 20%;
-  height: 20%;
+  top: 330px;
+  /* width: 100px;
+  height: 100px; */
 }
