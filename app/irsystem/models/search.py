@@ -2,6 +2,7 @@
 import json
 # from app.irsystem.models.tourpedia_data_structs import city_count, city_ind
 
+
 accommodation_words = {
   "dirty": ["stink", "stinks", "smells", "stinky", "rotten", "disgusting", "gross","nasty", "worn", "dirty"],
   "clean": ["flawless", "clean", "clear", "comfortable", "comfortably"], 
@@ -103,4 +104,29 @@ def getMatchings(city, category, query):
 
 # print(list(restaurantMappings.items())[:10])
 
+def withinRad(city, top_hotels, top_rests, radius): # top_attract,
+  fh = open('/app/irsystem/models/inverted-index.json', 'r')
+  inv_ind = fh.readlines()
+  fh.close()
+  fh = open('/app/irsystem/models/distance-matrices.json', 'r')
+  distances = fh.readlines()
+  fh.close()
+  within_rad = {}
+  for h in top_hotels:
+    restaurants = []
+    for r in top_rests:
+      dist = distances[city][inv_ind[city]['accommodation'][h]][inv_ind[city]['restaurant'][r]]
+      if dist <= radius:
+        restaurants.append(r)
+    # attracts = []
+    # for a in top_attract:
+    #   dist = distances[city][inv_ind[city]['accommodation'][h]][inv_ind[city]['attraction'][a]]
+    #   if dist <= radius:
+    #     attracts.append(a)
+    within_rad[h] = {'restaurants': restaurants}#,'attractions':attractions
 
+  return within_rad
+
+# rests = getMatchings('london', 'accommodation', 'clean');
+# hots =  getMatchings('london', 'accommodation', 'clean');
+# print(list(withinRad('london',hots, rests, 10000000)));
