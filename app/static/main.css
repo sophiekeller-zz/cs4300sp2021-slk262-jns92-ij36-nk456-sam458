@@ -24,6 +24,22 @@ display:inline-block;
 margin-bottom:;
 }
 }
+.output-search1{
+margin-top: 600 px;
+padding: 20px 0;
+text-align:left;
+margin-left: 300px;
+}
+.output-search2{
+margin-top: 600 px;
+text-align:center;
+}
+.output-search3{
+margin-top: 600 px;
+text-align:right;
+margin-right: 300px;
+}
+
 .topcorner{
 position:absolute;
 top:2%;

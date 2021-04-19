@@ -105,15 +105,10 @@ def getMatchings(city, category, query):
 # print(list(restaurantMappings.items())[:10])
 
 def withinRad(city, top_hotels, top_rests, radius): # top_attract,
-  #fh = open('/app/irsystem/models/inverted-index.json', 'r')
   with open('app/irsystem/models/inverted-index.json') as f:
     inv_ind = json.load(f)
-  #fh.close()
-  #fh = open('/app/irsystem/models/distance-matrices.json', 'r')
   with open('app/irsystem/models/distance-matrices.json') as f:
     distances = json.load(f)
-  #distances = fh.readlines()
-  #fh.close()
   within_rad = {}
   for h in top_hotels:
     restaurants = []

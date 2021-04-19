@@ -20,7 +20,7 @@ def search():
 		data = []
 	return render_template('search.html', name=project_name, netid=net_id, output_message=output_message, data=data)
 
-#
+
 # @irsystem.route('/', methods=['GET'])
 # def search():
 # 	restaurant_query = request.args.get('restaurant')
@@ -31,9 +31,11 @@ def search():
 # 	rad = withinRad('london', accommodations, restaurants, 10000)
 # 	output_message = "Your itinerary"
 # 	if accommodations:
+# 		recs = {}
 # 		for a in accommodations:
 # 			rests_in_range = rad[a]['restaurants']
-# 			data = ["Restaurants"] + rests_in_range + ["", "Accommodations"] + [a]
+# 			data = ["Restaurants"] + rests_in_range #+ ["", "Accommodations"] + [a]
+# 			recs[a] = data
 # 	else:
-# 		data = []
-# 	return render_template('search.html', name=project_name, netid=net_id, output_message=output_message, data=data)
+# 		recs = {}#data = []
+# 	return render_template('search.html', name=project_name, netid=net_id, output_message=output_message, data=recs)
