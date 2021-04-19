@@ -14,11 +14,26 @@ def search():
 	restaurants = [f"{x[0]} - Score:{x[1]}" for x in getMatchings(city, "restaurant", restaurant_query)]
 	accommodations = [f"{x[0]} - Score:{x[1]}" for x in getMatchings(city, "accommodation", accommodation_query)]
 	output_message = "Your itinerary"
-	if restaurants or accommodations: 
+	if restaurants or accommodations:
 		data = ["Restaurants"] + restaurants + ["", "Accommodations"] + accommodations
 	else:
 		data = []
 	return render_template('search.html', name=project_name, netid=net_id, output_message=output_message, data=data)
 
-
-
+#
+# @irsystem.route('/', methods=['GET'])
+# def search():
+# 	restaurant_query = request.args.get('restaurant')
+# 	accommodation_query = request.args.get('accommodation')
+# 	city = 'london' # THIS NEEDS TO BE MODIFIED TO CONTAIN CITY THAT USER IS SEARCHING
+# 	restaurants = [f"{x[0]} - Score:{x[1]}" for x in getMatchings(city, "restaurant", restaurant_query)]
+# 	accommodations = [f"{x[0]} - Score:{x[1]}" for x in getMatchings(city, "accommodation", accommodation_query)]
+# 	rad = withinRad('london', accommodations, restaurants, 10000)
+# 	output_message = "Your itinerary"
+# 	if accommodations:
+# 		for a in accommodations:
+# 			rests_in_range = rad[a]['restaurants']
+# 			data = ["Restaurants"] + rests_in_range + ["", "Accommodations"] + [a]
+# 	else:
+# 		data = []
+# 	return render_template('search.html', name=project_name, netid=net_id, output_message=output_message, data=data)
