@@ -29,9 +29,13 @@ def search():
 	city = 'london' # THIS NEEDS TO BE MODIFIED TO CONTAIN CITY THAT USER IS SEARCHING
 	# restaurants = [f"{x[0]} - Score:{x[1]}" for x in get_matchings(city, "restaurant", restaurant_query)]
 	# accommodations = [f"{x[0]} - Score:{x[1]}" for x in get_matchings(city, "accommodation", accommodation_query)]
-	restaurants = get_matchings(city, "restaurant", restaurant_query)
-	accommodations = get_matchings(city, "accommodation", accommodation_query)
-	attractions = get_matchings(city, "attraction", attraction_query)
+	restaurants = get_matchings_cos_sim(city, "restaurant", restaurant_query)
+	print("starting accommodations")
+	accommodations = get_matchings_cos_sim(city, "accommodation", accommodation_query)
+	attractions = get_matchings_cos_sim(city, "attraction", attraction_query)
+	print(accommodations)
+	print(restaurants)
+	print(attractions)
 	rad = within_rad('london', [x[0] for x in accommodations], [x[0] for x in restaurants], [x[0] for x in attractions], 10000)
 	output_message = "Your itinerary options"
 	data = []

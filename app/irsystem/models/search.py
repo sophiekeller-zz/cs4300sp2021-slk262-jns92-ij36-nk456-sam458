@@ -1,6 +1,9 @@
 # import jsonlines
 import json
+import math
 # from app.irsystem.models.tourpedia_data_structs import city_count, city_ind
+from sklearn.feature_extraction.text import TfidfVectorizer
+import numpy as np
 
 
 accommodation_words = {
@@ -36,6 +39,8 @@ attraction_words = {
   "sports": ["active", "basketball", "soccer", "tennis", "baseball", "football", "skate", "skating", "lacrosse", "cricket", "rugby", "squash", "yoga", "exercise", "bike", "biking"],
   "water activities": ["pool", "lake", "river", "stream", "ocean", "sea", "beach", "sailing", "sail", "boat", "swim", "swimming"]
 }
+map_words = {
+  "restaurant": restaurant_words, "accommodation": accommodation_words, "attraction": attraction_words}
 
 def get_matchings(city, category, query):
 
@@ -59,26 +64,60 @@ def get_matchings(city, category, query):
     ranked = sorted(resultsDict.items(), key=lambda x: x[1], reverse=True)
     return ranked[:10]
 
+def build_vectorizer(max_n_terms=5000, max_prop_docs=0.8, min_n_docs=0):
+    """Returns a TfidfVectorizer object with certain preprocessing properties.
+    
+    Params: {max_n_terms: Integer,
+             max_prop_docs: Float,
+             min_n_docs: Integer}
+    Returns: TfidfVectorizer
+    """
+    return TfidfVectorizer(min_df=min_n_docs, max_df=max_prop_docs, max_features=max_n_terms, 
+                                stop_words='english')
+
+def get_cos_sim(query, reviews):
+    """Returns the cosine similarity of two movie scripts.
+    
+    Params: {mov1: String,
+             mov2: String,
+             input_doc_mat: np.ndarray,
+             movie_name_to_index: Dict}
+    Returns: Float 
+    """
+    numerator = np.dot(query, reviews)
+    denomenator = (np.linalg.norm(query)*np.linalg.norm(reviews))
+    if numerator==0 or denomenator ==0:
+      return 0.0
+    return numerator/(np.linalg.norm(query)*np.linalg.norm(reviews))
+
 def get_matchings_cos_sim(city, category, query):
-  with open('app/irsystem/models/mappings.json') as f:
-    city_count = json.load(f)
+  with open('app/irsystem/models/tokens_mapping.json') as f:
+    tokens_map = json.load(f)
     if not query:
       return []
-    resultsDict = {}
-    querySet = set(query.split(" "))
-    mappings = city_count[city.lower()][category]
-    for place in mappings:
-        words = set(mappings[place].keys())
-        count = 0
-        for category in mappings[place]:
-          if category in querySet:
-            count += mappings[place][category] 
-        # categoriesMet = len(querySet.intersection(words))
-        if count > 0:
-          resultsDict[place] = count
-    
-    ranked = sorted(resultsDict.items(), key=lambda x: x[1], reverse=True)
-    return ranked[:10]
+
+    # get query string/vector
+    related_words = []
+    for query in query.split(" "):
+      related_words += map_words[category][query]
+    query_string = " ".join(related_words)
+
+    # list of all review strings (each place has a single review string of all reviews) with 
+    # the query string as the last vector 
+    to_vectorize = [tokens_map[city][category][x] for x in tokens_map[city][category]] + [query_string]
+    tfidf_vec = build_vectorizer()
+    tfidf_mat = tfidf_vec.fit_transform(to_vectorize).toarray()
+
+    # calculate cosine sims between each place's tf-idf vector and the query string vector
+    cos_sims = [get_cos_sim(tfidf_mat[i], tfidf_mat[-1]) for i in range(len(tfidf_mat-1))]
+    sims_idx = [(i, sim) for i, sim in enumerate(cos_sims)]
+    ranked = sorted(sims_idx, key=lambda x: x[1], reverse=True)[1:] #slice off query
+
+    # translate from id's to names
+    keys = list(tokens_map[city][category].keys())
+    ranked_translated = [(keys[x[0]], x[1]) for x in ranked]
+
+    return ranked_translated[:10]
 
 
 # print(list(restaurantMappings.items())[:10])

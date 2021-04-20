@@ -1,5 +1,5 @@
-# import jsonlines
-# import json
+import jsonlines
+import json
 # import matplotlib.pyplot as plt
 
 dirty_words = 0
@@ -48,17 +48,36 @@ words = {
 
 counts = {category: 0 for category in words}
 
+# for city in ["london","amsterdam", "barcelona", "berlin", "dubai"]:
+#     for category in ["accommodation", "restaurant", "attraction"]:
+#         with jsonlines.open(f"jsonl-files/{city}-{category}.jsonl") as f:
+#           for line in f.iter():
+#             tokens = []
+#             for r in line["reviews"]:
+#               tokens += [x.lower() for x in r["text"].split(" ")]
+#             line["reviews_tokenized"] = tokens
+#             with open(f'tokenized-files/{city}-{category}.jsonl', 'a') as outfile:
+#               json.dump(line, outfile) 
+#               outfile.write("\n")
+
+tokens_mapping = {}
 for city in ["london","amsterdam", "barcelona", "berlin", "dubai"]:
+    category_map = {}
     for category in ["accommodation", "restaurant", "attraction"]:
-        with jsonlines.open(f"jsonl-files/{city}-{category}.jsonl") as f:
+        tokens_map = {}
+        with jsonlines.open(f'tokenized-files/{city}-{category}.jsonl') as f:
           for line in f.iter():
-            tokens = []
-            for r in line["reviews"]:
-              tokens += [x.lower() for x in r["text"].split(" ")]
-            line["reviews_tokenized"] = tokens
-            with open(f'tokenized-files/{city}-{category}.jsonl', 'a') as outfile:
-              json.dump(line, outfile) 
-              outfile.write("\n")
+            stringified = ""
+            for token in line["reviews_tokenized"]:
+              stringified += token + " "
+            tokens_map[line["name"]] = stringified
+
+        category_map[category] = tokens_map
+    tokens_mapping[city] = category_map
+
+with open('tokens_mapping.json','a') as out:
+  json.dump(tokens_mapping, out)
+  out.write("\n")
 
 # with jsonlines.open('london-attraction.jsonl') as f:
 #     line_count = 0
