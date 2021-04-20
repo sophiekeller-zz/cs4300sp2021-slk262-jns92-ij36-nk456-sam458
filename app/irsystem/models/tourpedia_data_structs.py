@@ -1,9 +1,14 @@
-# import jsonlines
-# import numpy as np
-# import math
-# import json
+import jsonlines
+import numpy as np
+import math
+import json
 city_count = {}
 city_coords = {}
+
+"""
+When words are generated, uncomment code that writes distance-matrices, inverted-index,
+and mappings jsons. All must change! 
+"""
 
 accommodation_words = {
   "dirty": ["stink", "stinks", "smells", "stinky", "rotten", "disgusting", "gross","nasty", "worn", "dirty"],
@@ -29,9 +34,19 @@ restaurant_words = {
   "music": ["music", "pop", "rock", "reggae", "jazz", "band", "performance"]
 }
 
+attraction_words = {
+  "expensive": ["pricey", "pricy", "expensive"],
+  "inexpensive": ["cheap", "inexpensive", "low-cost", "bargain", "affordable"],
+  "drinking": ["bar", "pub", "wine", "beer", "shot", "cocktail", "cocktails", "beers"],
+  "ambiance": ["setting", "ambiance", "fancy", "pretty", "decor", "decorated", "creative", "vibe", "cute", "vintage"],
+  "music": ["music", "pop", "rock", "reggae", "jazz", "band", "performance", "violin", "piano"],
+  "sports": ["active", "basketball", "soccer", "tennis", "baseball", "football", "skate", "skating", "lacrosse", "cricket", "rugby", "squash", "yoga", "exercise", "bike", "biking"],
+  "water activities": ["pool", "lake", "river", "stream", "ocean", "sea", "beach", "sailing", "sail", "boat", "swim", "swimming"]
+}
+
 cities = ["berlin", "barcelona", "dubai", "london", "amsterdam"]
-maps = ["restaurant", "accommodation"]
-words = {"restaurant": restaurant_words, "accommodation": accommodation_words}
+maps = ["restaurant", "accommodation", "attraction"]
+words = {"restaurant": restaurant_words, "accommodation": accommodation_words, "attraction": attraction_words}
 ind = 0
 for c in cities:
     city_count[c] = {}
@@ -59,8 +74,8 @@ for c in cities:
         city_coords[c][m] = coords
         city_count[c][m] = mappings
     
-# with open('mappings.json', 'a') as outfile:
-#     json.dump(city_count, outfile) 
+with open('mappings.json', 'a') as outfile:
+    json.dump(city_count, outfile) 
 
 #inverted indices 
 city_ind = {}
@@ -74,8 +89,8 @@ for c in cities:
             ind += 1
         city_ind[c][m] = index
 
-# with open('inverted-index.json', 'a') as outfile:
-#     json.dump(city_ind, outfile) 
+with open('inverted-index.json', 'a') as outfile:
+    json.dump(city_ind, outfile) 
 
 #formula found @ http://www.movable-type.co.uk/scripts/latlong.html
 def distance_between(lat1, lat2, long1, long2):
@@ -93,16 +108,25 @@ def distance_between(lat1, lat2, long1, long2):
 #distance matrices
 city_dist = {}
 for c in cities:
-    mat = np.zeros((len(city_count[c]["restaurant"]), len(city_count[c]["accommodation"])))
+    rest_mat = np.zeros((len(city_count[c]["restaurant"]), len(city_count[c]["accommodation"])))
     for r in city_count[c]["restaurant"]:
         for a in city_count[c]["accommodation"]:
             ind_r = city_ind[c]["restaurant"][r]
             ind_a = city_ind[c]["accommodation"][a]
-            mat[ind_r][ind_a] = distance_between(city_coords[c]['restaurant'][r]["lat"],
+            rest_mat[ind_r][ind_a] = distance_between(city_coords[c]['restaurant'][r]["lat"],
                                                  city_coords[c]['accommodation'][a]["lat"],
                                                  city_coords[c]['restaurant'][r]["lng"],
                                                  city_coords[c]['accommodation'][a]["lng"])
-    city_dist[c] = mat.tolist()
+    att_mat = np.zeros((len(city_count[c]["attraction"]), len(city_count[c]["accommodation"])))
+    for r in city_count[c]["attraction"]:
+        for a in city_count[c]["accommodation"]:
+            ind_r = city_ind[c]["attraction"][r]
+            ind_a = city_ind[c]["accommodation"][a]
+            att_mat[ind_r][ind_a] = distance_between(city_coords[c]['attraction'][r]["lat"],
+                                                 city_coords[c]['accommodation'][a]["lat"],
+                                                 city_coords[c]['attraction'][r]["lng"],
+                                                 city_coords[c]['accommodation'][a]["lng"])
+    city_dist[c] = {"restaurant": rest_mat.tolist(), "attraction": att_mat.tolist()}
 
-with open('distance-matrices.json', 'a') as outfile:
-    json.dump(city_dist, outfile) 
+# with open('distance-matrices.json', 'a') as outfile:
+#     json.dump(city_dist, outfile) 
