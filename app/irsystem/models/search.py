@@ -1,4 +1,6 @@
 # import jsonlines
+import nltk
+from nltk.corpus import wordnet
 import json
 import math
 # from app.irsystem.models.tourpedia_data_structs import city_count, city_ind
@@ -42,6 +44,9 @@ attraction_words = {
 map_words = {
   "restaurant": restaurant_words, "accommodation": accommodation_words, "attraction": attraction_words}
 
+negation_words = ["no", "not", "none","nothing","neither","nowhere","never", "hardly","barely"]
+
+
 def get_matchings(city, category, query):
 
   with open('app/irsystem/models/mappings.json') as f:
@@ -75,6 +80,18 @@ def build_vectorizer(max_n_terms=5000, max_prop_docs=0.8, min_n_docs=0):
     return TfidfVectorizer(min_df=min_n_docs, max_df=max_prop_docs, max_features=max_n_terms, 
                                 stop_words='english')
 
+def get_query_antonyms(query):
+  antonyms = []
+  for q in query.split(" "):
+    for syn in wordnet.synsets(q):
+      found_ant = False
+      for l in syn.lemmas():
+        if l.antonyms() and not found_ant:
+          found_ant = True
+          antonyms.append(l.antonyms()[0].name())
+
+  return antonyms
+
 def get_cos_sim(query, reviews):
     """Returns the cosine similarity of two movie scripts.
     
@@ -85,10 +102,12 @@ def get_cos_sim(query, reviews):
     Returns: Float 
     """
     numerator = np.dot(query, reviews)
+    query_antonyms = get_query_antonyms(query)
+    numerator_negative = np.dot(query_antonyms, reviews)
     denomenator = (np.linalg.norm(query)*np.linalg.norm(reviews))
-    if numerator==0 or denomenator ==0:
+    if numerator-numerator_negative==0 or denomenator ==0:
       return 0.0
-    return numerator/(np.linalg.norm(query)*np.linalg.norm(reviews))
+    return (numerator-numerator_negative)/(np.linalg.norm(query)*np.linalg.norm(reviews))
 
 def get_matchings_cos_sim(city, category, query):
   with open('app/irsystem/models/tokens_mapping.json') as f:
