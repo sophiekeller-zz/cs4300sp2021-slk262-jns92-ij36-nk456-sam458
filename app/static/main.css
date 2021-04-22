@@ -1,96 +1,142 @@
 @media (min-width: 1200px) {
-.container {
+  .container {
     max-width: 970px;
+  }
 }
+@media (min-width: 400px) {
+  body {
+    padding-top: 15%;
+    padding-bottom: 15px;
+  }
+  .global-search {
+    text-align: center;
+    padding: 10px;
+  }
+  .global-search .form-control {
+    width: 500px;
+  }
+  /* .global-search * {
+    display: inline-block;
+  } */
+  /* .topleft {
+    position: absolute;
+    top: 2%;
+    right: 2%;
+  } */
 }
-@media (min-width:400px){
-.global-search {
-padding: 20px 0;
-text-align:center;
+.form {
+  position: absolute;
+  top: 250px;
+  left: 40px;
 }
-body {
-padding-top: 15%;
-padding-bottom: 15px;
+.formRestaurant {
+  position: absolute;
+  top: 250px;
+  left: 500px;
 }
-.global-search {
-text-align:center;
-padding:10px;
-}
-.global-search .form-control {
-width:500px;
-}
-.global-search * {
-display:inline-block;
-margin-bottom:;
-}
-}
-.output-search1{
-margin-top: 600 px;
-padding: 20px 0;
-text-align:left;
-margin-left: 300px;
-}
-.output-search2{
-margin-top: 600 px;
-text-align:center;
-}
-.output-search3{
-margin-top: 600 px;
-text-align:right;
-margin-right: 300px;
-}
-
-.topcorner{
-position:absolute;
-top:2%;
-right:2%;
-}
-.btn{
-background-color: #4285F4;
-border: none
-}
-.step-links a{
-color: #4285F4;
+.formAttraction {
+  position: absolute;
+  top: 250px;
+  left: 960px;
 }
 
-body, html{
+.text {
+  font-size: 24px;
+}
+
+.title {
+  color: #45474a;
+  font-weight: bold;
+  position: absolute;
+  font-family: sans-serif;
+  display: block;
+  left: -10px;
+  top: -100px;
+  font-size: 60px;
+}
+.output-search1 {
+  margin-top: 600 px;
+  padding: 20px 0;
+  text-align: left;
+  margin-left: 300px;
+}
+.output-search2 {
+  margin-top: 600 px;
+  text-align: center;
+}
+.output-search3 {
+  margin-top: 600 px;
+  text-align: right;
+  margin-right: 300px;
+}
+
+.topcorner {
+  position: absolute;
+  top: 2%;
+  right: 2%;
+}
+.btn {
+  background-color: #4285f4;
+  border: none;
+  position: relative;
+  top: 300px;
+  left: 600px;
+}
+.step-links a {
+  color: #4285f4;
+}
+
+body,
+html {
   height: 100%;
   padding: 0;
   margin: 0;
-  font-family: 'Sniglet';
+  font-family: "Sniglet";
 }
-h1{
+h1 {
   font-weight: normal;
   font-size: 4em;
-  font-family: 'Raleway';
+  font-family: "Raleway";
   margin: 0 auto;
   margin-top: 100px;
   width: 400px;
-  color: #F90;
+  color: #f90;
   text-align: center;
-
 }
-body {background-color: #B0E0E6; }
+body {
+  background-image: url("./travel2.jpeg");
+  /* background-size: 1000px 1000px; */
+}
 
 /* Animation webkit */
-@-webkit-keyframes myfirst
-{
-  0% {margin-left: -235px}
-  90% {margin-left: 100%;}
-  100% {margin-left: 100%;}
+@-webkit-keyframes myfirst {
+  0% {
+    margin-left: -235px;
+  }
+  90% {
+    margin-left: 100%;
+  }
+  100% {
+    margin-left: 100%;
+  }
 }
 
 /* Animation */
 
-@keyframes myfirst
-{
-  0% {margin-left: -235px}
-  70% {margin-left: 100%;}
-  100% {margin-left: 100%;}
+@keyframes myfirst {
+  0% {
+    margin-left: -235px;
+  }
+  70% {
+    margin-left: 100%;
+  }
+  100% {
+    margin-left: 100%;
+  }
 }
 
-.plane{
-  background-image: url('https://webstockreview.net/images/biplane-clipart-transparent-background-15.png');
+.plane {
+  background-image: url("https://webstockreview.net/images/biplane-clipart-transparent-background-15.png");
   background-size: cover;
   background-repeat: no-repeat;
   width: 19.5%;
@@ -103,9 +149,10 @@ body {background-color: #B0E0E6; }
   -webkit-animation-iteration-count: infinite;
   animation-timing-function: linear;
   -webkit-animation-timing-function: linear;
-   /* animation-fill-mode: forwards;*/
+  /* animation-fill-mode: forwards;*/
 }
-#plane{
+
+#plane {
   top: 230px;
   /* width: 100px;
   height: 100px; */
