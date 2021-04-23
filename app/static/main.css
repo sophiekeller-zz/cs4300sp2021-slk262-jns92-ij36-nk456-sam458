@@ -36,6 +36,9 @@
   top: 280px;
   left: 530px;
 }
+.inputText {
+  color: black;
+}
 .formAttraction {
   color: #ffffff;
   position: absolute;
@@ -110,6 +113,7 @@
   position: relative;
   top: 300px;
   left: 600px;
+  top: 330px;
 }
 .step-links a {
   color: #4285f4;
