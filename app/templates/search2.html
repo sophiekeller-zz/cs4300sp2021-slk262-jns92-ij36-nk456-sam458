@@ -6,39 +6,44 @@
 </head>
 
 
-<body  >
-    <div class="topcorner">
+<body>
+    <!-- <div class="topcorner">
         <p>Project Name: {{ name }}</p>
         <p>Student Name: ({{ netid }})</p>
-    </div>
-    <div >
-        <h1 class = "title">
-            Turn your ideas 
-            into an Itinerary
+    </div> -->
+    <div>
+        <h1 class="title">
+            Itinerary Pal
         </h1>
-       <label class = "form" >
-            <text class = "text">Accommodation Keywords</text>
+        <h1 class="subtitle">
+            Explore
+        </h1>
+        <h1 class="subtitle2">
+            your dream city
+        </h1>
+        <label class="form">
+            <text class="text">Accommodation Keywords</text>
             <input id="input" type="text" name="accommodation" placeholder="Your Input">
         </label>
-        <label class = "formRestaurant">
-            <text class = "text">Restaurant Keywords</text>
+        <label class="formRestaurant">
+            <text class="text">Restaurant Keywords</text>
             <input id="input" type="text" name="restaurant" placeholder="Your Input">
         </label>
-        
-        <label class = "formAttraction">
-            <text class = "text">Attraction Keywords</text>
-            <input id="input" type="text" name="attraction"  placeholder="Your Input">
-        </label> 
-       
+
+        <label class="formAttraction">
+            <text class="text">Attraction Keywords</text>
+            <input id="input" type="text" name="attraction" placeholder="Your Input">
+        </label>
+
         <button type="submit" class="btn btn-info"> Go! </button>
     </div>
-    
+
     <form class="form-inline global-search">
-       
+
         <br><br>
-       
-       
-        
+
+
+
     </form>
     <form class="form-inline global-search">
         {% if data %}
