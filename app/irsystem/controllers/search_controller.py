@@ -26,27 +26,22 @@ def search():
 	restaurant_query = request.args.get('restaurant')
 	accommodation_query = request.args.get('accommodation')
 	attraction_query = request.args.get('attraction')
-	city = 'london' # THIS NEEDS TO BE MODIFIED TO CONTAIN CITY THAT USER IS SEARCHING
-	# restaurants = [f"{x[0]} - Score:{x[1]}" for x in get_matchings(city, "restaurant", restaurant_query)]
-	# accommodations = [f"{x[0]} - Score:{x[1]}" for x in get_matchings(city, "accommodation", accommodation_query)]
+	city = 'amsterdam' if request.args.get('city') is None else request.args.get('city')
 	restaurants = get_matchings_cos_sim(city, "restaurant", restaurant_query)
-	print("starting accommodations")
 	accommodations = get_matchings_cos_sim(city, "accommodation", accommodation_query)
 	attractions = get_matchings_cos_sim(city, "attraction", attraction_query)
-	print(accommodations)
-	print(restaurants)
-	print(attractions)
-	rad = within_rad('london', [x[0] for x in accommodations], [x[0] for x in restaurants], [x[0] for x in attractions], 10000)
+
+	rad = within_rad(city, [x[0] for x in accommodations], [x[0] for x in restaurants], [x[0] for x in attractions], 10000)
 	output_message = "Your itinerary options"
 	data = []
 	accommodations = list(filter(lambda x: rad[x[0]]['restaurants'] or rad[x[0]]['attractions'], accommodations)) #filters out accommodations w no restaurants
-	for i, a in enumerate(accommodations):
+	for i, a in enumerate(accommodations[:5]):
 		data.append([f"Itinerary #{i + 1}"])
 		data.append(f"Accommodation: {a[0]}")
 		data.append("Restaurants:")
-		data += rad[a[0]]['restaurants']
+		data += rad[a[0]]['restaurants'][:10]
 		data.append("Attractions:")
-		data += rad[a[0]]['attractions']
+		data += rad[a[0]]['attractions'][:10]
 		data.append("")
 
 	return render_template('search2.html', name=project_name, netid=net_id, output_message=output_message, data=data)

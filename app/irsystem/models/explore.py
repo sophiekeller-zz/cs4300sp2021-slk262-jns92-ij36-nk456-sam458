@@ -75,8 +75,27 @@ for city in ["london","amsterdam", "barcelona", "berlin", "dubai"]:
         category_map[category] = tokens_map
     tokens_mapping[city] = category_map
 
-with open('tokens_mapping.json','a') as out:
-  json.dump(tokens_mapping, out)
+# with open('tokens_mapping.json','a') as out:
+#   json.dump(tokens_mapping, out)
+#   out.write("\n")
+
+ranking_mapping = {}
+for city in ["london","amsterdam", "barcelona", "berlin", "dubai"]:
+    category_map = {}
+    for category in ["accommodation", "restaurant", "attraction"]:
+        tokens_map = {}
+        with jsonlines.open(f'jsonl-files/{city}-{category}.jsonl') as f:
+          for line in f.iter():
+            total_rev = 0
+            for rev in line["reviews"]:
+              if rev['rating']:
+                total_rev += int(rev['rating'])
+            tokens_map[line["name"]] = 0 if total_rev == 0 else total_rev/len(line['reviews'])
+        category_map[category] = tokens_map
+    ranking_mapping[city] = category_map
+
+with open('ranking_mapping.json','a') as out:
+  json.dump(ranking_mapping, out)
   out.write("\n")
 
 # with jsonlines.open('london-attraction.jsonl') as f:
