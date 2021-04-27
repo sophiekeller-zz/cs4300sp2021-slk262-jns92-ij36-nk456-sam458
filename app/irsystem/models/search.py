@@ -123,14 +123,17 @@ def get_matchings_cos_sim(city, category, query):
     with open('app/irsystem/models/tokens_mapping.json') as f:
         tokens_map = json.load(f)
         if not query:
+            print("NO QUERY")
             return []
 
         # get query string/vector
         related_words = []
         for query in query.split(" "):
           try:
+            print(query)
             related_words += map_words[category][query]
           except:
+            print(query)
             related_words = related_words
         query_string = " ".join(related_words)
 
