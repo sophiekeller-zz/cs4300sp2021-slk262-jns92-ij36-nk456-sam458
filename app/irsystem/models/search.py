@@ -73,9 +73,9 @@ def get_matchings_cos_sim(city, category, query):
     #     tokens_map = json.load(f)
     query = stem_sentence(query)
 
-    with open('stemmed_mapping.json') as f:
+    with open('app/irsystem/models/stemmed_mapping.json') as f:
         tokens_map = json.load(f)
-    with open('ranking_mapping.json') as f:
+    with open('app/irsystem/models/ranking_mapping.json') as f:
         rankings_map = json.load(f)
     if not query:
         return sorted(tokens_map[city][category].items(), key=lambda x: x[1], reverse=True)
