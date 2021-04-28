@@ -114,7 +114,7 @@ def get_matchings_cos_sim(city, category, query):
     return ranked_translated
     
 
-def within_rad(city, top_hotels, top_rests, top_attract, radius, order):  # top_attract,
+def within_rad(city, top_hotels, top_rests, top_attract, radius):  # top_attract,
     with open('app/irsystem/models/inverted-index.json') as f:
         inv_ind = json.load(f)
     with open('app/irsystem/models/distance-matrices.json') as f:
