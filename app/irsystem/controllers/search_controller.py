@@ -36,17 +36,18 @@ def search():
 		restaurants = []
 		accommodations = []
 		attractions = []
-	if request.args.get('preference') is 'accommodations':
-		y = [accommodations, restaurants, attractions]
-	elif request.args.get('preference') is 'restaurants':
-		y = [restaurants, accommodations, attractions]
-	else:
-		y = [attractions, restaurants, accommodations]
-	# r = request.args.get('radius')
-	# radius = 1000 if r is None else r
-	rad = within_rad(city, [x[0] for x in y[0]], [x[0] for x in y[1]], [x[0] for x in y[2]], 10000)#radius)
 
-	#rad = within_rad(city, [x[0] for x in accommodations], [x[0] for x in restaurants], [x[0] for x in attractions], 10000)
+	# if request.args.get('preference') is 'accommodations':
+	# 	y = [accommodations, restaurants, attractions]
+	# elif request.args.get('preference') is 'restaurants':
+	# 	y = [restaurants, accommodations, attractions]
+	# else:
+	# 	y = [attractions, restaurants, accommodations]
+	# # r = request.args.get('radius')
+	# # radius = 1000 if r is None else r
+	# rad = within_rad(city, [x[0] for x in y[0]], [x[0] for x in y[1]], [x[0] for x in y[2]], 10000)#radius)
+
+	rad = within_rad(city, [x[0] for x in accommodations], [x[0] for x in restaurants], [x[0] for x in attractions], 10000)
 	output_message =""# "Your itinerary options"
 	data = []
 	accommodations = list(filter(lambda x: rad[x[0]]['restaurants'] or rad[x[0]]['attractions'], accommodations)) #filters out accommodations w no restaurants
