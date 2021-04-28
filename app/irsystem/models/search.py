@@ -103,7 +103,7 @@ def get_matchings_cos_sim(city, category, query):
     return ranked_translated
     
 
-def within_rad(city, top_hotels, top_rests, top_attract, radius):  # top_attract,
+def within_rad(city, top_hotels, top_rests, top_attract, radius, order):  # top_attract,
     with open('app/irsystem/models/inverted-index.json') as f:
         inv_ind = json.load(f)
     with open('app/irsystem/models/distance-matrices.json') as f:
@@ -113,12 +113,14 @@ def within_rad(city, top_hotels, top_rests, top_attract, radius):  # top_attract
         print(city)
         restaurants = []
         for r in top_rests:
-            dist = distances[city]['restaurant'][inv_ind[city]['restaurant'][r]][inv_ind[city]['accommodation'][h]]
+            dist = distances[city][order[1]][inv_ind[city][order[1]][r]][inv_ind[city][order[0]][h]]
+           #dist = distances[city]['restaurant'][inv_ind[city]['restaurant'][r]][inv_ind[city]['accommodation'][h]]
             if dist <= radius:
                 restaurants.append(r)
         attractions = []
         for a in top_attract:
-            dist = distances[city]['attraction'][inv_ind[city]['attraction'][a]][inv_ind[city]['accommodation'][h]]
+            dist = distances[city][order[2]][inv_ind[city][order[2]][a]][inv_ind[city][order[0]][h]]
+            #dist = distances[city]['attraction'][inv_ind[city]['attraction'][a]][inv_ind[city]['accommodation'][h]]
             if dist <= radius:
                 attractions.append(a)
         within_rad[h] = {'restaurants': restaurants, 'attractions': attractions}

@@ -37,20 +37,60 @@ def search():
 		accommodations = []
 		attractions = []
 
-	# if request.args.get('preference') is 'accommodations':
-	# 	y = [accommodations, restaurants, attractions]
+	# if request.args.get('preference') is 'attractions':
+	# 	y = [attractions, restaurants, accommodations]
 	# elif request.args.get('preference') is 'restaurants':
 	# 	y = [restaurants, accommodations, attractions]
 	# else:
-	# 	y = [attractions, restaurants, accommodations]
-	# # r = request.args.get('radius')
-	# # radius = 1000 if r is None else r
-	# rad = within_rad(city, [x[0] for x in y[0]], [x[0] for x in y[1]], [x[0] for x in y[2]], 10000)#radius)
+	# 	y = [accommodations, restaurants, attractions]
 
-	rad = within_rad(city, [x[0] for x in accommodations], [x[0] for x in restaurants], [x[0] for x in attractions], 10000)
+	r = request.args.get('distance')
+	radius = 1000 if r is None or r == '' else int(r)
+	#rad = within_rad(city, [x[0] for x in y[0]], [x[0] for x in y[1]], [x[0] for x in y[2]], radius)
+	rad = within_rad(city, [x[0] for x in accommodations], [x[0] for x in restaurants], [x[0] for x in attractions], radius)
+
 	output_message =""# "Your itinerary options"
 	data = []
-	accommodations = list(filter(lambda x: rad[x[0]]['restaurants'] or rad[x[0]]['attractions'], accommodations)) #filters out accommodations w no restaurants
+	# if request.args.get('preference') == 'attractions':
+	# 	order = ['attraction', 'accommodation','attraction']
+	# 	rad = within_rad(city, [x[0] for x in attractions], [x[0] for x in restaurants], [x[0] for x in accommodations],
+	# 					 radius, order)
+	# 	results = list(filter(lambda x: rad[x[0]]['restaurants'] or rad[x[0]]['attractions'], accommodations))
+	# 	for i, a in enumerate(results[:5]):
+	# 		data.append([f"Itinerary #{i + 1}"])
+	# 		data.append(f"Attraction: {a[0]}")
+	# 		data.append("Restaurants:")
+	# 		data += rad[a[0]]['restaurants'][:10]
+	# 		data.append("Accommodations:")
+	# 		data += rad[a[0]]['attractions'][:10]
+	# 		data.append("")
+	# elif request.args.get('preference') == 'restaurants':
+	# 	order = ['restaurant', 'accommodation', 'attraction']
+	# 	rad = within_rad(city, [x[0] for x in restaurants], [x[0] for x in accommodations], [x[0] for x in attractions],
+	# 					 radius)
+	# 	results = list(filter(lambda x: rad[x[0]]['restaurants'] or rad[x[0]]['attractions'], accommodations))
+	# 	for i, a in enumerate(results[:5]):
+	# 		data.append([f"Itinerary #{i + 1}"])
+	# 		data.append(f"Restaurant: {a[0]}")
+	# 		data.append("Accommodations:")
+	# 		data += rad[a[0]]['restaurants'][:10]
+	# 		data.append("Attractions:")
+	# 		data += rad[a[0]]['attractions'][:10]
+	# 		data.append("")
+	# else:
+	# 	rad = within_rad(city, [x[0] for x in accommodations], [x[0] for x in restaurants], [x[0] for x in attractions],
+	# 					 radius)
+	# 	results = list(filter(lambda x: rad[x[0]]['restaurants'] or rad[x[0]]['attractions'], accommodations)) #filters out accommodations w no restaurants
+	# 	for i, a in enumerate(results[:5]):
+	# 		data.append([f"Itinerary #{i + 1}"])
+	# 		data.append(f"Accommodation: {a[0]}")
+	# 		data.append("Restaurants:")
+	# 		data += rad[a[0]]['restaurants'][:10]
+	# 		data.append("Attractions:")
+	# 		data += rad[a[0]]['attractions'][:10]
+	# 		data.append("")
+
+	accommodations = list(filter(lambda x: rad[x[0]]['restaurants'] or rad[x[0]]['attractions'], accommodations))  # filters out accommodations w no restaurants
 	for i, a in enumerate(accommodations[:5]):
 		data.append([f"Itinerary #{i + 1}"])
 		data.append(f"Accommodation: {a[0]}")
@@ -59,6 +99,7 @@ def search():
 		data.append("Attractions:")
 		data += rad[a[0]]['attractions'][:10]
 		data.append("")
+
 
 
 	return render_template('search2.html', name=project_name, netid=net_id, output_message=output_message, data=data)
