@@ -14,7 +14,7 @@ def negate_words(review_words):
       del review_words[ind]
       ants = dictionary.antonym(review_words[ind])
       if ants:
-        review_words[ind] = dictionary.antonym(review_words[ind])[0]
+        review_words[ind] = ants[0]
       else:
         del review_words[ind]
         ind -= 1
