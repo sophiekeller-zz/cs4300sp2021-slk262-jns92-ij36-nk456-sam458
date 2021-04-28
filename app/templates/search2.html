@@ -22,11 +22,18 @@
             your dream city
         </h1>
         <select name="city" id="city-select">
+            <option value ="none"></option>
             <option value="amsterdam">Amsterdam</option>
             <option value="barcelona">Barcelona</option>
             <option value="berlin">Berlin</option>
             <option value="dubai">Dubai</option>
             <option value="london">London</option>
+        </select>
+        <select name="preference" id="preference-select">
+            <option value ="none"></option>
+            <option value="accommodations">Accommodations</option>
+            <option value="restaurants">Restaurants</option>
+            <option value="attractions">Attractions</option>
         </select>
         <label class="form">
             <text class="text">Accommodation Keywords</text>
@@ -41,19 +48,22 @@
             <text class="text">Attraction Keywords</text>
             <input id="input" type="text" class="inputText" name="attraction" placeholder="Your Input">
         </label>
-
+          <label class="formDistance">
+            <text class="text">Radius</text>
+            <input id="input" type="number" class="inputText" name="distance" placeholder="Distance in Meters">
+        </label>
 
 
         <button type="submit" class="btn btn-info"> Go! </button>
     </form>
 
-    <form class="form-inline global-search">
+<!--    <form class="form-inline global-search">-->
 
-        <br><br>
+<!--        <br><br>-->
 
 
 
-    </form>
+<!--    </form>-->
     <form class="form-inline global-search">
         {% if data %}
         <h1>{{output_message}}</h1>
@@ -63,7 +73,7 @@
         {% endfor %}
         {% endif %}
     </form>
-    <div class="plane" id="plane"></div>
+<!--    <div class="plane" id="plane"></div>-->
 </body>
 
 </html>

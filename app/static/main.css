@@ -45,6 +45,12 @@
   top: 280px;
   left: 930px;
 }
+.formDistance {
+  color: #ffffff;
+  position: absolute;
+  top: 330px;
+  left: 250px;
+}
 
 .text {
   font-family: sans-serif;
