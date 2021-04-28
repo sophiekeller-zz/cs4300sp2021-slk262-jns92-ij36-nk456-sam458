@@ -7,6 +7,10 @@ from PyDictionary import PyDictionary
 from sklearn.feature_extraction.text import TfidfVectorizer
 import numpy as np
 
+from nltk import PorterStemmer
+
+porter = PorterStemmer()
+
 dictionary=PyDictionary()
 
 
@@ -27,14 +31,26 @@ def get_query_antonyms(query):
     antonyms = []
     synonyms = []
     for q in query.split(" "):
-        synonyms += dictionary.synonym(q)[:10]
-        antonyms += dictionary.antonym(q)[:10]
-    print(synonyms)
+        if not dictionary.synonym(q):
+            synonyms += [q]
+            antonyms += [q]
+        else:
+            synonyms += dictionary.synonym(q)[:10]
+            antonyms += dictionary.antonym(q)[:10]
+    # print(synonyms)
     antonyms = " ".join(antonyms)
     synonyms = " ".join(synonyms)
 
     return antonyms, synonyms
 
+def stem_sentence(sentence): 
+  tokens = sentence.split(" ")
+  stemmed_sentence = ""
+  for tok in tokens: 
+    stemmed_sentence += porter.stem(tok) + " "
+  return stemmed_sentence
+
+# print(get_query_antonyms("nice bad"))
 
 def get_cos_sim(query, reviews):
     """Returns the cosine similarity of two movie scripts.
@@ -53,34 +69,39 @@ def get_cos_sim(query, reviews):
 
 
 def get_matchings_cos_sim(city, category, query):
-    with open('app/irsystem/models/tokens_mapping.json') as f:
+    # with open('tokens_mapping.json') as f:
+    #     tokens_map = json.load(f)
+    query = stem_sentence(query)
+
+    with open('stemmed_mapping.json') as f:
         tokens_map = json.load(f)
-    with open('app/irsystem/models/ranking_mapping.json') as f:
+    with open('ranking_mapping.json') as f:
         rankings_map = json.load(f)
-        if not query:
-            return sorted(tokens_map[city][category].items(), key=lambda x: x[1], reverse=True)
+    if not query:
+        return sorted(tokens_map[city][category].items(), key=lambda x: x[1], reverse=True)
 
-        query_antonyms, query_synonyms = get_query_antonyms(query)
+    query_antonyms, query_synonyms = get_query_antonyms(query)
 
-        # list of all review strings (each place has a single review string of all reviews) with
-        # the query string as the last vector
-        to_vectorize = [tokens_map[city][category][x] for x in tokens_map[city][category]]  + [query_antonyms] + [query_synonyms]
-        tfidf_vec = build_vectorizer()
-        tfidf_mat = tfidf_vec.fit_transform(to_vectorize).toarray()
-        vocab = tfidf_vec.get_feature_names()
+    # list of all review strings (each place has a single review string of all reviews) with
+    # the query string as the last vector
+    to_vectorize = [tokens_map[city][category][x] for x in tokens_map[city][category]]  + [query_antonyms] + [query_synonyms]
+    tfidf_vec = build_vectorizer()
+    tfidf_mat = tfidf_vec.fit_transform(to_vectorize).toarray()
+    vocab = tfidf_vec.get_feature_names()
 
 
-        # calculate cosine sims between each place's tf-idf vector and the query string vector
-        cos_sims = [get_cos_sim(tfidf_mat[i], tfidf_mat[-1]) - get_cos_sim(tfidf_mat[i], tfidf_mat[-2]) for i in range(len(tfidf_mat)- 2)]
-        sims_idx = [(i, sim) for i, sim in enumerate(cos_sims)]
-        ranked = sorted(sims_idx, key=lambda x: x[1], reverse=True)  # slice off query
+    # calculate cosine sims between each place's tf-idf vector and the query string vector
+    cos_sims = [get_cos_sim(tfidf_mat[i], tfidf_mat[-1]) - get_cos_sim(tfidf_mat[i], tfidf_mat[-2]) for i in range(len(tfidf_mat)- 2)]
+    sims_idx = [(i, sim) for i, sim in enumerate(cos_sims)]
+    ranked = sorted(sims_idx, key=lambda x: x[1], reverse=True)  # slice off query
 
-        # translate from id's to names
-        keys = list(tokens_map[city][category].keys())
+    # translate from id's to names
+    keys = list(tokens_map[city][category].keys())
 
-        ranked_translated = [(keys[x[0]], x[1]) for x in ranked]
+    ranked_translated = [(keys[x[0]], x[1]) for x in ranked]
 
-        return ranked_translated
+    return ranked_translated
+    
 
 def within_rad(city, top_hotels, top_rests, top_attract, radius):  # top_attract,
     with open('app/irsystem/models/inverted-index.json') as f:
