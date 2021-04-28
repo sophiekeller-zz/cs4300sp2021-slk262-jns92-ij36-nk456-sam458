@@ -26,13 +26,19 @@ def search():
 	restaurant_query = request.args.get('restaurant')
 	accommodation_query = request.args.get('accommodation')
 	attraction_query = request.args.get('attraction')
-	city = 'amsterdam' if request.args.get('city') is None else request.args.get('city')
-	restaurants = get_matchings_cos_sim(city, "restaurant", restaurant_query)
-	accommodations = get_matchings_cos_sim(city, "accommodation", accommodation_query)
-	attractions = get_matchings_cos_sim(city, "attraction", attraction_query)
+	if request.args.get('city') is not None:
+		city = request.args.get('city')
+		restaurants = get_matchings_cos_sim(city, "restaurant", restaurant_query)
+		accommodations = get_matchings_cos_sim(city, "accommodation", accommodation_query)
+		attractions = get_matchings_cos_sim(city, "attraction", attraction_query)
+	else:
+		city = ''
+		restaurants = []
+		accommodations = []
+		attractions = []
 
 	rad = within_rad(city, [x[0] for x in accommodations], [x[0] for x in restaurants], [x[0] for x in attractions], 10000)
-	output_message = "Your itinerary options"
+	output_message =""# "Your itinerary options"
 	data = []
 	accommodations = list(filter(lambda x: rad[x[0]]['restaurants'] or rad[x[0]]['attractions'], accommodations)) #filters out accommodations w no restaurants
 	for i, a in enumerate(accommodations[:5]):
@@ -43,5 +49,6 @@ def search():
 		data.append("Attractions:")
 		data += rad[a[0]]['attractions'][:10]
 		data.append("")
+
 
 	return render_template('search2.html', name=project_name, netid=net_id, output_message=output_message, data=data)

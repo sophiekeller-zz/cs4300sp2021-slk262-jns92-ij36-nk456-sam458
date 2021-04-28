@@ -22,6 +22,7 @@
             your dream city
         </h1>
         <select name="city" id="city-select">
+            <option value ="none"></option>
             <option value="amsterdam">Amsterdam</option>
             <option value="barcelona">Barcelona</option>
             <option value="berlin">Berlin</option>
@@ -47,13 +48,13 @@
         <button type="submit" class="btn btn-info"> Go! </button>
     </form>
 
-    <form class="form-inline global-search">
+<!--    <form class="form-inline global-search">-->
 
-        <br><br>
+<!--        <br><br>-->
 
 
 
-    </form>
+<!--    </form>-->
     <form class="form-inline global-search">
         {% if data %}
         <h1>{{output_message}}</h1>
@@ -63,7 +64,7 @@
         {% endfor %}
         {% endif %}
     </form>
-    <div class="plane" id="plane"></div>
+<!--    <div class="plane" id="plane"></div>-->
 </body>
 
 </html>
