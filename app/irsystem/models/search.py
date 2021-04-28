@@ -6,10 +6,12 @@ import math
 from PyDictionary import PyDictionary
 from sklearn.feature_extraction.text import TfidfVectorizer
 import numpy as np
+import word_forms
+from word_forms.word_forms import get_word_forms
 
-from nltk import PorterStemmer
+# from nltk import PorterStemmer
 
-porter = PorterStemmer()
+# porter = PorterStemmer()
 
 dictionary=PyDictionary()
 
@@ -43,14 +45,21 @@ def get_query_antonyms(query):
 
     return antonyms, synonyms
 
-def stem_sentence(sentence): 
-  tokens = sentence.split(" ")
-  stemmed_sentence = ""
-  for tok in tokens: 
-    stemmed_sentence += porter.stem(tok) + " "
-  return stemmed_sentence
+def word_forms(word): 
+    dic = get_word_forms(word)
+    words = "" 
+    for form in dic: 
+        for w in dic[form]: 
+            words += w + " "
+    return words
 
-# print(get_query_antonyms("nice bad"))
+def many_word_forms(query): 
+    words = "" 
+    query = query.split(" ")
+    for tok in query: 
+        words += word_forms(tok)
+    return words
+
 
 def get_cos_sim(query, reviews):
     """Returns the cosine similarity of two movie scripts.
@@ -69,22 +78,24 @@ def get_cos_sim(query, reviews):
 
 
 def get_matchings_cos_sim(city, category, query):
-    # with open('tokens_mapping.json') as f:
-    #     tokens_map = json.load(f)
-    query = stem_sentence(query)
-
-    with open('app/irsystem/models/stemmed_mapping.json') as f:
+    with open('tokens_mapping.json') as f:
         tokens_map = json.load(f)
-    with open('app/irsystem/models/ranking_mapping.json') as f:
+
+    # with open('app/irsystem/models/stemmed_mapping.json') as f:
+    #     tokens_map = json.load(f)
+    with open('ranking_mapping.json') as f:
         rankings_map = json.load(f)
     if not query:
         return sorted(tokens_map[city][category].items(), key=lambda x: x[1], reverse=True)
 
     query_antonyms, query_synonyms = get_query_antonyms(query)
 
+    synonyms_forms = many_word_forms(query_synonyms)
+    antonyms_forms = many_word_forms(query_antonyms)
+
     # list of all review strings (each place has a single review string of all reviews) with
     # the query string as the last vector
-    to_vectorize = [tokens_map[city][category][x] for x in tokens_map[city][category]]  + [query_antonyms] + [query_synonyms]
+    to_vectorize = [tokens_map[city][category][x] for x in tokens_map[city][category]]  + [antonyms_forms] + [synonyms_forms]
     tfidf_vec = build_vectorizer()
     tfidf_mat = tfidf_vec.fit_transform(to_vectorize).toarray()
     vocab = tfidf_vec.get_feature_names()
