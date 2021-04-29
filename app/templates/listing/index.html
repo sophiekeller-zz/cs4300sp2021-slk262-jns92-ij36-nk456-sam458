@@ -277,12 +277,12 @@
 									<a href="#">
 										<span class="fh5co-date">Sep. 10, 2016</span>
 										<h3>{{d['title']}}</h3>
-										<p>Accommodation: {{d['accommodation']}}</p>
-										<p>Restaurants:</p>
+										<p style = "display: inline">Accommodation: {{d['accommodation']}}</p>
+										<p style = "display: inline; margin-left: 120px">Restaurants:</p>
 										{% for rest in d['restaurants'] %}
-										<p>{{rest}}</p>
+										<p style = "display: inline; margin-left: 335px; white-space: nowrap;">{{rest}}</p>
 										{% endfor %}
-										<p>Attractions:</p>
+										<p style = "display: inline; margin-bottom: 100px; margin-left: 120px">Attractions:</p>
 										{% for attr in d['attractions'] %}
 										<p>{{attr}}</p>
 										{% endfor %}
@@ -292,12 +292,12 @@
 								{% endif %}
 							</ul>
 						</div>
-						<div class="col-md-6 fh5co-testimonial">
+						<!-- <div class="col-md-6 fh5co-testimonial">
 							<img src="/static/images/cover_bg_1.jpg" alt="Free HTML5 Bootstrap Template by FreeHTML5.co"
 								class="img-responsive mb20">
 							<img src="/static/images/cover_bg_1.jpg" alt="Free HTML5 Bootstrap Template by FreeHTML5.co"
 								class="img-responsive">
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>

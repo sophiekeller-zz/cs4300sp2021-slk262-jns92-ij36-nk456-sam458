@@ -1,7 +1,11 @@
 @font-face {
-  font-family: 'icomoon';
+  font-family: "icomoon";
   src: url("../fonts/icomoon/icomoon.eot?srf3rx");
-  src: url("../fonts/icomoon/icomoon.eot?srf3rx#iefix") format("embedded-opentype"), url("../fonts/icomoon/icomoon.ttf?srf3rx") format("truetype"), url("../fonts/icomoon/icomoon.woff?srf3rx") format("woff"), url("../fonts/icomoon/icomoon.svg?srf3rx#icomoon") format("svg");
+  src: url("../fonts/icomoon/icomoon.eot?srf3rx#iefix")
+      format("embedded-opentype"),
+    url("../fonts/icomoon/icomoon.ttf?srf3rx") format("truetype"),
+    url("../fonts/icomoon/icomoon.woff?srf3rx") format("woff"),
+    url("../fonts/icomoon/icomoon.svg?srf3rx#icomoon") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -11,6 +15,11 @@
 *	Edit this section
 *
 * ======================================================= */
+
+/* .restaurant_pos {
+  text-align: center;
+} */
+
 body {
   font-family: "Raleway", Arial, sans-serif;
   line-height: 1.6;
@@ -35,14 +44,21 @@ a:hover {
   color: #fff !important;
 }
 
-p, ul, ol {
+p,
+ul,
+ol {
   margin-bottom: 1.5em;
   font-size: 16px;
   color: #848484;
   font-family: "Raleway", Arial, sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: #5a5a5a;
   font-family: "Raleway", Arial, sans-serif;
   font-weight: 400;
@@ -55,17 +71,17 @@ figure {
 
 ::-webkit-selection {
   color: #fcfcfc;
-  background: #264E86;
+  background: #264e86;
 }
 
 ::-moz-selection {
   color: #fcfcfc;
-  background: #264E86;
+  background: #264e86;
 }
 
 ::selection {
   color: #fcfcfc;
-  background: #264E86;
+  background: #264e86;
 }
 
 #fh5co-header {
@@ -124,8 +140,8 @@ figure {
 }
 .fh5co-cover .btn {
   padding: 1em 3em;
-  opacity: .9;
-  background: #83CC61 !important;
+  opacity: 0.9;
+  background: #83cc61 !important;
 }
 .fh5co-cover.fh5co-cover_2 {
   height: 600px;
@@ -174,10 +190,12 @@ figure {
 .fh5co-cover .desc span a {
   color: #fff;
 }
-.fh5co-cover .desc span a:hover, .fh5co-cover .desc span a:focus {
+.fh5co-cover .desc span a:hover,
+.fh5co-cover .desc span a:focus {
   color: #fff !important;
 }
-.fh5co-cover .desc span a:hover.btn, .fh5co-cover .desc span a:focus.btn {
+.fh5co-cover .desc span a:hover.btn,
+.fh5co-cover .desc span a:focus.btn {
   border: 2px solid #fff !important;
   background: transparent !important;
 }
@@ -273,7 +291,12 @@ figure {
   -o-transition: 0.2s;
   transition: 0.2s;
 }
-.fh5co-listing .fh5co-item-wrap .fh5co-listing-item .fh5co-listing-copy .icon i {
+.fh5co-listing
+  .fh5co-item-wrap
+  .fh5co-listing-item
+  .fh5co-listing-copy
+  .icon
+  i {
   color: #fff;
 }
 .fh5co-listing .fh5co-item-wrap .fh5co-listing-item:hover img {
@@ -288,10 +311,18 @@ figure {
   -moz-box-shadow: inset 0px -126px 311px -69px rgba(0, 0, 0, 0.95);
   box-shadow: inset 0px -126px 311px -69px rgba(0, 0, 0, 0.95);
 }
-.fh5co-listing .fh5co-item-wrap .fh5co-listing-item:hover .fh5co-listing-copy h2 {
+.fh5co-listing
+  .fh5co-item-wrap
+  .fh5co-listing-item:hover
+  .fh5co-listing-copy
+  h2 {
   margin-left: 10px;
 }
-.fh5co-listing .fh5co-item-wrap .fh5co-listing-item:hover .fh5co-listing-copy .icon {
+.fh5co-listing
+  .fh5co-item-wrap
+  .fh5co-listing-item:hover
+  .fh5co-listing-copy
+  .icon {
   margin-right: 10px;
 }
 
@@ -315,7 +346,7 @@ figure {
   text-transform: uppercase;
   font-size: 12px;
   font-weight: bold;
-  letter-spacing: .08em;
+  letter-spacing: 0.08em;
   display: block;
   margin-bottom: 10px;
 }
@@ -338,8 +369,6 @@ figure {
   float: right;
 }
 
-
-
 .sf-menu ul {
   box-shadow: none;
   border: transparent;
@@ -359,11 +388,13 @@ figure {
   font-size: 16px;
   border-bottom: none !important;
 }
-.sf-menu a:hover, .sf-menu a:focus {
+.sf-menu a:hover,
+.sf-menu a:focus {
   color: #fff !important;
 }
 
-.sf-menu li.active a:hover, .sf-menu li.active a:focus {
+.sf-menu li.active a:hover,
+.sf-menu li.active a:focus {
   color: #fff;
 }
 
@@ -406,7 +437,7 @@ figure {
 }
 
 .sf-arrows .sf-with-ul:after {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   right: 1em;
@@ -474,7 +505,8 @@ figure {
 #fh5co-logo a {
   color: #fff;
 }
-#fh5co-logo a:hover, #fh5co-logo a:focus {
+#fh5co-logo a:hover,
+#fh5co-logo a:focus {
   color: #fff !important;
 }
 
@@ -486,15 +518,15 @@ figure {
   margin-top: 15px;
 }
 #fh5co-menu-wrap .sf-menu a {
-  padding: 1em .75em;
+  padding: 1em 0.75em;
 }
 
 #fh5co-primary-menu > li > ul li.active > a {
-  color: #264E86 !important;
+  color: #264e86 !important;
 }
 #fh5co-primary-menu > li > .sf-with-ul:after {
   border: none !important;
-  font-family: 'icomoon';
+  font-family: "icomoon";
   speak: none;
   font-style: normal;
   font-weight: normal;
@@ -517,7 +549,7 @@ figure {
 }
 #fh5co-primary-menu > li > ul li > .sf-with-ul:after {
   border: none !important;
-  font-family: 'icomoon';
+  font-family: "icomoon";
   speak: none;
   font-style: normal;
   font-weight: normal;
@@ -560,7 +592,7 @@ figure {
   left: 20px;
   width: 0;
   height: 0;
-  content: '';
+  content: "";
 }
 
 #fh5co-primary-menu .fh5co-sub-menu:after {
@@ -573,7 +605,7 @@ figure {
   border-bottom: 8px solid #fff;
   border-bottom: 8px solid white;
   border-left: 8px solid transparent;
-  content: '';
+  content: "";
 }
 
 #fh5co-primary-menu .fh5co-sub-menu .fh5co-sub-menu:before {
@@ -609,7 +641,7 @@ figure {
   background: none;
 }
 #fh5co-primary-menu .fh5co-sub-menu a:hover {
-  color: #264E86 !important;
+  color: #264e86 !important;
 }
 
 .heading-section {
@@ -618,13 +650,13 @@ figure {
 }
 .heading-section:after {
   position: absolute;
-  content: '';
+  content: "";
   bottom: 0;
   left: 50%;
   width: 100px;
   margin-left: -50px;
   height: 2px;
-  background: #264E86;
+  background: #264e86;
 }
 .heading-section h3 {
   font-size: 40px;
@@ -647,7 +679,7 @@ figure {
 }
 #fh5co-contact .contact-info li i {
   position: absolute;
-  top: .3em;
+  top: 0.3em;
   left: 0;
   font-size: 22px;
   color: rgba(255, 255, 255, 0.3);
@@ -673,7 +705,8 @@ figure {
   -ms-border-radius: 0px;
   border-radius: 0px;
 }
-#fh5co-contact .form-control:focus, #fh5co-contact .form-control:active {
+#fh5co-contact .form-control:focus,
+#fh5co-contact .form-control:active {
   border: 1px solid rgba(255, 255, 255, 0.5);
 }
 #fh5co-contact input[type="text"] {
@@ -683,7 +716,7 @@ figure {
   margin-bottom: 30px;
 }
 #fh5co-contact .btn {
-  background: #83CC61;
+  background: #83cc61;
 }
 
 #map {
@@ -699,12 +732,14 @@ figure {
 
 .fh5co-social-icons > a {
   padding: 4px 10px;
-  color: #264E86;
+  color: #264e86;
 }
 .fh5co-social-icons > a i {
   font-size: 26px;
 }
-.fh5co-social-icons > a:hover, .fh5co-social-icons > a:focus, .fh5co-social-icons > a:active {
+.fh5co-social-icons > a:hover,
+.fh5co-social-icons > a:focus,
+.fh5co-social-icons > a:active {
   text-decoration: none;
   color: #5a5a5a;
 }
@@ -723,7 +758,9 @@ figure {
 #footer p a {
   color: rgba(255, 255, 255, 0.5);
 }
-#footer p a:hover, #footer p a:active, #footer p a:focus {
+#footer p a:hover,
+#footer p a:active,
+#footer p a:focus {
   color: rgba(255, 255, 255, 0.9) !important;
 }
 
@@ -741,22 +778,28 @@ figure {
   transition: 0.3s;
 }
 .btn.btn-primary {
-  background: #264E86;
+  background: #264e86;
   color: #fff;
   border: none !important;
   border: 2px solid transparent !important;
 }
-.btn.btn-primary:hover, .btn.btn-primary:active, .btn.btn-primary:focus {
+.btn.btn-primary:hover,
+.btn.btn-primary:active,
+.btn.btn-primary:focus {
   box-shadow: none;
-  background: #264E86;
+  background: #264e86;
   color: #fff !important;
 }
-.btn:hover, .btn:active, .btn:focus {
+.btn:hover,
+.btn:active,
+.btn:focus {
   background: #393e46 !important;
   color: #fff;
   outline: none !important;
 }
-.btn.btn-default:hover, .btn.btn-default:focus, .btn.btn-default:active {
+.btn.btn-default:hover,
+.btn.btn-default:focus,
+.btn.btn-default:active {
   border-color: transparent;
 }
 
@@ -841,13 +884,17 @@ figure {
   cursor: pointer;
   text-decoration: none;
 }
-.fh5co-nav-toggle.active i::before, .fh5co-nav-toggle.active i::after {
+.fh5co-nav-toggle.active i::before,
+.fh5co-nav-toggle.active i::after {
   background: #fff;
 }
-.fh5co-nav-toggle.dark.active i::before, .fh5co-nav-toggle.dark.active i::after {
+.fh5co-nav-toggle.dark.active i::before,
+.fh5co-nav-toggle.dark.active i::after {
   background: #fff;
 }
-.fh5co-nav-toggle:hover, .fh5co-nav-toggle:focus, .fh5co-nav-toggle:active {
+.fh5co-nav-toggle:hover,
+.fh5co-nav-toggle:focus,
+.fh5co-nav-toggle:active {
   outline: none;
   border-bottom: none !important;
 }
@@ -860,14 +907,15 @@ figure {
   width: 30px;
   height: 2px;
   color: #fff;
-  font: bold 14px/.4 Helvetica;
+  font: bold 14px/0.4 Helvetica;
   text-transform: uppercase;
   text-indent: -55px;
   background: #fff;
-  transition: all .2s ease-out;
+  transition: all 0.2s ease-out;
 }
-.fh5co-nav-toggle i::before, .fh5co-nav-toggle i::after {
-  content: '';
+.fh5co-nav-toggle i::before,
+.fh5co-nav-toggle i::after {
+  content: "";
   width: 30px;
   height: 2px;
   background: #fff;
@@ -881,9 +929,10 @@ figure {
   position: relative;
   color: #000;
   background: #000;
-  transition: all .2s ease-out;
+  transition: all 0.2s ease-out;
 }
-.fh5co-nav-toggle.dark i::before, .fh5co-nav-toggle.dark i::after {
+.fh5co-nav-toggle.dark i::before,
+.fh5co-nav-toggle.dark i::after {
   background: #000;
   -webkit-transition: 0.2s;
   -o-transition: 0.2s;
