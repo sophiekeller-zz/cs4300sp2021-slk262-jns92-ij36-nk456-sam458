@@ -77,7 +77,7 @@ def cosineSim(city, category, query):
         rankings_map = json.load(f)
     if not query:
         return sorted(rankings_map[city][category].items(), key=lambda x: x[1], reverse=True)
-    print(query)
+
     vec, doc_vectorizer_array = precomp.vec_arr_dict[city][category]
     reverse_index = precomp.reverse_dict[city][category]
     
@@ -91,8 +91,7 @@ def cosineSim(city, category, query):
     ants_vectorizer_array = np.zeros((doc_vectorizer_array.shape[1],))
     # feature_list = vec.get_feature_names()
 
-    print(synonyms_forms)
-    print(reverse_index)
+
     for w in synonyms_forms:
         idx = reverse_index.get(w, -1)
 
@@ -110,11 +109,9 @@ def cosineSim(city, category, query):
     if query_vectorizer_array.sum() == 0:
         return []
 
-    print("didnt return")
     num = query_vectorizer_array.dot(doc_vectorizer_array.T)
     denom = LA.norm(query_vectorizer_array)*LA.norm(doc_vectorizer_array,axis=1)
     sim = num/denom
-    print(len(sim))
 
     num2 = ants_vectorizer_array.dot(doc_vectorizer_array.T)
     denom2 = LA.norm(ants_vectorizer_array)*LA.norm(doc_vectorizer_array,axis=1)
