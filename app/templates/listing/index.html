@@ -167,10 +167,12 @@
 									placeholder="Your Input">
 							</label>
 							<label>Restaurant Keywords
-								<input id="fh5co-contact" type="text" name="restaurant" class="form-control" placeholder="Your Input">
+								<input id="fh5co-contact" type="text" name="restaurant" class="form-control"
+									placeholder="Your Input">
 							</label>
 							<label>Attraction Keywords
-								<input id="fh5co-contact" type="text" name="attraction" class="form-control" placeholder="Your Input">
+								<input id="fh5co-contact" type="text" name="attraction" class="form-control"
+									placeholder="Your Input">
 							</label>
 							<button type="submit" class="btn btn-info"> Go! </button>
 						</form>
@@ -192,7 +194,13 @@
 									<span class="icon">
 										<i class="icon-chevron-right"></i>
 									</span>
-<!--									<a href='./listing/itinerary.html?data=@data[0]' class="btn btn-info" role="button">Go</a>-->
+									<!-- <a href='0.0.0.0:5000/app/templates/listing/itinerary.html?data=@data[0]'
+										class="btn btn-info" role="button">Go</a> -->
+									<!-- <input type="button"
+										onclick="location.href='./app/templates/listing/itinerary.html'"
+										value="Contact" /> -->
+									<button onclick="window.location.href = './listing/itinerary.html';">Go</button>
+
 								</form>
 							</a>
 						</div>
@@ -267,6 +275,8 @@
 			</div>
 
 
+
+
 			<div class="fh5co-section">
 				<div class="container">
 					<div class="row">
@@ -277,17 +287,24 @@
 								{% for d in data %}
 								<li>
 									<a href="#">
-										<span class="fh5co-date">Sep. 10, 2016</span>
+										<span class="fh5co-date"></span>
 										<h3>{{d['title']}}</h3>
-										<p style = "display: inline">Accommodation: {{d['accommodation']}}</p>
-										<p style = "display: inline; margin-left: 120px">Restaurants:</p>
+										<p style="display: inline">Accommodation: {{d['accommodation']}}</p>
+										<p style="display: inline; margin-left: 120px">Restaurants:</p>
 										{% for rest in d['restaurants'] %}
-										<p style = "display: inline; margin-left: 335px; white-space: nowrap;">{{rest}}</p>
+										<p style="display: inline; margin-left: 335px; white-space: nowrap;">{{rest}}
+										</p>
 										{% endfor %}
-										<p style = "display: inline; margin-bottom: 100px; margin-left: 120px">Attractions:</p>
+										<p style="display: inline; margin-left: 240px">Attractions:</p>
+										{% for attr in d['attractions'] %}
+										<p style="display: inline; margin-left: 335px; white-space: nowrap;">{{attr}}
+										</p>
+										{% endfor %}
+										<!-- <p style="display: inline; margin-bottom: 100px; margin-left: 120px">
+											Attractions:</p>
 										{% for attr in d['attractions'] %}
 										<p>{{attr}}</p>
-										{% endfor %}
+										{% endfor %} -->
 									</a>
 								</li>
 								{% endfor %}
@@ -316,9 +333,11 @@
 									<a href="#"><i class="icon-dribbble2"></i></a>
 									<a href="#"><i class="icon-youtube"></i></a>
 								</p>
-								<p>Copyright 2016 Free Html5 <a href="#">Listing</a>. All Rights Reserved. <br>Made with <i
-										class="icon-heart3"></i> by <a href="http://freehtml5.co/" target="_blank">Freehtml5.co</a> / Demo
-									Images: <a href="https://unsplash.com/" target="_blank">Unsplash</a></p>
+								<p>Copyright 2016 Free Html5 <a href="#">Listing</a>. All Rights Reserved. <br>Made with
+									<i class="icon-heart3"></i> by <a href="http://freehtml5.co/"
+										target="_blank">Freehtml5.co</a> / Demo
+									Images: <a href="https://unsplash.com/" target="_blank">Unsplash</a>
+								</p>
 							</div>
 						</div>
 					</div>
