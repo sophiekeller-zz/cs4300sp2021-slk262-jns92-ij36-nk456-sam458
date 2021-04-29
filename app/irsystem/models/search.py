@@ -78,12 +78,12 @@ def get_cos_sim(query, reviews):
 
 
 def get_matchings_cos_sim(city, category, query):
-    with open('tokens_mapping.json') as f:
+    with open('app/irsystem/models/tokens_mapping.json') as f:
         tokens_map = json.load(f)
 
     # with open('app/irsystem/models/stemmed_mapping.json') as f:
     #     tokens_map = json.load(f)
-    with open('ranking_mapping.json') as f:
+    with open('app/irsystem/models/ranking_mapping.json') as f:
         rankings_map = json.load(f)
     if not query:
         return sorted(tokens_map[city][category].items(), key=lambda x: x[1], reverse=True)
@@ -124,14 +124,14 @@ def within_rad(city, top_hotels, top_rests, top_attract, radius):  # top_attract
         print(city)
         restaurants = []
         for r in top_rests:
-            dist = distances[city][order[1]][inv_ind[city][order[1]][r]][inv_ind[city][order[0]][h]]
-           #dist = distances[city]['restaurant'][inv_ind[city]['restaurant'][r]][inv_ind[city]['accommodation'][h]]
+            #dist = distances[city][order[1]][inv_ind[city][order[1]][r]][inv_ind[city][order[0]][h]]
+            dist = distances[city]['restaurant'][inv_ind[city]['restaurant'][r]][inv_ind[city]['accommodation'][h]]
             if dist <= radius:
                 restaurants.append(r)
         attractions = []
         for a in top_attract:
-            dist = distances[city][order[2]][inv_ind[city][order[2]][a]][inv_ind[city][order[0]][h]]
-            #dist = distances[city]['attraction'][inv_ind[city]['attraction'][a]][inv_ind[city]['accommodation'][h]]
+            #dist = distances[city][order[2]][inv_ind[city][order[2]][a]][inv_ind[city][order[0]][h]]
+            dist = distances[city]['attraction'][inv_ind[city]['attraction'][a]][inv_ind[city]['accommodation'][h]]
             if dist <= radius:
                 attractions.append(a)
         within_rad[h] = {'restaurants': restaurants, 'attractions': attractions}

@@ -338,6 +338,8 @@ figure {
   float: right;
 }
 
+
+
 .sf-menu ul {
   box-shadow: none;
   border: transparent;
@@ -664,6 +666,7 @@ figure {
   border: 1px solid rgba(255, 255, 255, 0.1);
   font-size: 18px;
   background: transparent;
+  background-color: transparent;
   font-weight: 400;
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;

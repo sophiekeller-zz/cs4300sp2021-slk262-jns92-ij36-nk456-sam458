@@ -92,13 +92,14 @@ def search():
 
 	accommodations = list(filter(lambda x: rad[x[0]]['restaurants'] or rad[x[0]]['attractions'], accommodations))  # filters out accommodations w no restaurants
 	for i, a in enumerate(accommodations[:5]):
-		data.append([f"Itinerary #{i + 1}"])
-		data.append(f"Accommodation: {a[0]}")
-		data.append("Restaurants:")
-		data += rad[a[0]]['restaurants'][:10]
-		data.append("Attractions:")
-		data += rad[a[0]]['attractions'][:10]
-		data.append("")
+		data.append({"title": f"Itinerary #{i + 1}", "accommodation": a[0], "restaurants": rad[a[0]]['restaurants'][:10], "attractions": rad[a[0]]['attractions'][:10]})
+		# data.append([f"Itinerary #{i + 1}"])
+		# data.append(f"Accommodation: {a[0]}")
+		# data.append("Restaurants:")
+		# data += rad[a[0]]['restaurants'][:10]
+		# data.append("Attractions:")
+		# data += rad[a[0]]['attractions'][:10]
+		# data.append("")
 
 
 
