@@ -5,9 +5,12 @@ import json
 import math
 from PyDictionary import PyDictionary
 from sklearn.feature_extraction.text import TfidfVectorizer
+import numpy.linalg as LA
+
 import numpy as np
-import word_forms
+# import word_forms
 from word_forms.word_forms import get_word_forms
+import app.irsystem.models.vectorizer as precomp
 
 # from nltk import PorterStemmer
 
@@ -17,16 +20,7 @@ dictionary=PyDictionary()
 
 
 
-def build_vectorizer(max_n_terms=5000, max_prop_docs=0.8, min_n_docs=0):
-    """Returns a TfidfVectorizer object with certain preprocessing properties.
-    
-    Params: {max_n_terms: Integer,
-             max_prop_docs: Float,
-             min_n_docs: Integer}
-    Returns: TfidfVectorizer
-    """
-    return TfidfVectorizer(min_df=0, max_df=max_prop_docs, max_features=max_n_terms,
-                           stop_words='english')
+
 
 
 def get_query_antonyms(query):
@@ -37,11 +31,11 @@ def get_query_antonyms(query):
             synonyms += [q]
             antonyms += [q]
         else:
-            synonyms += dictionary.synonym(q)[:10]
+            synonyms += dictionary.synonym(q)[:10] + [q]
             antonyms += dictionary.antonym(q)[:10]
     # print(synonyms)
     antonyms = " ".join(antonyms)
-    synonyms = " ".join(synonyms)
+    synonyms = " ".join(synonyms) 
 
     return antonyms, synonyms
 
@@ -75,6 +69,66 @@ def get_cos_sim(query, reviews):
     if numerator == 0 or denomenator == 0:
         return 0.0
     return numerator/ (np.linalg.norm(query) * np.linalg.norm(reviews))
+
+def cosineSim(city, category, query):
+    with open('app/irsystem/models/tokens_mapping.json') as f:
+        tokens_map = json.load(f)
+    with open('app/irsystem/models/ranking_mapping.json') as f:
+        rankings_map = json.load(f)
+    if not query:
+        return sorted(rankings_map[city][category].items(), key=lambda x: x[1], reverse=True)
+    print(query)
+    vec, doc_vectorizer_array = precomp.vec_arr_dict[city][category]
+    reverse_index = precomp.reverse_dict[city][category]
+    
+    query_antonyms, query_synonyms = get_query_antonyms(query)
+
+    synonyms_forms = many_word_forms(query_synonyms).split(" ")
+    antonyms_forms = many_word_forms(query_antonyms).split(" ")
+
+
+    query_vectorizer_array = np.zeros((doc_vectorizer_array.shape[1],))
+    ants_vectorizer_array = np.zeros((doc_vectorizer_array.shape[1],))
+    # feature_list = vec.get_feature_names()
+
+    print(synonyms_forms)
+    print(reverse_index)
+    for w in synonyms_forms:
+        idx = reverse_index.get(w, -1)
+
+        if idx > 0:
+            query_vectorizer_array[idx] += 1.0
+    
+    for w in antonyms_forms:
+        idx = reverse_index.get(w, -1)
+        if idx > 0:
+            ants_vectorizer_array[idx] += 1.0
+
+    query_vectorizer_array *= vec.idf_
+    ants_vectorizer_array *= vec.idf_
+    
+    if query_vectorizer_array.sum() == 0:
+        return []
+
+    print("didnt return")
+    num = query_vectorizer_array.dot(doc_vectorizer_array.T)
+    denom = LA.norm(query_vectorizer_array)*LA.norm(doc_vectorizer_array,axis=1)
+    sim = num/denom
+    print(len(sim))
+
+    num2 = ants_vectorizer_array.dot(doc_vectorizer_array.T)
+    denom2 = LA.norm(ants_vectorizer_array)*LA.norm(doc_vectorizer_array,axis=1)
+    sim2 = num2/denom2
+
+    final_sim = sim - sim2
+    sims_idx = [(i, sim) for i, sim in enumerate(final_sim)]
+    ranked = sorted(sims_idx, key=lambda x: x[1], reverse=True)  # slice off query
+    
+    keys = list(tokens_map[city][category].keys())
+
+    ranked_translated = [(keys[x[0]], x[1]) for x in ranked]
+
+    return ranked_translated
 
 
 def get_matchings_cos_sim(city, category, query):
@@ -121,7 +175,6 @@ def within_rad(city, top_hotels, top_rests, top_attract, radius):  # top_attract
         distances = json.load(f)
     within_rad = {}
     for h in top_hotels:
-        print(city)
         restaurants = []
         for r in top_rests:
             #dist = distances[city][order[1]][inv_ind[city][order[1]][r]][inv_ind[city][order[0]][h]]

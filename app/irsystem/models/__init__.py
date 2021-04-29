@@ -7,6 +7,7 @@ except ImportError:
 import hashlib # For session_token generation (session-based auth. flow)
 import datetime # For handling dates 
 
+
 class Base(db.Model):
   """Base PostgreSQL model"""
   __abstract__ = True
