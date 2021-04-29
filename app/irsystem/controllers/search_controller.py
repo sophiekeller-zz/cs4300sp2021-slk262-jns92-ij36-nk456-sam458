@@ -32,6 +32,7 @@ def search():
 		accommodations = cosineSim(city, "accommodation", accommodation_query)
 		attractions = cosineSim(city, "attraction", attraction_query)
 	else:
+		#ADD POP UP MESSAGE TO SELECT A CITY
 		city = ''
 		restaurants = []
 		accommodations = []
@@ -91,8 +92,9 @@ def search():
 	# 		data.append("")
 
 	accommodations = list(filter(lambda x: rad[x[0]]['restaurants'] or rad[x[0]]['attractions'], accommodations))  # filters out accommodations w no restaurants
-	for i, a in enumerate(accommodations[:5]):
-		data.append({"title": f"Itinerary #{i + 1}", "accommodation": a[0], "restaurants": rad[a[0]]['restaurants'][:10], "attractions": rad[a[0]]['attractions'][:10]})
+
+	for i, a in enumerate(accommodations[:6]): #gets top 6 itineraries
+		data.append({"city": city, "title": f"Itinerary #{i + 1}", "accommodation": a[0], "restaurants": rad[a[0]]['restaurants'][:10], "attractions": rad[a[0]]['attractions'][:10]})
 		# data.append([f"Itinerary #{i + 1}"])
 		# data.append(f"Accommodation: {a[0]}")
 		# data.append("Restaurants:")
