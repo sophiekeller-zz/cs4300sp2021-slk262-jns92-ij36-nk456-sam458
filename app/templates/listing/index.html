@@ -274,7 +274,176 @@
 				</div>
 			</div>
 
+			<div class="fh5co-listing">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-4 col-sm-4 fh5co-item-wrap">
+							<a class="fh5co-listing-item">
+								<li>
+									<a href="#">
+										<span class="fh5co-date"></span>
+										<h3>{{data[0]['title']}}</h3>
+										<p style="display: inline; white-space: nowrap;">Accommodation:<br></p>
+										<p style="display: inline; white-space: nowrap;">
+											{{data[0]['accommodation']}}<br>
+										</p>
+										<p style="display: inline;">Restaurants:<br></p>
+										{% for rest in data[0]['restaurants'] %}
+										<p style="display: inline; white-space: nowrap;">{{rest}}<br>
+										</p>
+										{% endfor %}
+										<p style="display: inline;">Attractions:<br></p>
+										{% for attr in data[0]['attractions'] %}
+										<p style="display: inline; white-space: nowrap;">{{attr}}<br>
+										</p>
+										{% endfor %}
+									</a>
+								</li>
+								<!-- <img src="/static/images/img-1.jpg" alt="Free HTML5 Bootstrap Template by FreeHTML5.co"
+									class="img-responsive">
+								<form class="fh5co-listing-copy">
+									<h2>Itinerary 1</h2>
+									<span class="icon">
+										<i class="icon-chevron-right"></i>
+									</span>
+									<a href='0.0.0.0:5000/app/templates/listing/itinerary.html?data=@data[0]'
+										class="btn btn-info" role="button">Go</a>
+									<input type="button"
+										onclick="location.href='./app/templates/listing/itinerary.html'"
+										value="Contact" />
+									<button onclick="window.location.href = './listing/itinerary.html';">Go</button>
 
+								</form> -->
+							</a>
+						</div>
+						<div class="col-md-4 col-sm-4 fh5co-item-wrap">
+							<a class="fh5co-listing-item">
+								<li>
+									<a href="#">
+										<span class="fh5co-date"></span>
+										<h3>{{data[1]['title']}}</h3>
+										<p style="display: inline; white-space: nowrap;">Accommodation:<br></p>
+										<p style="display: inline; white-space: nowrap;">
+											{{data[1]['accommodation']}}<br>
+										</p>
+										<p style="display: inline;">Restaurants:<br></p>
+										{% for rest in data[1]['restaurants'] %}
+										<p style="display: inline; white-space: nowrap;">{{rest}}<br>
+										</p>
+										{% endfor %}
+										<p style="display: inline;">Attractions:<br></p>
+										{% for attr in data[1]['attractions'] %}
+										<p style="display: inline; white-space: nowrap;">{{attr}}<br>
+										</p>
+										{% endfor %}
+									</a>
+								</li>
+							</a>
+						</div>
+						<div class="col-md-4 col-sm-4 fh5co-item-wrap">
+							<a class="fh5co-listing-item">
+								<li>
+									<a href="#">
+										<span class="fh5co-date"></span>
+										<h3>{{data[2]['title']}}</h3>
+										<p style="display: inline; white-space: nowrap;">Accommodation:<br></p>
+										<p style="display: inline; white-space: nowrap;">
+											{{data[2]['accommodation']}}<br>
+										</p>
+										<p style="display: inline;">Restaurants:<br></p>
+										{% for rest in data[2]['restaurants'] %}
+										<p style="display: inline; white-space: nowrap;">{{rest}}<br>
+										</p>
+										{% endfor %}
+										<p style="display: inline;">Attractions:<br></p>
+										{% for attr in data[2]['attractions'] %}
+										<p style="display: inline; white-space: nowrap;">{{attr}}<br>
+										</p>
+										{% endfor %}
+									</a>
+								</li>
+							</a>
+						</div>
+						<!-- END 3 row -->
+
+						<div class="col-md-4 col-sm-4 fh5co-item-wrap">
+							<a class="fh5co-listing-item">
+								<li>
+									<a href="#">
+										<span class="fh5co-date"></span>
+										<h3>{{data[3]['title']}}</h3>
+										<p style="display: inline; white-space: nowrap;">Accommodation:<br></p>
+										<p style="display: inline; white-space: nowrap;">
+											{{data[3]['accommodation']}}<br>
+										</p>
+										<p style="display: inline;">Restaurants:<br></p>
+										{% for rest in data[3]['restaurants'] %}
+										<p style="display: inline; white-space: nowrap;">{{rest}}<br>
+										</p>
+										{% endfor %}
+										<p style="display: inline;">Attractions:<br></p>
+										{% for attr in data[3]['attractions'] %}
+										<p style="display: inline; white-space: nowrap;">{{attr}}<br>
+										</p>
+										{% endfor %}
+									</a>
+								</li>
+							</a>
+						</div>
+						<div class="col-md-4 col-sm-4 fh5co-item-wrap">
+							<a class="fh5co-listing-item">
+								<li>
+									<a href="#">
+										<span class="fh5co-date"></span>
+										<h3>{{data[4]['title']}}</h3>
+										<p style="display: inline; white-space: nowrap;">Accommodation:<br></p>
+										<p style="display: inline; white-space: nowrap;">
+											{{data[4]['accommodation']}}<br>
+										</p>
+										<p style="display: inline;">Restaurants:<br></p>
+										{% for rest in data[4]['restaurants'] %}
+										<p style="display: inline; white-space: nowrap;">{{rest}}<br>
+										</p>
+										{% endfor %}
+										<p style="display: inline;">Attractions:<br></p>
+										{% for attr in data[4]['attractions'] %}
+										<p style="display: inline; white-space: nowrap;">{{attr}}<br>
+										</p>
+										{% endfor %}
+									</a>
+								</li>
+							</a>
+						</div>
+						<div class="col-md-4 col-sm-4 fh5co-item-wrap">
+							<a class="fh5co-listing-item">
+								<li>
+									<a href="#">
+										<span class="fh5co-date"></span>
+										<h3>{{data[5]['title']}}</h3>
+										<p style="display: inline; white-space: nowrap;">Accommodation:<br></p>
+										<p style="display: inline; white-space: nowrap;">
+											{{data[5]['accommodation']}}<br>
+										</p>
+										<p style="display: inline;">Restaurants:<br></p>
+										{% for rest in data[5]['restaurants'] %}
+										<p style="display: inline; white-space: nowrap;">{{rest}}<br>
+										</p>
+										{% endfor %}
+										<p style="display: inline;">Attractions:<br></p>
+										{% for attr in data[5]['attractions'] %}
+										<p style="display: inline; white-space: nowrap;">{{attr}}<br>
+										</p>
+										{% endfor %}
+									</a>
+								</li>
+							</a>
+						</div>
+						<!-- END 3 row -->
+
+
+					</div>
+				</div>
+			</div>
 
 
 			<div class="fh5co-section">
@@ -289,15 +458,20 @@
 									<a href="#">
 										<span class="fh5co-date"></span>
 										<h3>{{d['title']}}</h3>
-										<p style="display: inline; white-space: nowrap;">Accommodation: {{d['accommodation']}}</p>
-										<p style="display: inline; margin-left: 120px">Restaurants:</p>
+										<p style="display: inline; white-space: nowrap;">Accommodation:
+											{{d['accommodation']}}</p>
+										<p style="display: inline; margin-left: 100px">Restaurants:</p>
 										{% for rest in d['restaurants'] %}
 										<p style="display: inline; margin-left: 335px; white-space: nowrap;">{{rest}}
 										</p>
 										{% endfor %}
-										<p style="display: inline; margin-left: 700px; white-space: nowrap; position:relative;top:-200px">Attractions:</p>
+										<p
+											style="display: inline; margin-left: 700px; white-space: nowrap; position:relative;top:-200px">
+											Attractions:</p>
 										{% for attr in d['attractions'] %}
-										<p style="display: inline; margin-left: 700px; white-space: nowrap; position:relative;top:-200px">{{attr}}
+										<p
+											style="display: inline; margin-left: 700px; margin-bottom: 100px; white-space: nowrap; position:relative;top:-200px">
+											{{attr}}
 										</p>
 										{% endfor %}
 										<!-- <p style="display: inline; margin-bottom: 100px; margin-left: 120px">
