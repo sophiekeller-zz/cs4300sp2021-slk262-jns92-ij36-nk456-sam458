@@ -29,9 +29,9 @@ def search():
 	print(request.args.get('city'))
 	if request.args.get('city') is not None and request.args.get('city') != 'none':
 		city = request.args.get('city')
-		restaurants = cosineSim(city, "restaurant", restaurant_query)
-		accommodations = cosineSim(city, "accommodation", accommodation_query)
-		attractions = cosineSim(city, "attraction", attraction_query)
+		restaurants = get_matchings_cos_sim(city, "restaurant", restaurant_query)
+		accommodations = get_matchings_cos_sim(city, "accommodation", accommodation_query)
+		attractions = get_matchings_cos_sim(city, "attraction", attraction_query)
 	else:
 		#ADD POP UP MESSAGE TO SELECT A CITY
 		return render_template('./listing/index.html', name=project_name, netid=net_id, output_message="Please enter a city.", data=[])

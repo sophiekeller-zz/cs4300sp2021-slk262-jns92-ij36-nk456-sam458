@@ -20,7 +20,7 @@ import numpy.linalg as LA
 import numpy as np
 # import word_forms
 # from word_forms.word_forms import get_word_forms
-import app.irsystem.models.vectorizer as precomp
+# import app.irsystem.models.vectorizer as precomp
 
 # from nltk import PorterStemmer
 
