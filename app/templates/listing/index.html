@@ -289,15 +289,15 @@
 									<a href="#">
 										<span class="fh5co-date"></span>
 										<h3>{{d['title']}}</h3>
-										<p style="display: inline">Accommodation: {{d['accommodation']}}</p>
+										<p style="display: inline; white-space: nowrap;">Accommodation: {{d['accommodation']}}</p>
 										<p style="display: inline; margin-left: 120px">Restaurants:</p>
 										{% for rest in d['restaurants'] %}
 										<p style="display: inline; margin-left: 335px; white-space: nowrap;">{{rest}}
 										</p>
 										{% endfor %}
-										<p style="display: inline; margin-left: 700px; position:relative;top:-275px">Attractions:</p>
+										<p style="display: inline; margin-left: 700px; white-space: nowrap; position:relative;top:-200px">Attractions:</p>
 										{% for attr in d['attractions'] %}
-										<p style="display: inline; margin-left: 700px; white-space: nowrap; position:relative;top:-275px">{{attr}}
+										<p style="display: inline; margin-left: 700px; white-space: nowrap; position:relative;top:-200px">{{attr}}
 										</p>
 										{% endfor %}
 										<!-- <p style="display: inline; margin-bottom: 100px; margin-left: 120px">
