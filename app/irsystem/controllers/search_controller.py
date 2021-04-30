@@ -46,7 +46,7 @@ def search():
 	# 	y = [accommodations, restaurants, attractions]
 
 	r = request.args.get('distance')
-	radius = 1000 if r is None or r == '' else int(r)
+	radius = 10000 if r is None or r == '' else int(r)
 	#rad = within_rad(city, [x[0] for x in y[0]], [x[0] for x in y[1]], [x[0] for x in y[2]], radius)
 	rad = within_rad(city, [x[0] for x in accommodations], [x[0] for x in restaurants], [x[0] for x in attractions], radius)
 
