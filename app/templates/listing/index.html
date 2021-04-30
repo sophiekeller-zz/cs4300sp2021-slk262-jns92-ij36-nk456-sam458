@@ -282,21 +282,29 @@
 								<li>
 									<a href="#">
 										<span class="fh5co-date"></span>
+										{% if data[0]%}
 										<h3>{{data[0]['title']}}</h3>
+										{% endif %}
 										<p style="display: inline; white-space: nowrap;">Accommodation:<br></p>
+										{% if data[0]%}
 										<p style="display: inline; white-space: nowrap;">
 											{{data[0]['accommodation']}}<br>
 										</p>
+										{% endif %}
+										{% if data[0]%}
 										<p style="display: inline;">Restaurants:<br></p>
 										{% for rest in data[0]['restaurants'] %}
 										<p style="display: inline; white-space: nowrap;">{{rest}}<br>
 										</p>
 										{% endfor %}
+										{% endif %}
+										{% if data[0]%}
 										<p style="display: inline;">Attractions:<br></p>
 										{% for attr in data[0]['attractions'] %}
 										<p style="display: inline; white-space: nowrap;">{{attr}}<br>
 										</p>
 										{% endfor %}
+										{% endif %}
 									</a>
 								</li>
 								<!-- <img src="/static/images/img-1.jpg" alt="Free HTML5 Bootstrap Template by FreeHTML5.co"
@@ -321,21 +329,29 @@
 								<li>
 									<a href="#">
 										<span class="fh5co-date"></span>
+										{% if data[1]%}
 										<h3>{{data[1]['title']}}</h3>
+										{% endif %}
 										<p style="display: inline; white-space: nowrap;">Accommodation:<br></p>
+										{% if data[1]%}
 										<p style="display: inline; white-space: nowrap;">
 											{{data[1]['accommodation']}}<br>
 										</p>
+										{% endif %}
 										<p style="display: inline;">Restaurants:<br></p>
+										{% if data[1]%}
 										{% for rest in data[1]['restaurants'] %}
 										<p style="display: inline; white-space: nowrap;">{{rest}}<br>
 										</p>
 										{% endfor %}
+										{% endif %}
 										<p style="display: inline;">Attractions:<br></p>
+										{% if data[1]%}
 										{% for attr in data[1]['attractions'] %}
 										<p style="display: inline; white-space: nowrap;">{{attr}}<br>
 										</p>
 										{% endfor %}
+										{% endif %}
 									</a>
 								</li>
 							</a>
@@ -345,21 +361,29 @@
 								<li>
 									<a href="#">
 										<span class="fh5co-date"></span>
+										{% if data[2]%}
 										<h3>{{data[2]['title']}}</h3>
+										{% endif%}
 										<p style="display: inline; white-space: nowrap;">Accommodation:<br></p>
+										{% if data[2]%}
 										<p style="display: inline; white-space: nowrap;">
 											{{data[2]['accommodation']}}<br>
 										</p>
+										{% endif%}
 										<p style="display: inline;">Restaurants:<br></p>
+										{% if data[2]%}
 										{% for rest in data[2]['restaurants'] %}
 										<p style="display: inline; white-space: nowrap;">{{rest}}<br>
 										</p>
 										{% endfor %}
+										{% endif%}
 										<p style="display: inline;">Attractions:<br></p>
+										{% if data[2]%}
 										{% for attr in data[2]['attractions'] %}
 										<p style="display: inline; white-space: nowrap;">{{attr}}<br>
 										</p>
 										{% endfor %}
+										{% endif%}
 									</a>
 								</li>
 							</a>
@@ -371,21 +395,29 @@
 								<li>
 									<a href="#">
 										<span class="fh5co-date"></span>
+										{% if data[3]%}
 										<h3>{{data[3]['title']}}</h3>
+										{% endif%}
 										<p style="display: inline; white-space: nowrap;">Accommodation:<br></p>
+										{% if data[3]%}
 										<p style="display: inline; white-space: nowrap;">
 											{{data[3]['accommodation']}}<br>
 										</p>
+										{% endif%}
 										<p style="display: inline;">Restaurants:<br></p>
+										{% if data[3]%}
 										{% for rest in data[3]['restaurants'] %}
 										<p style="display: inline; white-space: nowrap;">{{rest}}<br>
 										</p>
 										{% endfor %}
+										{% endif%}
 										<p style="display: inline;">Attractions:<br></p>
+										{% if data[3]%}
 										{% for attr in data[3]['attractions'] %}
 										<p style="display: inline; white-space: nowrap;">{{attr}}<br>
 										</p>
 										{% endfor %}
+										{% endif%}
 									</a>
 								</li>
 							</a>
@@ -395,21 +427,29 @@
 								<li>
 									<a href="#">
 										<span class="fh5co-date"></span>
+										{% if data[4]%}
 										<h3>{{data[4]['title']}}</h3>
+										{% endif%}
 										<p style="display: inline; white-space: nowrap;">Accommodation:<br></p>
+										{% if data[4]%}
 										<p style="display: inline; white-space: nowrap;">
 											{{data[4]['accommodation']}}<br>
 										</p>
+										{% endif%}
 										<p style="display: inline;">Restaurants:<br></p>
+										{% if data[4]%}
 										{% for rest in data[4]['restaurants'] %}
 										<p style="display: inline; white-space: nowrap;">{{rest}}<br>
 										</p>
 										{% endfor %}
+										{% endif%}
 										<p style="display: inline;">Attractions:<br></p>
+										{% if data[4]%}
 										{% for attr in data[4]['attractions'] %}
 										<p style="display: inline; white-space: nowrap;">{{attr}}<br>
 										</p>
 										{% endfor %}
+										{% endif%}
 									</a>
 								</li>
 							</a>
@@ -419,21 +459,29 @@
 								<li>
 									<a href="#">
 										<span class="fh5co-date"></span>
+										{% if data[5]%}
 										<h3>{{data[5]['title']}}</h3>
+										{% endif%}
 										<p style="display: inline; white-space: nowrap;">Accommodation:<br></p>
+										{% if data[5]%}
 										<p style="display: inline; white-space: nowrap;">
 											{{data[5]['accommodation']}}<br>
 										</p>
+										{% endif%}
 										<p style="display: inline;">Restaurants:<br></p>
+										{% if data[5]%}
 										{% for rest in data[5]['restaurants'] %}
 										<p style="display: inline; white-space: nowrap;">{{rest}}<br>
 										</p>
 										{% endfor %}
+										{% endif%}
 										<p style="display: inline;">Attractions:<br></p>
+										{% if data[5]%}
 										{% for attr in data[5]['attractions'] %}
 										<p style="display: inline; white-space: nowrap;">{{attr}}<br>
 										</p>
 										{% endfor %}
+										{% endif%}
 									</a>
 								</li>
 							</a>
