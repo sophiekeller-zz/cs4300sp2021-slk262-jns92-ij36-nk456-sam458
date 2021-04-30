@@ -134,7 +134,7 @@ figure {
 }
 @media screen and (max-width: 768px) {
   .fh5co-cover {
-    heifght: inherit;
+    height: inherit;
     padding: 3em 0;
   }
 }
@@ -148,7 +148,7 @@ figure {
 }
 @media screen and (max-width: 768px) {
   .fh5co-cover.fh5co-cover_2 {
-    heifght: inherit;
+    height: inherit;
     padding: 3em 0;
   }
 }
@@ -307,9 +307,9 @@ figure {
   transform: scale(1.1);
 }
 .fh5co-listing .fh5co-item-wrap .fh5co-listing-item:hover:after {
-  -webkit-box-shadow: inset 0px -126px 311px -69px rgba(0, 0, 0, 0.95);
-  -moz-box-shadow: inset 0px -126px 311px -69px rgba(0, 0, 0, 0.95);
-  box-shadow: inset 0px -126px 311px -69px rgba(0, 0, 0, 0.95);
+  -webkit-box-shadow: inset 0px -126px 100px -69px rgba(0, 0, 0, 0.95);
+  -moz-box-shadow: inset 0px -126px 100px -69px rgba(0, 0, 0, 0.95);
+  box-shadow: inset 0px -126px 100px -69px rgba(0, 0, 0, 0.95);
 }
 .fh5co-listing
   .fh5co-item-wrap
