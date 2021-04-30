@@ -77,7 +77,7 @@
 							<h1 id="fh5co-logo"><a href="index.html">Itinerary Pal</a></h1>
 							<!-- START #fh5co-menu-wrap -->
 							<nav id="fh5co-menu-wrap" role="navigation">
-								<ul class="sf-menu" id="fh5co-primary-menu">
+								<!-- <ul class="sf-menu" id="fh5co-primary-menu">
 									<li class="active">
 										<a href="index.html">Home</a>
 									</li>
@@ -125,8 +125,8 @@
 											<li><a href="#">Photography</a></li>
 										</ul>
 									</li>
-									<li><a href="contact.html">Contact</a></li>
-								</ul>
+									<li><a href="contact.html">Contact</a></li> -->
+								<!-- </ul> -->
 							</nav>
 						</div>
 					</div>
@@ -141,10 +141,23 @@
 					style="background-image: url(/static/images/cover_bg_1.jpg);">
 					<div class="desc animate-box">
 						<h2>Travel Around The World.</h2>
+						<div>
+							{% if output_message %}
+							<h3 class="fh5co-listing-copy" style="color:white;">Please enter a city!
+							</h3>
+							{% endif %}
+							<h3 class="fh5co-listing-copy" style="color:white;">Enter descriptive words that describe what
+								you're
+								looking
+								for in an an restaurant, attraction, or accommodation.
+								Please separate your words by spaces.
+							</h3>
+						</div>
+
 						<!-- <span>Lovely Crafted by <a href="http://frehtml5.co/" target="_blank" class="fh5co-site-name">FREEHTML5.co</a></span> -->
-						<span><a class="btn btn-primary btn-lg" href="#">Get Started</a></span>
+						<!-- <span><a class="btn btn-primary btn-lg" href="#">Get Started</a></span> -->
 						<form class="fh5co-contact">
-							<label>
+							<label>City
 								<select name="city" id="fh5co-contact" class="form-control">
 									<option value="none"></option>
 									<option value="amsterdam">Amsterdam</option>
@@ -154,7 +167,7 @@
 									<option value="london">London</option>
 								</select>
 							</label>
-							<label>
+							<label>Top Priority
 								<select name="preference" id="fh5co-contact" class="form-control">
 									<option value=" none"></option>
 									<option value="accommodations">Accommodations</option>
@@ -168,15 +181,14 @@
 							</label>
 							<label>Accommodation Keywords
 								<input id="fh5co-contact" type="text" name="accommodation" class="form-control"
-									placeholder="Your Input">
+									placeholder="cheap clean">
 							</label>
 							<label>Restaurant Keywords
-								<input id="fh5co-contact" type="text" name="restaurant" class="form-control"
-									placeholder="Your Input">
+								<input id="fh5co-contact" type="text" name="restaurant" class="form-control" placeholder="cafe bar">
 							</label>
 							<label>Attraction Keywords
 								<input id="fh5co-contact" type="text" name="attraction" class="form-control"
-									placeholder="Your Input">
+									placeholder="animals museum">
 							</label>
 							<button type="submit" class="btn btn-info"> Go! </button>
 						</form>
@@ -194,17 +206,10 @@
 								<img src="/static/images/img-1.jpg" alt="Free HTML5 Bootstrap Template by FreeHTML5.co"
 									class="img-responsive">
 								<form class="fh5co-listing-copy">
-									<h2>Itinerary 1</h2>
+									<h2>Explore</h2>
 									<span class="icon">
 										<i class="icon-chevron-right"></i>
 									</span>
-									<!-- <a href='0.0.0.0:5000/app/templates/listing/itinerary.html?data=@data[0]'
-										class="btn btn-info" role="button">Go</a> -->
-									<!-- <input type="button"
-										onclick="location.href='./app/templates/listing/itinerary.html'"
-										value="Contact" /> -->
-									<button onclick="window.location.href = './listing/itinerary.html';">Go</button>
-
 								</form>
 							</a>
 						</div>
@@ -213,7 +218,7 @@
 								<img src="/static/images/img-2.jpg" alt="Free HTML5 Bootstrap Template by FreeHTML5.co"
 									class="img-responsive">
 								<div class="fh5co-listing-copy">
-									<h2>Itinerary 2</h2>
+									<h2>Travel</h2>
 									<span class="icon">
 										<i class="icon-chevron-right"></i>
 									</span>
@@ -225,7 +230,7 @@
 								<img src="static/images/img-3.jpg" alt="Free HTML5 Bootstrap Template by FreeHTML5.co"
 									class="img-responsive">
 								<div class="fh5co-listing-copy">
-									<h2>Itinerary 3</h2>
+									<h2>Learn</h2>
 									<span class="icon">
 										<i class="icon-chevron-right"></i>
 									</span>
@@ -233,9 +238,8 @@
 								</div>
 							</a>
 						</div>
-						<!-- END 3 row -->
 
-						<div class="col-md-4 col-sm-4 fh5co-item-wrap">
+						<!-- <div class="col-md-4 col-sm-4 fh5co-item-wrap">
 							<a class="fh5co-listing-item">
 								<img src="/static/images/img-4.jpg" alt="Free HTML5 Bootstrap Template by FreeHTML5.co"
 									class="img-responsive">
@@ -270,8 +274,8 @@
 									</span>
 								</div>
 							</a>
-						</div>
-						<!-- END 3 row -->
+						</div> -->
+
 
 
 					</div>
@@ -502,7 +506,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-md-6 fh5co-news">
-							<h3>News</h3>
+							<!-- <h3>News</h3>
 							<ul>
 								{% if data %}
 								{% for d in data %}
@@ -526,75 +530,71 @@
 											{{attr}}
 										</p>
 										{% endfor %}
-										<!-- <p style="display: inline; margin-bottom: 100px; margin-left: 120px">
-											Attractions:</p>
-										{% for attr in d['attractions'] %}
-										<p>{{attr}}</p>
-										{% endfor %} -->
+	
 									</a>
 								</li>
 								{% endfor %}
 								{% endif %}
 							</ul>
-						</div>
-						<!-- <div class="col-md-6 fh5co-testimonial">
+						</div> -->
+							<!-- <div class="col-md-6 fh5co-testimonial">
 							<img src="/static/images/cover_bg_1.jpg" alt="Free HTML5 Bootstrap Template by FreeHTML5.co"
 								class="img-responsive mb20">
 							<img src="/static/images/cover_bg_1.jpg" alt="Free HTML5 Bootstrap Template by FreeHTML5.co"
 								class="img-responsive">
 						</div> -->
-					</div>
-				</div>
-			</div>
-
-			<footer>
-				<div id="footer">
-					<div class="container">
-						<div class="row">
-							<div class="col-md-6 col-md-offset-3 text-center">
-								<p class="fh5co-social-icons">
-									<a href="#"><i class="icon-twitter2"></i></a>
-									<a href="#"><i class="icon-facebook2"></i></a>
-									<a href="#"><i class="icon-instagram"></i></a>
-									<a href="#"><i class="icon-dribbble2"></i></a>
-									<a href="#"><i class="icon-youtube"></i></a>
-								</p>
-								<p>Copyright 2016 Free Html5 <a href="#">Listing</a>. All Rights Reserved. <br>Made with
-									<i class="icon-heart3"></i> by <a href="http://freehtml5.co/"
-										target="_blank">Freehtml5.co</a> / Demo
-									Images: <a href="https://unsplash.com/" target="_blank">Unsplash</a>
-								</p>
-							</div>
 						</div>
 					</div>
 				</div>
-			</footer>
 
+				<footer>
+					<div id="footer">
+						<div class="container">
+							<div class="row">
+								<div class="col-md-6 col-md-offset-3 text-center">
+									<!-- <p class="fh5co-social-icons">
+										<a href="#"><i class="icon-twitter2"></i></a>
+										<a href="#"><i class="icon-facebook2"></i></a>
+										<a href="#"><i class="icon-instagram"></i></a>
+										<a href="#"><i class="icon-dribbble2"></i></a>
+										<a href="#"><i class="icon-youtube"></i></a>
+									</p> -->
+									<p>Copyright 2016 Free Html5 <a href="#">Listing</a>. All Rights Reserved. <br>Made with
+										<i class="icon-heart3"></i> by <a href="http://freehtml5.co/" target="_blank">Freehtml5.co</a> /
+										Demo
+										Images: <a href="https://unsplash.com/" target="_blank">Unsplash</a>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</footer>
+
+
+			</div>
+			<!-- END fh5co-page -->
 
 		</div>
-		<!-- END fh5co-page -->
+		<!-- END fh5co-wrapper -->
 
-	</div>
-	<!-- END fh5co-wrapper -->
-
-	<!-- jQuery -->
+		<!-- jQuery -->
 
 
-	<script src="static/js/jquery.min.js"></script>
-	<!-- jQuery Easing -->
-	<script src="static/js/jquery.easing.1.3.js"></script>
-	<!-- Bootstrap -->
-	<script src="static/js/bootstrap.min.js"></script>
-	<!-- Waypoints -->
-	<script src="static/js/jquery.waypoints.min.js"></script>
-	<!-- Stellar -->
-	<script src="static/js/jquery.stellar.min.js"></script>
-	<!-- Superfish -->
-	<script src="static/js/hoverIntent.js"></script>
-	<script src="static/js/superfish.js"></script>
+		<script src="static/js/jquery.min.js"></script>
+		<!-- jQuery Easing -->
+		<script src="static/js/jquery.easing.1.3.js"></script>
+		<!-- Bootstrap -->
+		<script src="static/js/bootstrap.min.js"></script>
+		<!-- Waypoints -->
+		<script src="static/js/jquery.waypoints.min.js"></script>
+		<!-- Stellar -->
+		<script src="static/js/jquery.stellar.min.js"></script>
+		<!-- Superfish -->
+		<script src="static/js/hoverIntent.js"></script>
+		<script src="static/js/superfish.js"></script>
 
-	<!-- Main JS -->
-	<script src="static/js/main.js"></script>
+		<!-- Main JS -->
+		<script src="static/js/main.js"></script>
 
 </body>
 
