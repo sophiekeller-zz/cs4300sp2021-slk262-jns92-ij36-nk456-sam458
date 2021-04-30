@@ -103,6 +103,7 @@ def search():
 		# data += rad[a[0]]['attractions'][:10]
 		# data.append("")
 
-
+	if data == []:
+		data = []
 
 	return render_template('./listing/index.html', name=project_name, netid=net_id, output_message=output_message, data=data)
