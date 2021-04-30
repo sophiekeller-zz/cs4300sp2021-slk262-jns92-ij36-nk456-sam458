@@ -1,5 +1,15 @@
 
 import nltk
+# import ssl
+
+# try:
+#     _create_unverified_https_context = ssl._create_unverified_context
+# except AttributeError:
+#     pass
+# else:
+#     ssl._create_default_https_context = _create_unverified_https_context
+
+# nltk.download()
 # from nltk.corpus import wordnet
 import json
 import math
@@ -9,7 +19,7 @@ import numpy.linalg as LA
 
 import numpy as np
 # import word_forms
-from word_forms.word_forms import get_word_forms
+# from word_forms.word_forms import get_word_forms
 import app.irsystem.models.vectorizer as precomp
 
 # from nltk import PorterStemmer
@@ -39,20 +49,20 @@ def get_query_antonyms(query):
 
     return antonyms, synonyms
 
-def word_forms(word): 
-    dic = get_word_forms(word)
-    words = "" 
-    for form in dic: 
-        for w in dic[form]: 
-            words += w + " "
-    return words
+# def word_forms(word): 
+#     dic = get_word_forms(word)
+#     words = "" 
+#     for form in dic: 
+#         for w in dic[form]: 
+#             words += w + " "
+#     return words
 
-def many_word_forms(query): 
-    words = "" 
-    query = query.split(" ")
-    for tok in query: 
-        words += word_forms(tok)
-    return words
+# def many_word_forms(query): 
+#     words = "" 
+#     query = query.split(" ")
+#     for tok in query: 
+#         words += word_forms(tok)
+#     return words
 
 
 def get_cos_sim(query, reviews):
@@ -83,8 +93,10 @@ def cosineSim(city, category, query):
     
     query_antonyms, query_synonyms = get_query_antonyms(query)
 
-    synonyms_forms = many_word_forms(query_synonyms).split(" ")
-    antonyms_forms = many_word_forms(query_antonyms).split(" ")
+    # synonyms_forms = many_word_forms(query_synonyms).split(" ")
+    # antonyms_forms = many_word_forms(query_antonyms).split(" ")
+    synonym_forms = query_synonyms
+    antonym_forms = query_antonyms
 
 
     query_vectorizer_array = np.zeros((doc_vectorizer_array.shape[1],))
