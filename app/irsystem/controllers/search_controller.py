@@ -27,7 +27,7 @@ def search():
 	accommodation_query = request.args.get('accommodation')
 	attraction_query = request.args.get('attraction')
 	print(request.args.get('city'))
-	if request.args.get('city') != 'none':
+	if request.args.get('city') is not None and request.args.get('city') != 'none':
 		city = request.args.get('city')
 		restaurants = cosineSim(city, "restaurant", restaurant_query)
 		accommodations = cosineSim(city, "accommodation", accommodation_query)
