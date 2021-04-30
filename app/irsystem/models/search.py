@@ -1,6 +1,6 @@
 
 import nltk
-from nltk.corpus import wordnet
+# from nltk.corpus import wordnet
 import json
 import math
 from PyDictionary import PyDictionary
