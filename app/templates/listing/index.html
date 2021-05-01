@@ -284,221 +284,77 @@
 
 			<div class="fh5co-listing">
 				<div class="container">
-					<div class="row">
-						<div class="col-md-4 col-sm-4 fh5co-item-wrap">
-							<a class="fh5co-listing-item">
-								<li>
-									<a href="#">
-										<span class="fh5co-date"></span>
-										{% if data[0] %}
-										<h3>{{data[0]['title']}}</h3>
-										{% endif %}
-										<p style="display: inline; white-space: nowrap;">Accommodation:<br></p>
-										{% if data[0]%}
-										<p style="display: inline; white-space: nowrap;">
-											{{data[0]['accommodation']}}<br>
-										</p>
-										{% endif %}
-										{% if data[0]%}
-										<p style="display: inline;">Restaurants:<br></p>
-										{% for rest in data[0]['restaurants'] %}
-										<p style="display: inline; white-space: nowrap;">{{rest}}<br>
-										</p>
-										{% endfor %}
-										{% endif %}
-										{% if data[0]%}
-										<p style="display: inline;">Attractions:<br></p>
-										{% for attr in data[0]['attractions'] %}
-										<p style="display: inline; white-space: nowrap;">{{attr}}<br>
-										</p>
-										{% endfor %}
-										{% endif %}
-									</a>
-								</li>
-								<!-- <img src="/static/images/img-1.jpg" alt="Free HTML5 Bootstrap Template by FreeHTML5.co"
-									class="img-responsive">
-								<form class="fh5co-listing-copy">
-									<h2>Itinerary 1</h2>
-									<span class="icon">
-										<i class="icon-chevron-right"></i>
-									</span>
-									<a href='0.0.0.0:5000/app/templates/listing/itinerary.html?data=@data[0]'
-										class="btn btn-info" role="button">Go</a>
-									<input type="button"
-										onclick="location.href='./app/templates/listing/itinerary.html'"
-										value="Contact" />
-									<button onclick="window.location.href = './listing/itinerary.html';">Go</button>
+					{% for d in data %}
+					<div class="fh5co-item-wrap" style="margin-bottom: 30px;">
+						<div class="fh5co-news">
+							<!-- make url https://www.google.com/search?q=hotel+kurtsig -->
+							<a href="#">
+								<!-- <span class="fh5co-date"></span>
+									{% if data[1] %}
+									<h3>{{data[1]['title']}}</h3>
+									<p style="display: inline; white-space: nowrap;">Accommodation:<br></p>
+									<p style="display: inline; white-space: nowrap;">
+										{{data[1]['accommodation']}}<br>
+									</p> -->
 
-								</form> -->
-							</a>
-						</div>
-						<div class="col-md-4 col-sm-4 fh5co-item-wrap">
-							<a class="fh5co-listing-item">
-								<li>
-									<a href="#">
-										<span class="fh5co-date"></span>
-										{% if data[1] %}
-										<h3>{{data[1]['title']}}</h3>
-										{% endif %}
-										<p style="display: inline; white-space: nowrap;">Accommodation:<br></p>
-										{% if data[1]%}
-										<p style="display: inline; white-space: nowrap;">
-											{{data[1]['accommodation']}}<br>
-										</p>
-										{% endif %}
-										<p style="display: inline;">Restaurants:<br></p>
-										{% if data[1]%}
-										{% for rest in data[1]['restaurants'] %}
-										<p style="display: inline; white-space: nowrap;">{{rest}}<br>
-										</p>
-										{% endfor %}
-										{% endif %}
-										<p style="display: inline;">Attractions:<br></p>
-										{% if data[1]%}
-										{% for attr in data[1]['attractions'] %}
-										<p style="display: inline; white-space: nowrap;">{{attr}}<br>
-										</p>
-										{% endfor %}
-										{% endif %}
-									</a>
-								</li>
-							</a>
-						</div>
-						<div class="col-md-4 col-sm-4 fh5co-item-wrap">
-							<a class="fh5co-listing-item">
-								<li>
-									<a href="#">
-										<span class="fh5co-date"></span>
-										{% if data[2] %}
-										<h3>{{data[2]['title']}}</h3>
-										{% endif%}
-										<p style="display: inline; white-space: nowrap;">Accommodation:<br></p>
-										{% if data[2]%}
-										<p style="display: inline; white-space: nowrap;">
-											{{data[2]['accommodation']}}<br>
-										</p>
-										{% endif%}
-										<p style="display: inline;">Restaurants:<br></p>
-										{% if data[2]%}
-										{% for rest in data[2]['restaurants'] %}
-										<p style="display: inline; white-space: nowrap;">{{rest}}<br>
-										</p>
-										{% endfor %}
-										{% endif%}
-										<p style="display: inline;">Attractions:<br></p>
-										{% if data[2]%}
-										{% for attr in data[2]['attractions'] %}
-										<p style="display: inline; white-space: nowrap;">{{attr}}<br>
-										</p>
-										{% endfor %}
-										{% endif %}
-									</a>
-								</li>
-							</a>
-						</div>
-						<!-- END 3 row -->
+								<h2 style="color:white;margin-top: 30px;font-size: ">{{d['title']}}</h2>
+								<h3 style="margin-top: 20px;margin-bottom: 0px;color: #8AA399">Accommodation: </h3>
+								<ul>
+									<li>
+										<a href="#">
+											<!-- <span class="fh5co-date">Asian</span> -->
+											<h3>{{d['accommodation']}}
+											</h3>
+											<p style="margin-bottom: .2em; color: #7D84B2">Average rating: 0.5</p>
+											<p style="margin-bottom: .2em">"We loved this place."</p>
+											<p style="margin-bottom: .2em">"Best place we've ever been."</p>
+										</a>
+									</li>
+								</ul>
 
-						<div class="col-md-4 col-sm-4 fh5co-item-wrap">
-							<a class="fh5co-listing-item">
-								<li>
-									<a href="#">
-										<span class="fh5co-date"></span>
-										{% if data[3] %}
-										<h3>{{data[3]['title']}}</h3>
-										{% endif%}
-										<p style="display: inline; white-space: nowrap;">Accommodation:<br></p>
-										{% if data[3]%}
-										<p style="display: inline; white-space: nowrap;">
-											{{data[3]['accommodation']}}<br>
-										</p>
-										{% endif%}
-										<p style="display: inline;">Restaurants:<br></p>
-										{% if data[3]%}
-										{% for rest in data[3]['restaurants'] %}
-										<p style="display: inline; white-space: nowrap;">{{rest}}<br>
-										</p>
-										{% endfor %}
-										{% endif%}
-										<p style="display: inline;">Attractions:<br></p>
-										{% if data[3]%}
-										{% for attr in data[3]['attractions'] %}
-										<p style="display: inline; white-space: nowrap;">{{attr}}<br>
-										</p>
-										{% endfor %}
-										{% endif %}
-									</a>
-								</li>
+								<div class="col-md-6">
+									<h3 style="margin-top: 20px;margin-bottom: 0px;color: #8AA399">Restaurants<br></h3>
+									{% for rest in d['restaurants'] %}
+									<ul>
+										<li>
+											<a href="#">
+												<!-- <span class="fh5co-date">Asian</span> -->
+												<h3>{{rest['name']}}</h3>
+												<p style="margin-bottom: .2em; color: #7D84B2">Average rating: 0.5 • Distance to Hotel: 0.5</p>
+												{% for r in rest['reviews'] %}
+												<p style="margin-bottom: .2em">{{r}}</p>
+												{% endfor %}
+											</a>
+										</li>
+									</ul>
+									{% endfor %}
+								</div>
+								<div class="col-md-6">
+									<h3 style="margin-top: 20px;margin-bottom: 0px;color: #8AA399">Attractions<br></h3>
+									{% for att in d['attractions'] %}
+									<ul>
+										<li>
+											<a href="#">
+												<!-- <span class="fh5co-date">Asian</span> -->
+												<h3>{{att['name']}}</h3>
+												<p style="margin-bottom: .2em; color: #7D84B2">Average rating: 0.5 • Distance to Hotel: 0.5</p>
+												{% for r in att['reviews'] %}
+												<p style="margin-bottom: .2em">{{r}}</p>
+												{% endfor %}
+											</a>
+										</li>
+									</ul>
+									{% endfor %}
+								</div>
+								{% endif %}
 							</a>
 						</div>
-						<div class="col-md-4 col-sm-4 fh5co-item-wrap">
-							<a class="fh5co-listing-item">
-								<li>
-									<a href="#">
-										<span class="fh5co-date"></span>
-										{% if data[4] %}
-										<h3>{{data[4]['title']}}</h3>
-										{% endif%}
-										<p style="display: inline; white-space: nowrap;">Accommodation:<br></p>
-										{% if data[4]%}
-										<p style="display: inline; white-space: nowrap;">
-											{{data[4]['accommodation']}}<br>
-										</p>
-										{% endif%}
-										<p style="display: inline;">Restaurants:<br></p>
-										{% if data[4]%}
-										{% for rest in data[4]['restaurants'] %}
-										<p style="display: inline; white-space: nowrap;">{{rest}}<br>
-										</p>
-										{% endfor %}
-										{% endif%}
-										<p style="display: inline;">Attractions:<br></p>
-										{% if data[4]%}
-										{% for attr in data[4]['attractions'] %}
-										<p style="display: inline; white-space: nowrap;">{{attr}}<br>
-										</p>
-										{% endfor %}
-										{% endif %}
-									</a>
-								</li>
-							</a>
-						</div>
-						<div class="col-md-4 col-sm-4 fh5co-item-wrap">
-							<a class="fh5co-listing-item">
-								<li>
-									<a href="#">
-										<span class="fh5co-date"></span>
-										{% if data[5] %}
-										<h3>{{data[5]['title']}}</h3>
-										{% endif%}
-										<p style="display: inline; white-space: nowrap;">Accommodation:<br></p>
-										{% if data[5]%}
-										<p style="display: inline; white-space: nowrap;">
-											{{data[5]['accommodation']}}<br>
-										</p>
-										{% endif%}
-										<p style="display: inline;">Restaurants:<br></p>
-										{% if data[5]%}
-										{% for rest in data[5]['restaurants'] %}
-										<p style="display: inline; white-space: nowrap;">{{rest}}<br>
-										</p>
-										{% endfor %}
-										{% endif%}
-										<p style="display: inline;">Attractions:<br></p>
-										{% if data[5]%}
-										{% for attr in data[5]['attractions'] %}
-										<p style="display: inline; white-space: nowrap;">{{attr}}<br>
-										</p>
-										{% endfor %}
-										{% endif %}
-									</a>
-								</li>
-							</a>
-						</div>
-						<!-- END 3 row -->
-
-
 					</div>
+
+					<!-- END 3 row -->
+					{% endfor %}
 				</div>
+
 			</div>
 
 

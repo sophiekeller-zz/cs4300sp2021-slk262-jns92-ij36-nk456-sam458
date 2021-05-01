@@ -29,7 +29,16 @@ import numpy as np
 dictionary=PyDictionary()
 
 
-
+def build_vectorizer(max_n_terms=5000, max_prop_docs=0.8, min_n_docs=0):
+    """Returns a TfidfVectorizer object with certain preprocessing properties.
+    
+    Params: {max_n_terms: Integer,
+             max_prop_docs: Float,
+             min_n_docs: Integer}
+    Returns: TfidfVectorizer
+    """
+    return TfidfVectorizer(min_df=0, max_df=max_prop_docs, max_features=max_n_terms,
+                           stop_words='english')
 
 
 
@@ -153,8 +162,11 @@ def get_matchings_cos_sim(city, category, query):
 
     query_antonyms, query_synonyms = get_query_antonyms(query)
 
-    synonyms_forms = many_word_forms(query_synonyms)
-    antonyms_forms = many_word_forms(query_antonyms)
+    # synonyms_forms = many_word_forms(query_synonyms)
+    # antonyms_forms = many_word_forms(query_antonyms)
+
+    synonyms_forms = query_synonyms
+    antonyms_forms = query_antonyms
 
     # list of all review strings (each place has a single review string of all reviews) with
     # the query string as the last vector
@@ -180,8 +192,16 @@ def get_matchings_cos_sim(city, category, query):
 def within_rad(city, top_hotels, top_rests, top_attract, radius):  # top_attract,
     with open('app/irsystem/models/inverted-index.json') as f:
         inv_ind = json.load(f)
+        f.close()
     with open('app/irsystem/models/distance-matrices.json') as f:
         distances = json.load(f)
+        f.close()
+    with open('app/irsystem/models/all_info.json') as f:
+        info = json.load(f)[city]
+        f.close()
+    with open('app/irsystem/models/ranking_mapping.json') as f:
+        rankings_map = json.load(f)[city]
+        f.close()
     within_rad = {}
     for h in top_hotels:
         restaurants = []
@@ -189,13 +209,27 @@ def within_rad(city, top_hotels, top_rests, top_attract, radius):  # top_attract
             #dist = distances[city][order[1]][inv_ind[city][order[1]][r]][inv_ind[city][order[0]][h]]
             dist = distances[city]['restaurant'][inv_ind[city]['restaurant'][r]][inv_ind[city]['accommodation'][h]]
             if dist <= radius:
-                restaurants.append(r)
+                rest_info = info['restaurant'][r]   
+                rest_dict = {"name": r, "distance": dist, "address": rest_info["address"], "reviews": [], "subcategory": ""}
+                if "reviews" in rest_info:
+                    rest_dict["reviews"] = rest_info["reviews"][:5]
+                if "subCategory" in rest_info:
+                    rest_dict["subcategory"] = rest_info["subCategory"]
+                rest_dict["rating"] = rankings_map['restaurant'][r]
+                restaurants.append(rest_dict)
         attractions = []
         for a in top_attract:
             #dist = distances[city][order[2]][inv_ind[city][order[2]][a]][inv_ind[city][order[0]][h]]
             dist = distances[city]['attraction'][inv_ind[city]['attraction'][a]][inv_ind[city]['accommodation'][h]]
             if dist <= radius:
-                attractions.append(a)
+                attr_info = info['attraction'][a]   
+                attr_dict = {"name": a, "distance": dist, "address": attr_info["address"], "reviews": [], "subcategory": ""}
+                if "reviews" in attr_info:
+                    attr_dict["reviews"] = attr_info["reviews"][:5]
+                if "subCategory" in attr_info:
+                    attr_dict["subcategory"] = attr_info["subCategory"]
+                attr_dict["rating"] = rankings_map['attraction'][a]
+                attractions.append(attr_dict)
         within_rad[h] = {'restaurants': restaurants, 'attractions': attractions}
 
     return within_rad

@@ -96,6 +96,7 @@ def search():
 
 	accommodations = list(filter(lambda x: rad[x[0]]['restaurants'] or rad[x[0]]['attractions'], accommodations))  # filters out accommodations w no restaurants
 
+	
 	for i, a in enumerate(accommodations[:6]): #gets top 6 itineraries
 		data.append({"city": city, "title": f"Itinerary #{i + 1}", "accommodation": a[0], "restaurants": rad[a[0]]['restaurants'][:10], "attractions": rad[a[0]]['attractions'][:10]})
 		# data.append([f"Itinerary #{i + 1}"])
