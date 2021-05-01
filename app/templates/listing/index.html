@@ -285,7 +285,7 @@
 			<div class="fh5co-listing">
 				<div class="container">
 					{% for d in data %}
-					<div class="fh5co-item-wrap" style="margin-bottom: 30px;">
+					<div class="fh5co-item-wrap" style="display: flex; margin-bottom: 30px;">
 						<div class="fh5co-news">
 							<!-- make url https://www.google.com/search?q=hotel+kurtsig -->
 							<a href="#">
@@ -302,12 +302,14 @@
 								<ul>
 									<li>
 										<a href="#">
-											<!-- <span class="fh5co-date">Asian</span> -->
-											<h3>{{d['accommodation']}}
+											<span class="fh5co-date">{{d['accommodation']['subcategory']}}</span>
+											<h3>{{d['accommodation']['name']}}
 											</h3>
-											<p style="margin-bottom: .2em; color: #7D84B2">Average rating: 0.5</p>
-											<p style="margin-bottom: .2em">"We loved this place."</p>
-											<p style="margin-bottom: .2em">"Best place we've ever been."</p>
+											<p style="margin-bottom: .2em; color: #7D84B2">Average rating: {{d['accommodation']['rating']}}
+											</p>
+											{% for r in d['accommodation']['reviews'] %}
+											<p style="margin-bottom: .2em">{{r}}</p>
+											{% endfor %}
 										</a>
 									</li>
 								</ul>
@@ -317,10 +319,13 @@
 									{% for rest in d['restaurants'] %}
 									<ul>
 										<li>
-											<a href="#">
-												<!-- <span class="fh5co-date">Asian</span> -->
+											<a href="#" }>
+												<span class="fh5co-date">{{rest['subcategory']}}</span>
 												<h3>{{rest['name']}}</h3>
-												<p style="margin-bottom: .2em; color: #7D84B2">Average rating: 0.5 • Distance to Hotel: 0.5</p>
+												<p style="margin-bottom: .2em; color: #7D84B2">Average rating: {{rest['rating']}} • Distance
+													to
+													Hotel: {{rest['distance']}} meters</p>
+												<!-- <p style="margin-bottom: .2em; color: #7D84B2">{{rest['rating']}}</p> -->
 												{% for r in rest['reviews'] %}
 												<p style="margin-bottom: .2em">{{r}}</p>
 												{% endfor %}
@@ -335,9 +340,11 @@
 									<ul>
 										<li>
 											<a href="#">
-												<!-- <span class="fh5co-date">Asian</span> -->
+												<span class="fh5co-date">{{att['subcategory']}}</span>
 												<h3>{{att['name']}}</h3>
-												<p style="margin-bottom: .2em; color: #7D84B2">Average rating: 0.5 • Distance to Hotel: 0.5</p>
+												<p style="margin-bottom: .2em; color: #7D84B2">Average rating: {{att['rating']}} • Distance
+													to
+													Hotel: {{att['distance']}} meters</p>
 												{% for r in att['reviews'] %}
 												<p style="margin-bottom: .2em">{{r}}</p>
 												{% endfor %}
@@ -353,6 +360,7 @@
 
 					<!-- END 3 row -->
 					{% endfor %}
+
 				</div>
 
 			</div>
@@ -416,9 +424,7 @@
 										<a href="#"><i class="icon-youtube"></i></a>
 									</p> -->
 									<p>Copyright 2016 Free Html5 <a href="#">Listing</a>. All Rights Reserved. <br>Made with
-										<i class="icon-heart3"></i> by <a href="http://freehtml5.co/" target="_blank">Freehtml5.co</a> /
-										Demo
-										Images: <a href="https://unsplash.com/" target="_blank">Unsplash</a>
+										&hearts; by Jordi (jns92), Sophie (slk262), Ishika (ij36), Sam (sam458), and Nithish (nk456)
 									</p>
 								</div>
 							</div>

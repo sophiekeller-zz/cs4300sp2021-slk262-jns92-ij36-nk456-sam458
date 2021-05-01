@@ -20,7 +20,8 @@ for city in ["london","amsterdam", "barcelona", "berlin", "dubai"]:
           for line in f.iter():
             reviews = []
             for rev in line["reviews"]:
-              reviews.append(rev['text'])
+              if "language" in rev and rev["language"] == "en":
+                reviews.append(rev['text'].replace("&#39", "'"))
             data = {"reviews": reviews, "address": line["address"]}
             if "subCategory" in line:
               data["subCategory"] = line["subCategory"]

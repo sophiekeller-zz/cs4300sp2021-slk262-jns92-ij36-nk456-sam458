@@ -210,12 +210,12 @@ def within_rad(city, top_hotels, top_rests, top_attract, radius):  # top_attract
             dist = distances[city]['restaurant'][inv_ind[city]['restaurant'][r]][inv_ind[city]['accommodation'][h]]
             if dist <= radius:
                 rest_info = info['restaurant'][r]   
-                rest_dict = {"name": r, "distance": dist, "address": rest_info["address"], "reviews": [], "subcategory": ""}
+                rest_dict = {"name": r.title(), "distance": round(dist), "address": rest_info["address"], "reviews": [], "subcategory": ""}
                 if "reviews" in rest_info:
                     rest_dict["reviews"] = rest_info["reviews"][:5]
                 if "subCategory" in rest_info:
                     rest_dict["subcategory"] = rest_info["subCategory"]
-                rest_dict["rating"] = rankings_map['restaurant'][r]
+                rest_dict["rating"] = rankings_map['restaurant'][r] if rankings_map['restaurant'][r] > 0 else "N/A"
                 restaurants.append(rest_dict)
         attractions = []
         for a in top_attract:
@@ -223,14 +223,22 @@ def within_rad(city, top_hotels, top_rests, top_attract, radius):  # top_attract
             dist = distances[city]['attraction'][inv_ind[city]['attraction'][a]][inv_ind[city]['accommodation'][h]]
             if dist <= radius:
                 attr_info = info['attraction'][a]   
-                attr_dict = {"name": a, "distance": dist, "address": attr_info["address"], "reviews": [], "subcategory": ""}
+                attr_dict = {"name": a.title(), "distance": round(dist), "address": attr_info["address"], "reviews": [], "subcategory": ""}
                 if "reviews" in attr_info:
                     attr_dict["reviews"] = attr_info["reviews"][:5]
                 if "subCategory" in attr_info:
                     attr_dict["subcategory"] = attr_info["subCategory"]
-                attr_dict["rating"] = rankings_map['attraction'][a]
+                attr_dict["rating"] = rankings_map['attraction'][a] if rankings_map['attraction'][a] > 0 else "N/A"
                 attractions.append(attr_dict)
-        within_rad[h] = {'restaurants': restaurants, 'attractions': attractions}
+        acc_info = info['accommodation'][h]   
+        acc_dict = {"name": h.title(), "address": acc_info["address"], "reviews": [], "subcategory": ""}
+        if "reviews" in acc_info:
+            acc_dict["reviews"] = acc_info["reviews"][:5]
+        if "subCategory" in acc_info:
+            acc_dict["subcategory"] = acc_info["subCategory"]
+        acc_dict["rating"] = rankings_map['accommodation'][h] if rankings_map['accommodation'][h] > 0 else "N/A"
+
+        within_rad[h] = {'restaurants': restaurants, 'attractions': attractions, 'accommodation': acc_dict}
 
     return within_rad
 
