@@ -40,9 +40,12 @@ for city in ["london","amsterdam", "barcelona", "berlin", "dubai"]:
     for category in ["accommodation", "restaurant", "attraction"]:
         vec = build_vectorizer()
         to_vectorize = [tokens_map[city][category][x] for x in tokens_map[city][category]]
-        vec_array = vec.fit_transform(to_vectorize).toarray()
+        vec_array = vec.fit_transform(to_vectorize)
         vec_arr_dict[city][category] = (vec, vec_array)
         reverse_dict[city][category] = reverse_index(vec.get_feature_names())
+        # pickle.dump(vec, open(f"pickle/vec-{city}-{category}.pickle", "wb"))
+        # pickle.dump(vec_array, open(f"pickle/vec-array-{city}-{category}.pickle", "wb"))
+        # pickle.dump(reverse, open(f"pickle/reverse-{city}-{category}.pickle", "wb"))
         #print(vec_array.T)
         svd.fit(vec_array.T)
         svd_dict[city][category] = svd.transform(vec_array.T)

@@ -1,3 +1,4 @@
+import pickle
 
 import nltk
 # import ssl
@@ -97,15 +98,19 @@ def cosineSim(city, category, query):
     if not query:
         return sorted(rankings_map[city][category].items(), key=lambda x: x[1], reverse=True)
 
-    vec, doc_vectorizer_array = precomp.vec_arr_dict[city][category]
-    reverse_index = precomp.reverse_dict[city][category]
+    # vec, doc_vectorizer_array = precomp.vec_arr_dict[city][category]
+    # reverse_index = precomp.reverse_dict[city][category]
+
+    vec = pickle.load(open(f"app/irsystem/models/pickle/vec-{city}-{category}.pickle", "rb"))
+    doc_vectorizer_array = pickle.load(open(f"app/irsystem/models/pickle/vec-array-{city}-{category}.pickle", "rb")).toarray()
+    reverse_index = pickle.load(open(f"app/irsystem/models/pickle/reverse-{city}-{category}.pickle", "rb"))
     
     query_antonyms, query_synonyms = get_query_antonyms(query)
 
     # synonyms_forms = many_word_forms(query_synonyms).split(" ")
     # antonyms_forms = many_word_forms(query_antonyms).split(" ")
-    synonym_forms = query_synonyms
-    antonym_forms = query_antonyms
+    synonyms_forms = query_synonyms.split(" ")
+    antonyms_forms = query_antonyms.split(" ")
 
 
     query_vectorizer_array = np.zeros((doc_vectorizer_array.shape[1],))
@@ -211,16 +216,17 @@ def LSI_SVD(query, courseVecDictionary, city, category, reverseIndexDictionary, 
     print(svdDictionary[city][category])
     # u,s,v_t = np.linalg.svd(docVectorizerArray.T) #svd on tfidf documents
     u, s, v_t = svdDictionary[city][category]
+    #get query vector svd
     k = int(0.6 * v_t.shape[0])  # 500
-    q = queryVectorizerArray
+    q = queryVectorizerArray # q =
     q_hat = np.matmul(np.transpose(u[:, :k]), q)
 
     sim = []
-    for i in range(docVectorizerArray.shape[0]):
+    for i in range(docVectorizerArray.shape[0]): #rows for each thing calculating
         # app.logger.debug("Shape of s: {}".format(np.diag(s[:k]).shape))
         # app.logger.debug("Shape of v_t: {}".format(v_t[:k,i].shape))
         # app.logger.debug("Shape of q_hat: {}".format(np.transpose(q_hat).shape))
-        num = np.matmul(np.matmul(np.diag(s[:k]), v_t[:k, i]), np.transpose(q_hat))
+        num = np.matmul(np.matmul(np.diag(s[:k]), v_t[:k, i]), np.transpose(q_hat)) #dot product of svd_dict at i dot product of svd_query
         denom = np.linalg.norm(np.matmul(np.diag(s[:k]), v_t[:k, i])) * np.linalg.norm(q_hat)
         sim.append(num / denom)
 

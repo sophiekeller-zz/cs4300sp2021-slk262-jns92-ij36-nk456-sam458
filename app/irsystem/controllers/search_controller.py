@@ -31,7 +31,7 @@ def search():
 	print('fun' in vecPy.reverse_dict['dubai']['attraction'])
 	if request.args.get('city') is not None and request.args.get('city') != 'none':
 		city = request.args.get('city')
-		restaurants = get_matchings_cos_sim(city, "restaurant", restaurant_query)
+		restaurants = get_matchings_cos_sim(city, "restaurant", restaurant_query) #replace w svd_cos_sim
 		accommodations = get_matchings_cos_sim(city, "accommodation", accommodation_query)
 		attractions = get_matchings_cos_sim(city, "attraction", attraction_query)
 		# svd_results_rests = LSI_SVD(restaurant_query, vecPy.vec_arr_dict, city, 'restaurant', vecPy.reverse_dict, vecPy.svd_dict)
