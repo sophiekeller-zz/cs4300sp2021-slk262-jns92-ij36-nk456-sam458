@@ -34,18 +34,18 @@ def search():
 		restaurants = get_matchings_cos_sim(city, "restaurant", restaurant_query)
 		accommodations = get_matchings_cos_sim(city, "accommodation", accommodation_query)
 		attractions = get_matchings_cos_sim(city, "attraction", attraction_query)
-		svd_results_rests = LSI_SVD(restaurant_query, vecPy.vec_arr_dict, city, 'restaurant', vecPy.reverse_dict, vecPy.svd_dict)
-		svd_results_accoms = LSI_SVD(accommodation_query, vecPy.vec_arr_dict, city, 'accommodation', vecPy.reverse_dict, vecPy.svd_dict)
-		svd_results_attracts = LSI_SVD(attraction_query, vecPy.vec_arr_dict, city, 'attraction', vecPy.reverse_dict, vecPy.svd_dict)
+		# svd_results_rests = LSI_SVD(restaurant_query, vecPy.vec_arr_dict, city, 'restaurant', vecPy.reverse_dict, vecPy.svd_dict)
+		# svd_results_accoms = LSI_SVD(accommodation_query, vecPy.vec_arr_dict, city, 'accommodation', vecPy.reverse_dict, vecPy.svd_dict)
+		# svd_results_attracts = LSI_SVD(attraction_query, vecPy.vec_arr_dict, city, 'attraction', vecPy.reverse_dict, vecPy.svd_dict)
 	else:
 		#ADD POP UP MESSAGE TO SELECT A CITY
 		city = ''
 		restaurants = []
 		accommodations = []
 		attractions = []
-		svd_results_rests = []
-		svd_results_accoms = []
-		svd_results_attracts = []
+		# svd_results_rests = []
+		# svd_results_accoms = []
+		# svd_results_attracts = []
 	# print(attractions)
 	# print(svd_results_rests)
 	# print(svd_results_accoms)
