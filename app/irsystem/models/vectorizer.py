@@ -1,4 +1,5 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.decomposition import TruncatedSVD
 import json
 import numpy as np
 vec = TfidfVectorizer()
@@ -30,7 +31,7 @@ with open('app/irsystem/models/tokens_mapping.json') as f:
 vec_arr_dict = {}
 reverse_dict = {}
 svd_dict = {}
-
+svd = TruncatedSVD(n_components=5, n_iter=7, random_state=42) #PARAMETERS MIGHT NEED TO BE CHANGED
 print("started vectorizing")
 for city in ["london","amsterdam", "barcelona", "berlin", "dubai"]:
     vec_arr_dict[city] = {}
@@ -42,6 +43,10 @@ for city in ["london","amsterdam", "barcelona", "berlin", "dubai"]:
         vec_array = vec.fit_transform(to_vectorize).toarray()
         vec_arr_dict[city][category] = (vec, vec_array)
         reverse_dict[city][category] = reverse_index(vec.get_feature_names())
-        # svd_dict[city][category] = np.linalg.svd(vec_array.T) #svd on tfidf documents
+        #print(vec_array.T)
+        svd.fit(vec_array.T)
+        svd_dict[city][category] = svd.transform(vec_array.T)
 
+        # svd_dict[city][category] = np.linalg.svd(vec_array.T) #svd on tfidf documents
+#print(svd_dict)
 print("finished vectorizing")

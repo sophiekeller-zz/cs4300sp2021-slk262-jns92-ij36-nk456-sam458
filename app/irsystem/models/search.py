@@ -173,6 +173,7 @@ def get_matchings_cos_sim(city, category, query):
     to_vectorize = [tokens_map[city][category][x] for x in tokens_map[city][category]]  + [antonyms_forms] + [synonyms_forms]
     tfidf_vec = build_vectorizer()
     tfidf_mat = tfidf_vec.fit_transform(to_vectorize).toarray()
+
     vocab = tfidf_vec.get_feature_names()
 
 
@@ -187,7 +188,44 @@ def get_matchings_cos_sim(city, category, query):
     ranked_translated = [(keys[x[0]], x[1]) for x in ranked]
 
     return ranked_translated
-    
+
+
+def LSI_SVD(query, courseVecDictionary, city, category, reverseIndexDictionary, svdDictionary):
+    # courseVecDictionary[class selected]
+    vec, docVectorizerArray = courseVecDictionary[city][category]
+    reverse_index = reverseIndexDictionary[city][category]
+
+    #query = utils.tokenize_SpaCy(query)
+    queryVectorizerArray = np.zeros((docVectorizerArray.shape[1],))
+    # feature_list = vec.get_feature_names()
+    for w in query.split(" "):
+        idx = reverse_index.get(w, -1)
+        print(idx)
+        if idx > 0:
+            print("here2")
+            queryVectorizerArray[idx] += 1.0
+    queryVectorizerArray *= vec.idf_
+
+    if queryVectorizerArray.sum() == 0:
+        return []
+    print(svdDictionary[city][category])
+    # u,s,v_t = np.linalg.svd(docVectorizerArray.T) #svd on tfidf documents
+    u, s, v_t = svdDictionary[city][category]
+    k = int(0.6 * v_t.shape[0])  # 500
+    q = queryVectorizerArray
+    q_hat = np.matmul(np.transpose(u[:, :k]), q)
+
+    sim = []
+    for i in range(docVectorizerArray.shape[0]):
+        # app.logger.debug("Shape of s: {}".format(np.diag(s[:k]).shape))
+        # app.logger.debug("Shape of v_t: {}".format(v_t[:k,i].shape))
+        # app.logger.debug("Shape of q_hat: {}".format(np.transpose(q_hat).shape))
+        num = np.matmul(np.matmul(np.diag(s[:k]), v_t[:k, i]), np.transpose(q_hat))
+        denom = np.linalg.norm(np.matmul(np.diag(s[:k]), v_t[:k, i])) * np.linalg.norm(q_hat)
+        sim.append(num / denom)
+
+    return np.array(sim)
+
 
 def within_rad(city, top_hotels, top_rests, top_attract, radius):  # top_attract,
     if city == '':
