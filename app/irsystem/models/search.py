@@ -190,6 +190,8 @@ def get_matchings_cos_sim(city, category, query):
     
 
 def within_rad(city, top_hotels, top_rests, top_attract, radius):  # top_attract,
+    if city == '':
+        return {}
     with open('app/irsystem/models/inverted-index.json') as f:
         inv_ind = json.load(f)
         f.close()

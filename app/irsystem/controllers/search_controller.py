@@ -34,8 +34,6 @@ def search():
 		attractions = get_matchings_cos_sim(city, "attraction", attraction_query)
 	else:
 		#ADD POP UP MESSAGE TO SELECT A CITY
-		return render_template('./listing/index.html', name=project_name, netid=net_id, output_message="Please enter a city.", data=[])
-
 		city = ''
 		restaurants = []
 		accommodations = []

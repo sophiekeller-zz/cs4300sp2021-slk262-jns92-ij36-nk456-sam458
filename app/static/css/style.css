@@ -217,6 +217,7 @@ figure {
   float: left;
   position: relative;
   width: 100%;
+  height: 100%
   margin-top: -5em;
   padding-bottom: 5em;
 }
@@ -231,7 +232,6 @@ figure {
   position: relative;
   display: block;
   width: 100%;
-  height: 100%;
   cursor: pointer;
   overflow: hidden;
 }
