@@ -242,7 +242,3 @@ def within_rad(city, top_hotels, top_rests, top_attract, radius):  # top_attract
 
     return within_rad
 
-# rests = getMatchings('london', 'accommodation', 'clean');
-# hots =  getMatchings('london', 'accommodation', 'clean');
-# print(list(withinRad('london',hots, rests, 10000000)));
-

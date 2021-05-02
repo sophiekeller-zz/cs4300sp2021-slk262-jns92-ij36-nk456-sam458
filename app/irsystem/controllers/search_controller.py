@@ -41,11 +41,12 @@ def search():
 		accommodations = []
 		attractions = []
 
+
 	# if request.args.get('preference') is 'attractions':
 	# 	y = [attractions, restaurants, accommodations]
 	# elif request.args.get('preference') is 'restaurants':
 	# 	y = [restaurants, accommodations, attractions]
-	# else:
+	# elif request.args.get('preference') is 'accommodations':
 	# 	y = [accommodations, restaurants, attractions]
 
 	r = request.args.get('distance')
@@ -55,44 +56,6 @@ def search():
 
 	output_message =""# "Your itinerary options"
 	data = []
-	# if request.args.get('preference') == 'attractions':
-	# 	order = ['attraction', 'accommodation','attraction']
-	# 	rad = within_rad(city, [x[0] for x in attractions], [x[0] for x in restaurants], [x[0] for x in accommodations],
-	# 					 radius, order)
-	# 	results = list(filter(lambda x: rad[x[0]]['restaurants'] or rad[x[0]]['attractions'], accommodations))
-	# 	for i, a in enumerate(results[:5]):
-	# 		data.append([f"Itinerary #{i + 1}"])
-	# 		data.append(f"Attraction: {a[0]}")
-	# 		data.append("Restaurants:")
-	# 		data += rad[a[0]]['restaurants'][:10]
-	# 		data.append("Accommodations:")
-	# 		data += rad[a[0]]['attractions'][:10]
-	# 		data.append("")
-	# elif request.args.get('preference') == 'restaurants':
-	# 	order = ['restaurant', 'accommodation', 'attraction']
-	# 	rad = within_rad(city, [x[0] for x in restaurants], [x[0] for x in accommodations], [x[0] for x in attractions],
-	# 					 radius)
-	# 	results = list(filter(lambda x: rad[x[0]]['restaurants'] or rad[x[0]]['attractions'], accommodations))
-	# 	for i, a in enumerate(results[:5]):
-	# 		data.append([f"Itinerary #{i + 1}"])
-	# 		data.append(f"Restaurant: {a[0]}")
-	# 		data.append("Accommodations:")
-	# 		data += rad[a[0]]['restaurants'][:10]
-	# 		data.append("Attractions:")
-	# 		data += rad[a[0]]['attractions'][:10]
-	# 		data.append("")
-	# else:
-	# 	rad = within_rad(city, [x[0] for x in accommodations], [x[0] for x in restaurants], [x[0] for x in attractions],
-	# 					 radius)
-	# 	results = list(filter(lambda x: rad[x[0]]['restaurants'] or rad[x[0]]['attractions'], accommodations)) #filters out accommodations w no restaurants
-	# 	for i, a in enumerate(results[:5]):
-	# 		data.append([f"Itinerary #{i + 1}"])
-	# 		data.append(f"Accommodation: {a[0]}")
-	# 		data.append("Restaurants:")
-	# 		data += rad[a[0]]['restaurants'][:10]
-	# 		data.append("Attractions:")
-	# 		data += rad[a[0]]['attractions'][:10]
-	# 		data.append("")
 
 	accommodations = list(filter(lambda x: rad[x[0]]['restaurants'] or rad[x[0]]['attractions'], accommodations))  # filters out accommodations w no restaurants
 
