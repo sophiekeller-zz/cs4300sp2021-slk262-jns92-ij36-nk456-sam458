@@ -15,7 +15,6 @@ import nltk
 import json
 import math
 from PyDictionary import PyDictionary
-from sklearn.feature_extraction.text import TfidfVectorizer
 import numpy.linalg as LA
 
 import numpy as np
@@ -28,18 +27,6 @@ import numpy as np
 # porter = PorterStemmer()
 
 dictionary=PyDictionary()
-
-
-def build_vectorizer(max_n_terms=5000, max_prop_docs=0.8, min_n_docs=0):
-    """Returns a TfidfVectorizer object with certain preprocessing properties.
-    
-    Params: {max_n_terms: Integer,
-             max_prop_docs: Float,
-             min_n_docs: Integer}
-    Returns: TfidfVectorizer
-    """
-    return TfidfVectorizer(min_df=0, max_df=max_prop_docs, max_features=max_n_terms,
-                           stop_words='english')
 
 
 
@@ -217,7 +204,7 @@ def get_matchings_cos_sim(city, category, query):
     # list of all review strings (each place has a single review string of all reviews) with
     # the query string as the last vector
     to_vectorize = [tokens_map[city][category][x] for x in tokens_map[city][category]]  + [antonyms_forms] + [synonyms_forms]
-    tfidf_vec = build_vectorizer()
+    # tfidf_vec = build_vectorizer()
     tfidf_mat = tfidf_vec.fit_transform(to_vectorize).toarray()
 
     vocab = tfidf_vec.get_feature_names()
