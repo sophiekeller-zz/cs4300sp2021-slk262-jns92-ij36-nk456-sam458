@@ -41,16 +41,9 @@ def search():
 		restaurants = []
 		accommodations = []
 		attractions = []
-		# svd_results_rests = []
-		# svd_results_accoms = []
-		# svd_results_attracts = []
-	# print(attractions)
-	# print(svd_results_rests)
-	# print(svd_results_accoms)
-	# print(svd_results_attracts)
+
 	r = request.args.get('distance')
 	radius = 10000 if r is None or r == '' else int(r)
-	#rad = within_rad(city, [x[0] for x in y[0]], [x[0] for x in y[1]], [x[0] for x in y[2]], radius)
 	rad = within_rad(city, [x[0] for x in accommodations], [x[0] for x in restaurants], [x[0] for x in attractions], radius)
 
 	output_message =""# "Your itinerary options"
@@ -61,7 +54,7 @@ def search():
 	
 	for i, a in enumerate(accommodations[:6]): #gets top 6 itineraries
 		data.append({"city": city, "title": f"Itinerary #{i + 1}", "accommodation": rad[a[0]]['accommodation'], "restaurants": rad[a[0]]['restaurants'][:10], "attractions": rad[a[0]]['attractions'][:10]})
-
+	
 
 
 	return render_template('./listing/index.html', name=project_name, netid=net_id, output_message=output_message, data=data)

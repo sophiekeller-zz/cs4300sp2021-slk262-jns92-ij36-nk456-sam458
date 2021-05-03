@@ -219,8 +219,7 @@
 						</div>
 						<div class="col-md-4 col-sm-4 fh5co-item-wrap">
 							<a class="fh5co-listing-item">
-								<img
-									src="https://tailormadeperu.com/wp-content/uploads/2017/09/trekking.jpg"
+								<img src="https://tailormadeperu.com/wp-content/uploads/2017/09/trekking.jpg"
 									alt="Free HTML5 Bootstrap Template by FreeHTML5.co" class="img-responsive">
 								<div class="fh5co-listing-copy">
 									<h2>Adventure</h2>
@@ -237,13 +236,12 @@
 					{% for d in data %}
 					<div class="fh5co-item-wrap" style="display: flex; margin-bottom: 30px;">
 						<div class="fh5co-news">
-							<!-- make url https://www.google.com/search?q=hotel+kurtsig -->
 							<a href="#">
 								<h2 style="color:white;margin-top: 30px;font-size: ">{{d['title']}}</h2>
 								<h3 style="margin-top: 20px;margin-bottom: 0px;color: #8AA399">Accommodation: </h3>
 								<ul>
 									<li>
-										<a href="#">
+										<a href="{{ d['accommodation']['url'] }}" target="{{ d['accommodation']['target'] }}">
 											<span class="fh5co-date">{{d['accommodation']['subcategory']}}</span>
 											<h3>{{d['accommodation']['name']}}
 											</h3>
@@ -261,7 +259,7 @@
 									{% for rest in d['restaurants'] %}
 									<ul>
 										<li>
-											<a href="#" }>
+											<a href="{{ rest['url'] }}" target="{{ rest['target'] }}">
 												<span class="fh5co-date">{{rest['subcategory']}}</span>
 												<h3>{{rest['name']}}</h3>
 												<p style="margin-bottom: .2em; color: #7D84B2">Average rating: {{rest['rating']}} • Distance
@@ -281,7 +279,7 @@
 									{% for att in d['attractions'] %}
 									<ul>
 										<li>
-											<a href="#">
+											<a href="{{ att['url'] }}" target="{{ att['target'] }}">
 												<span class="fh5co-date">{{att['subcategory']}}</span>
 												<h3>{{att['name']}}</h3>
 												<p style="margin-bottom: .2em; color: #7D84B2">Average rating: {{att['rating']}} • Distance

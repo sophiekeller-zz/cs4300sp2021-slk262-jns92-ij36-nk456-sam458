@@ -1,5 +1,5 @@
 import pickle
-
+import jsonlines
 import nltk
 # import ssl
 
@@ -137,6 +137,7 @@ def cosineSim(city, category, query):
     ants_vectorizer_array *= vec.idf_
     
     if query_vectorizer_array.sum() == 0:
+        print("dropped")
         return sorted(rankings_map[city][category].items(), key=lambda x: x[1], reverse=True)
 
     u,s,v_t = svd
@@ -288,6 +289,17 @@ def within_rad(city, top_hotels, top_rests, top_attract, radius):  # top_attract
     with open('app/irsystem/models/ranking_mapping.json') as f:
         rankings_map = json.load(f)[city]
         f.close()
+    with jsonlines.open(f'app/irsystem/models/sites/{city}-restaurant-sites.jsonl') as reader:
+        for obj in reader:
+            rest_sites= obj
+    with jsonlines.open(f'app/irsystem/models/sites/{city}-accommodation-sites.jsonl') as reader:
+        for obj in reader:
+            acc_sites= obj
+    with jsonlines.open(f'app/irsystem/models/sites/{city}-attraction-sites.jsonl') as reader:
+        for obj in reader:
+            att_sites= obj
+
+
     within_rad = {}
     for h in top_hotels:
         restaurants = []
@@ -296,7 +308,10 @@ def within_rad(city, top_hotels, top_rests, top_attract, radius):  # top_attract
             dist = distances[city]['restaurant'][inv_ind[city]['restaurant'][r]][inv_ind[city]['accommodation'][h]]
             if dist <= radius:
                 rest_info = info['restaurant'][r]   
-                rest_dict = {"name": r.title(), "distance": round(dist), "address": rest_info["address"], "reviews": [], "subcategory": ""}
+                rest_dict = {"name": r.title(), "distance": round(dist), "address": rest_info["address"], "reviews": [], "subcategory": "", "url": rest_sites[r], "target": "_blank"}
+                if rest_dict["url"] == "":
+                    rest_dict["url"] = "#"
+                    rest_dict["target"] = "_self"
                 if "reviews" in rest_info:
                     rest_dict["reviews"] = rest_info["reviews"][:5]
                 if "subCategory" in rest_info:
@@ -309,7 +324,10 @@ def within_rad(city, top_hotels, top_rests, top_attract, radius):  # top_attract
             dist = distances[city]['attraction'][inv_ind[city]['attraction'][a]][inv_ind[city]['accommodation'][h]]
             if dist <= radius:
                 attr_info = info['attraction'][a]   
-                attr_dict = {"name": a.title(), "distance": round(dist), "address": attr_info["address"], "reviews": [], "subcategory": ""}
+                attr_dict = {"name": a.title(), "distance": round(dist), "address": attr_info["address"], "reviews": [], "subcategory": "", "url": att_sites[a], "target": "_blank"}
+                if attr_dict["url"] == "":
+                    attr_dict["url"] = "#"
+                    attr_dict["target"] = "_self"
                 if "reviews" in attr_info:
                     attr_dict["reviews"] = attr_info["reviews"][:5]
                 if "subCategory" in attr_info:
@@ -317,13 +335,15 @@ def within_rad(city, top_hotels, top_rests, top_attract, radius):  # top_attract
                 attr_dict["rating"] = rankings_map['attraction'][a] if rankings_map['attraction'][a] > 0 else "N/A"
                 attractions.append(attr_dict)
         acc_info = info['accommodation'][h]   
-        acc_dict = {"name": h.title(), "address": acc_info["address"], "reviews": [], "subcategory": ""}
+        acc_dict = {"name": h.title(), "address": acc_info["address"], "reviews": [], "subcategory": "", "url": acc_sites[h], "target": "_blank"}
         if "reviews" in acc_info:
             acc_dict["reviews"] = acc_info["reviews"][:5]
         if "subCategory" in acc_info:
             acc_dict["subcategory"] = acc_info["subCategory"]
         acc_dict["rating"] = rankings_map['accommodation'][h] if rankings_map['accommodation'][h] > 0 else "N/A"
-
+        if not acc_dict["url"]:
+            acc_dict["target"] = "_self"
+            acc_dict["url"] = "#"
         within_rad[h] = {'restaurants': restaurants, 'attractions': attractions, 'accommodation': acc_dict}
 
     return within_rad
