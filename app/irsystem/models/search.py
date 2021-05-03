@@ -49,9 +49,9 @@ def get_query_antonyms(query):
     for q in query.split(" "):
         if not dictionary.synonym(q):
             synonyms += [q]
-            antonyms += [q]
         else:
             synonyms += dictionary.synonym(q)[:10] + [q]
+        if dictionary.antonym(q):
             antonyms += dictionary.antonym(q)[:10]
     # print(synonyms)
     antonyms = " ".join(antonyms)

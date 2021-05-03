@@ -25,7 +25,8 @@ net_id = "Sophie Keller: slk262, Jordana Socher: jns92, Ishika Jain: ij36,  Sama
 def search():
 	restaurant_query = request.args.get('restaurant')
 	accommodation_query = request.args.get('accommodation')
-	attraction_query = request.args.get('attraction')
+	attraction_query = request.args.get('attraction') 
+
 	if request.args.get('city') is not None and request.args.get('city') != 'none':
 		city = request.args.get('city')
 		restaurants = cosineSim(city, "restaurant", restaurant_query) #replace w svd_cos_sim

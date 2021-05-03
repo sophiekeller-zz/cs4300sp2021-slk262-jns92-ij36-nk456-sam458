@@ -156,7 +156,7 @@
 
 						<form class="fh5co-contact">
 							<label>City
-								<select name="city" id="fh5co-contact" class="form-control">
+								<select name="city" id="city" class="form-control">
 									<option value="none"></option>
 									<option value="amsterdam">Amsterdam</option>
 									<option value="barcelona">Barcelona</option>
@@ -165,28 +165,26 @@
 									<option value="london">London</option>
 								</select>
 							</label>
-<!--							<label>Top Priority-->
-<!--								<select name="preference" id="fh5co-contact" class="form-control">-->
-<!--									<option value=" none"></option>-->
-<!--									<option value="accommodations">Accommodations</option>-->
-<!--									<option value="restaurants">Restaurants</option>-->
-<!--									<option value="attractions">Attractions</option>-->
-<!--								</select>-->
-<!--							</label>-->
+							<!--							<label>Top Priority-->
+							<!--								<select name="preference" id="fh5co-contact" class="form-control">-->
+							<!--									<option value=" none"></option>-->
+							<!--									<option value="accommodations">Accommodations</option>-->
+							<!--									<option value="restaurants">Restaurants</option>-->
+							<!--									<option value="attractions">Attractions</option>-->
+							<!--								</select>-->
+							<!--							</label>-->
 							<label>Distance to Activity
-								<input id="fh5co-contact" type="number" name="distance" class="form-control"
-									placeholder="10000 (in Meters)">
+								<input id="distance" type="number" name="distance" class="form-control" placeholder="10000 (in Meters)">
 							</label>
 							<label>Accommodation Keywords
-								<input id="fh5co-contact" type="text" name="accommodation" class="form-control"
+								<input id="accommodation" type="text" name="accommodation" class="form-control"
 									placeholder="cheap clean">
 							</label>
 							<label>Restaurant Keywords
-								<input id="fh5co-contact" type="text" name="restaurant" class="form-control" placeholder="cafe bar">
+								<input id="restaurant" type="text" name="restaurant" class="form-control" placeholder="cafe bar">
 							</label>
 							<label>Attraction Keywords
-								<input id="fh5co-contact" type="text" name="attraction" class="form-control"
-									placeholder="animals museum">
+								<input id="attraction" type="text" name="attraction" class="form-control" placeholder="animals museum">
 							</label>
 							<button type="submit" class="btn btn-info"> Go! </button>
 						</form>
@@ -201,8 +199,9 @@
 					<div class="row">
 						<div class="col-md-4 col-sm-4 fh5co-item-wrap">
 							<a class="fh5co-listing-item">
-								<img src="https://images.unsplash.com/photo-1534685785745-60a2cea0ec34?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1525&q=80" alt="Free HTML5 Bootstrap Template by FreeHTML5.co"
-									class="img-responsive" width="500" height="500">
+								<img
+									src="https://images.unsplash.com/photo-1534685785745-60a2cea0ec34?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1525&q=80"
+									alt="Free HTML5 Bootstrap Template by FreeHTML5.co" class="img-responsive" width="500" height="500">
 								<form class="fh5co-listing-copy">
 									<h2>Explore</h2>
 								</form>
@@ -210,8 +209,9 @@
 						</div>
 						<div class="col-md-4 col-sm-4 fh5co-item-wrap">
 							<a class="fh5co-listing-item">
-								<img src="https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F5f709d82fa4f131fa2114a74%2F0x0.jpg" alt="Free HTML5 Bootstrap Template by FreeHTML5.co"
-									class="img-responsive" width="500" height="500">
+								<img
+									src="https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F5f709d82fa4f131fa2114a74%2F0x0.jpg"
+									alt="Free HTML5 Bootstrap Template by FreeHTML5.co" class="img-responsive" width="500" height="500">
 								<div class="fh5co-listing-copy">
 									<h2>Travel</h2>
 								</div>
@@ -219,8 +219,9 @@
 						</div>
 						<div class="col-md-4 col-sm-4 fh5co-item-wrap">
 							<a class="fh5co-listing-item">
-								<img src="https://images.ctfassets.net/itrs3p223g0s/760AnCQLX4WkKXCWIH8yqG/c5db19f6fdec7e333b267007fdff1fdc/travel-podcasts-british-columbia-mountains.jpg?q=80&fm=webp&w=500" alt="Free HTML5 Bootstrap Template by FreeHTML5.co"
-									class="img-responsive">
+								<img
+									src="https://images.ctfassets.net/itrs3p223g0s/760AnCQLX4WkKXCWIH8yqG/c5db19f6fdec7e333b267007fdff1fdc/travel-podcasts-british-columbia-mountains.jpg?q=80&fm=webp&w=500"
+									alt="Free HTML5 Bootstrap Template by FreeHTML5.co" class="img-responsive">
 								<div class="fh5co-listing-copy">
 									<h2>Adventure</h2>
 								</div>
@@ -353,6 +354,17 @@
 
 		<!-- Main JS -->
 		<script src="static/js/main.js"></script>
+		<script>
+			window.onload = function () {
+				const queryString = window.location.search;
+				const urlParams = new URLSearchParams(queryString)
+				document.getElementById("distance").value = urlParams.get("distance");;;
+				document.getElementById("restaurant").value = urlParams.get("restaurant");;;
+				document.getElementById("accommodation").value = urlParams.get("accommodation");;;
+				document.getElementById("attraction").value = urlParams.get("attraction");;;
+				document.getElementById("city").value = urlParams.get("city");;;
+			}
+		</script>
 
 </body>
 
