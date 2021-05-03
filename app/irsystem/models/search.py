@@ -104,7 +104,7 @@ def cosineSim(city, category, query):
     vec = pickle.load(open(f"app/irsystem/models/pickle/vec-{city}-{category}.pickle", "rb"))
     doc_vectorizer_array = pickle.load(open(f"app/irsystem/models/pickle/vec-array-{city}-{category}.pickle", "rb")).toarray()
     reverse_index = pickle.load(open(f"app/irsystem/models/pickle/reverse-{city}-{category}.pickle", "rb"))
-    
+    svd_dict = pickle.load(open(f"app/irsystem/models/pickle/svd-dict-{city}-{category}.pickle", "rb"))
     query_antonyms, query_synonyms = get_query_antonyms(query)
 
     # synonyms_forms = many_word_forms(query_synonyms).split(" ")
@@ -116,7 +116,8 @@ def cosineSim(city, category, query):
     query_vectorizer_array = np.zeros((doc_vectorizer_array.shape[1],))
     ants_vectorizer_array = np.zeros((doc_vectorizer_array.shape[1],))
     # feature_list = vec.get_feature_names()
-
+    print(len(svd_dict))
+    print(svd_dict)
 
     for w in synonyms_forms:
         idx = reverse_index.get(w, -1)
@@ -134,16 +135,26 @@ def cosineSim(city, category, query):
     
     if query_vectorizer_array.sum() == 0:
         return []
+    sim_syn = []
+    sim_ant = []
+    print(doc_vectorizer_array.shape[0])
+    for i in range(doc_vectorizer_array.shape[0]):
+        num_syn = np.matmul(query_vectorizer_array, svd_dict)
+        num_ant = np.matmul(ants_vectorizer_array, svd_dict)
+        denom_syn = np.linalg.norm(num_syn) * np.linalg.norm(svd_dict)
+        denom_ant = np.linalg.norm(num_ant) * np.linalg.norm(svd_dict)
+        sim_syn.append(num_syn/denom_syn)
+        sim_ant.append(num_ant/denom_ant)
+    # num = query_vectorizer_array.dot(svd_dict.T)
+    # denom = LA.norm(query_vectorizer_array)*LA.norm(svd_dict,axis=1)
+    # sim = num/denom
+    #
+    # num2 = ants_vectorizer_array.dot(svd_dict.T)
+    # denom2 = LA.norm(ants_vectorizer_array)*LA.norm(svd_dict,axis=1)
+    # sim2 = num2/denom2
 
-    num = query_vectorizer_array.dot(doc_vectorizer_array.T)
-    denom = LA.norm(query_vectorizer_array)*LA.norm(doc_vectorizer_array,axis=1)
-    sim = num/denom
-
-    num2 = ants_vectorizer_array.dot(doc_vectorizer_array.T)
-    denom2 = LA.norm(ants_vectorizer_array)*LA.norm(doc_vectorizer_array,axis=1)
-    sim2 = num2/denom2
-
-    final_sim = sim - sim2
+    #final_sim = sim - sim2
+    final_sim = sum(sim_syn) - sum(sim_ant)
     sims_idx = [(i, sim) for i, sim in enumerate(final_sim)]
     ranked = sorted(sims_idx, key=lambda x: x[1], reverse=True)  # slice off query
     
