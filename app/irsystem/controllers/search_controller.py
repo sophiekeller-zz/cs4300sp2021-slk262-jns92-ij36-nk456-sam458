@@ -1,7 +1,6 @@
 from . import *  
 from app.irsystem.models.helpers import *
 from app.irsystem.models.search import *
-import app.irsystem.models.vectorizer as vecPy
 from app.irsystem.models.helpers import NumpyEncoder as NumpyEncoder
 
 project_name = "Itinerary Planner"
@@ -27,13 +26,11 @@ def search():
 	restaurant_query = request.args.get('restaurant')
 	accommodation_query = request.args.get('accommodation')
 	attraction_query = request.args.get('attraction')
-	print(request.args.get('city'))
-	print('fun' in vecPy.reverse_dict['dubai']['attraction'])
 	if request.args.get('city') is not None and request.args.get('city') != 'none':
 		city = request.args.get('city')
-		restaurants = get_matchings_cos_sim(city, "restaurant", restaurant_query) #replace w svd_cos_sim
-		accommodations = get_matchings_cos_sim(city, "accommodation", accommodation_query)
-		attractions = get_matchings_cos_sim(city, "attraction", attraction_query)
+		restaurants = cosineSim(city, "restaurant", restaurant_query) #replace w svd_cos_sim
+		accommodations = cosineSim(city, "accommodation", accommodation_query)
+		attractions = cosineSim(city, "attraction", attraction_query)
 		# svd_results_rests = LSI_SVD(restaurant_query, vecPy.vec_arr_dict, city, 'restaurant', vecPy.reverse_dict, vecPy.svd_dict)
 		# svd_results_accoms = LSI_SVD(accommodation_query, vecPy.vec_arr_dict, city, 'accommodation', vecPy.reverse_dict, vecPy.svd_dict)
 		# svd_results_attracts = LSI_SVD(attraction_query, vecPy.vec_arr_dict, city, 'attraction', vecPy.reverse_dict, vecPy.svd_dict)
