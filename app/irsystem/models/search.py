@@ -85,9 +85,6 @@ def cosineSim(city, category, query):
     if not query:
         return sorted(rankings_map[city][category].items(), key=lambda x: x[1], reverse=True)
 
-    # vec, doc_vectorizer_array = precomp.vec_arr_dict[city][category]
-    # reverse_index = precomp.reverse_dict[city][category]
-
     vec = pickle.load(open(f"app/irsystem/models/pickle/vec-{city}-{category}.pickle", "rb"))
     doc_vectorizer_array = pickle.load(open(f"app/irsystem/models/pickle/vec-array-{city}-{category}.pickle", "rb")).toarray()
     reverse_index = pickle.load(open(f"app/irsystem/models/pickle/reverse-{city}-{category}.pickle", "rb"))
@@ -97,17 +94,9 @@ def cosineSim(city, category, query):
     
     synonyms_forms = many_word_forms(query_synonyms).split(" ")
     antonyms_forms = many_word_forms(query_antonyms).split(" ")
-    # synonyms_forms = query_synonyms.split(" ")
-    # antonyms_forms = query_antonyms.split(" ")
-
 
     query_vectorizer_array = np.zeros((doc_vectorizer_array.shape[1],))
     ants_vectorizer_array = np.zeros((doc_vectorizer_array.shape[1],))
-    # feature_list = vec.get_feature_names()
-    # print(len(svd_dict))
-    # print(svd_dict)
-    # print("components", svd_dict.components_)
-
     
     for w in synonyms_forms:
         idx = reverse_index.get(w, -1)
@@ -124,7 +113,6 @@ def cosineSim(city, category, query):
     ants_vectorizer_array *= vec.idf_
     
     if query_vectorizer_array.sum() == 0:
-        print("dropped")
         return sorted(rankings_map[city][category].items(), key=lambda x: x[1], reverse=True)
 
     u,s,v_t = svd
@@ -170,12 +158,10 @@ def cosineSim(city, category, query):
 
     # final_sim = sum(sim_syn) - sum(sim_ant)
     final_sim = np.array(sim) - np.array(sim2)
-    print("sims calculated", len(final_sim))
     
     sims_idx = [(i, sim) for i, sim in enumerate(final_sim)]
     ranked = sorted(sims_idx, key=lambda x: x[1], reverse=True) 
     keys = list(tokens_map[city][category].keys())
-    print("places", len(keys))
 
     ranked_translated = [(keys[x[0]], x[1]) for x in ranked]
 
@@ -262,6 +248,7 @@ def LSI_SVD(query, courseVecDictionary, city, category, reverseIndexDictionary, 
 
 
 def within_rad(city, top_hotels, top_rests, top_attract, radius):  # top_attract,
+    
     if city == '':
         return {}
     with open('app/irsystem/models/inverted-index.json') as f:
