@@ -1,6 +1,6 @@
-# import requests
-# import json
-# import csv
+import requests
+import json
+import csv
 
 
 # places = requests.get(
