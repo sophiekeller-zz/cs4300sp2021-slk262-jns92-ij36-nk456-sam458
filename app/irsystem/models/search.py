@@ -134,10 +134,11 @@ def cosineSim(city, category, query):
     ants_vectorizer_array *= vec.idf_
     
     if query_vectorizer_array.sum() == 0:
-        return []
+        return sorted(rankings_map[city][category].items(), key=lambda x: x[1], reverse=True)
+        
     sim_syn = []
     sim_ant = []
-    print(doc_vectorizer_array.shape[0])
+    # print(doc_vectorizer_array.shape[0])
     for i in range(doc_vectorizer_array.shape[0]):
         num_syn = np.matmul(query_vectorizer_array, svd_dict)
         num_ant = np.matmul(ants_vectorizer_array, svd_dict)
