@@ -34,10 +34,11 @@ def get_query_antonyms(query):
     antonyms = []
     synonyms = []
     for q in query.split(" "):
-        if not dictionary.synonym(q):
+        syn = dictionary.synonym(q)
+        if not syn:
             synonyms += [q]
         else:
-            synonyms += dictionary.synonym(q)[:10] + [q]
+            synonyms += syn[:10] + [q]
         if dictionary.antonym(q):
             antonyms += dictionary.antonym(q)[:10]
     # print(synonyms)
@@ -275,9 +276,15 @@ def within_rad(city, top_hotels, top_rests, top_attract, radius):  # top_attract
 
 
     within_rad = {}
+    h_count = 0
     for h in top_hotels:
+        if h_count >= 10:
+            break
         restaurants = []
+        rest_count = 0
         for r in top_rests:
+            if rest_count >= 10:
+                break
             #dist = distances[city][order[1]][inv_ind[city][order[1]][r]][inv_ind[city][order[0]][h]]
             dist = distances[city]['restaurant'][inv_ind[city]['restaurant'][r]][inv_ind[city]['accommodation'][h]]
             if dist <= radius:
@@ -292,8 +299,12 @@ def within_rad(city, top_hotels, top_rests, top_attract, radius):  # top_attract
                     rest_dict["subcategory"] = rest_info["subCategory"]
                 rest_dict["rating"] = rankings_map['restaurant'][r] if rankings_map['restaurant'][r] > 0 else "N/A"
                 restaurants.append(rest_dict)
+                rest_count += 1
         attractions = []
+        att_count = 0
         for a in top_attract:
+            if att_count >= 10:
+                break
             #dist = distances[city][order[2]][inv_ind[city][order[2]][a]][inv_ind[city][order[0]][h]]
             dist = distances[city]['attraction'][inv_ind[city]['attraction'][a]][inv_ind[city]['accommodation'][h]]
             if dist <= radius:
@@ -308,6 +319,7 @@ def within_rad(city, top_hotels, top_rests, top_attract, radius):  # top_attract
                     attr_dict["subcategory"] = attr_info["subCategory"]
                 attr_dict["rating"] = rankings_map['attraction'][a] if rankings_map['attraction'][a] > 0 else "N/A"
                 attractions.append(attr_dict)
+                att_count += 1
         acc_info = info['accommodation'][h]   
         acc_dict = {"name": h.title(), "address": acc_info["address"], "reviews": [], "subcategory": "", "url": acc_sites[h], "target": "_blank"}
         if "reviews" in acc_info:
@@ -319,6 +331,7 @@ def within_rad(city, top_hotels, top_rests, top_attract, radius):  # top_attract
             acc_dict["target"] = "_self"
             acc_dict["url"] = "#"
         within_rad[h] = {'restaurants': restaurants, 'attractions': attractions, 'accommodation': acc_dict}
+        h_count += 1
 
     return within_rad
 

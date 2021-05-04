@@ -34,11 +34,11 @@ def search():
 	output_message =""# "Your itinerary options"
 	data = []
 
-	accommodations = list(filter(lambda x: rad[x[0]]['restaurants'] or rad[x[0]]['attractions'], accommodations))  # filters out accommodations w no restaurants
+	accommodations = list(filter(lambda x: rad[x]['restaurants'] or rad[x]['attractions'], rad.keys()))  # filters out accommodations w no restaurants
 
 	
 	for i, a in enumerate(accommodations[:6]): #gets top 6 itineraries
-		data.append({"city": city, "title": f"Itinerary #{i + 1}", "accommodation": rad[a[0]]['accommodation'], "restaurants": rad[a[0]]['restaurants'][:10], "attractions": rad[a[0]]['attractions'][:10]})
+		data.append({"city": city, "title": f"Itinerary #{i + 1}", "accommodation": rad[a]['accommodation'], "restaurants": rad[a]['restaurants'][:10], "attractions": rad[a]['attractions'][:10]})
 	
 
 
