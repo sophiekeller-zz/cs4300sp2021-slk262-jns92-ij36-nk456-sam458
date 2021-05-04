@@ -1,7 +1,5 @@
-from . import *  
-from app.irsystem.models.helpers import *
+from . import *
 from app.irsystem.models.search import *
-from app.irsystem.models.helpers import NumpyEncoder as NumpyEncoder
 
 project_name = "Itinerary Planner"
 net_id = "Sophie Keller: slk262, Jordana Socher: jns92, Ishika Jain: ij36,  Samantha Meakem: sam458, Nithish Kalpat: nk456 "
@@ -17,11 +15,7 @@ def search():
 		restaurants = cosineSim(city, "restaurant", restaurant_query) #replace w svd_cos_sim
 		accommodations = cosineSim(city, "accommodation", accommodation_query)
 		attractions = cosineSim(city, "attraction", attraction_query)
-		# svd_results_rests = LSI_SVD(restaurant_query, vecPy.vec_arr_dict, city, 'restaurant', vecPy.reverse_dict, vecPy.svd_dict)
-		# svd_results_accoms = LSI_SVD(accommodation_query, vecPy.vec_arr_dict, city, 'accommodation', vecPy.reverse_dict, vecPy.svd_dict)
-		# svd_results_attracts = LSI_SVD(attraction_query, vecPy.vec_arr_dict, city, 'attraction', vecPy.reverse_dict, vecPy.svd_dict)
 	else:
-		#ADD POP UP MESSAGE TO SELECT A CITY
 		city = ''
 		restaurants = []
 		accommodations = []
