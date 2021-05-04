@@ -18,8 +18,8 @@ import math
 import numpy.linalg as LA
 
 import numpy as np
-import word_forms
-from word_forms.word_forms import get_word_forms
+# import word_forms
+# from word_forms.word_forms import get_word_forms
 # import app.irsystem.models.vectorizer as precomp
 
 # from nltk import PorterStemmer
@@ -32,37 +32,42 @@ with open("app/irsystem/models/synonyms.json") as f:
     syn_dict = json.load(f)
     f.close()
 
+with open("app/irsystem/models/antonyms.json") as f:
+    ant_dict = json.load(f)
+    f.close()
+
 def get_query_antonyms(query):
     antonyms = []
     synonyms = []
     for q in query.split(" "):
         syn = syn_dict.get(q)
+        ant = ant_dict.get(q)
         if not syn:
             synonyms += [q]
         else:
             synonyms += syn[:10] + [q]
-        # if dictionary.antonym(q):
-        #     antonyms += dictionary.antonym(q)[:10]
-    # print(synonyms)
+        if ant:
+            antonyms += ant[:10]
+
     antonyms = " ".join(antonyms)
     synonyms = " ".join(synonyms) 
 
     return antonyms, synonyms
 
-def find_word_forms(word): 
-    dic = get_word_forms(word)
-    words = "" 
-    for form in dic: 
-        for w in dic[form]: 
-            words += w + " "
-    return words
+# def find_word_forms(word): 
+#     dic = get_word_forms(word)
+#     words = "" 
+#     for form in dic: 
+#         for w in dic[form]: 
+#             words += w + " "
+#     return words
 
-def many_word_forms(query): 
-    words = "" 
-    query = query.split(" ")
-    for tok in query: 
-        words += find_word_forms(tok)
-    return words
+# def many_word_forms(query): 
+#     words = "" 
+#     query = query.split(" ")
+#     for tok in query: 
+#         words += find_word_forms(tok)
+#     return words
 
 
 def get_cos_sim(query, reviews):
@@ -95,8 +100,10 @@ def cosineSim(city, category, query):
 
     query_antonyms, query_synonyms = get_query_antonyms(query)
     
-    synonyms_forms = many_word_forms(query_synonyms).split(" ")
-    antonyms_forms = many_word_forms(query_antonyms).split(" ")
+    # synonyms_forms = many_word_forms(query_synonyms).split(" ")
+    # antonyms_forms = many_word_forms(query_antonyms).split(" ")
+    synonyms_forms = query_synonyms.split(" ")
+    antonyms_forms = query_antonyms.split(" ")
 
     query_vectorizer_array = np.zeros((doc_vectorizer_array.shape[1],))
     ants_vectorizer_array = np.zeros((doc_vectorizer_array.shape[1],))
