@@ -14,7 +14,7 @@ import nltk
 # from nltk.corpus import wordnet
 import json
 import math
-from PyDictionary import PyDictionary
+# from PyDictionary import PyDictionary
 import numpy.linalg as LA
 
 import numpy as np
@@ -26,21 +26,23 @@ from word_forms.word_forms import get_word_forms
 
 # porter = PorterStemmer()
 
-dictionary=PyDictionary()
+# dictionary=PyDictionary()
 
-
+with open("app/irsystem/models/synonyms.json") as f:
+    syn_dict = json.load(f)
+    f.close()
 
 def get_query_antonyms(query):
     antonyms = []
     synonyms = []
     for q in query.split(" "):
-        syn = dictionary.synonym(q)
+        syn = syn_dict.get(q)
         if not syn:
             synonyms += [q]
         else:
             synonyms += syn[:10] + [q]
-        if dictionary.antonym(q):
-            antonyms += dictionary.antonym(q)[:10]
+        # if dictionary.antonym(q):
+        #     antonyms += dictionary.antonym(q)[:10]
     # print(synonyms)
     antonyms = " ".join(antonyms)
     synonyms = " ".join(synonyms) 
